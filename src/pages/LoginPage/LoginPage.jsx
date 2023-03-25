@@ -1,5 +1,5 @@
 import "./LoginPage.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import {useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
 import authService from "../../services/auth.service";
@@ -14,7 +14,7 @@ function LoginPage() {
 
   const navigate = useNavigate();
 
-  const { storeToken, authenticateUser, user } = useContext(AuthContext); 
+  const { storeToken, authenticateUser, user} = useContext(AuthContext); 
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -30,16 +30,21 @@ function LoginPage() {
       storeToken(response.data.authToken);
       authenticateUser(); 
     })
-    .then(()=>navigate("/user"))
-    
+
     .catch((error) => { 
       console.log(error)
-      // const errorDescription = error.response.data.message;
-      // setErrorMessage(errorDescription);
+      const errorDescription = error.response.data.message;
+      setErrorMessage(errorDescription);
     });
-
-    
   };
+
+  useEffect(()=>{
+    if(user){
+      user.isNewEmployee? navigate("/user/modify-password"): navigate("/user")
+    }
+  },[user])
+
+
 
   return (
     <div className="LoginPage">

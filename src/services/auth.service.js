@@ -1,7 +1,9 @@
 import axios from "axios";
 
+
 class AuthService {
   constructor() {
+    
     this.api = axios.create({
       baseURL: process.env.REACT_APP_SERVER_URL || "http://localhost:5006",
     });
@@ -24,8 +26,10 @@ class AuthService {
     // same as
     // return axios.post("http://localhost:5005/auth/login");
   };
- 
 
+  modifyPassword= (id,requestBody)=>{
+    return this.api.put(`/api/users/${id}/modify-password`, requestBody)
+  }
   verify = () => {
     return this.api.get("/auth/verify");
     // same as

@@ -29,14 +29,14 @@ function App() {
     <Navbar/>
      <Routes>
       {/* DONE */}
-      <Route path="/user" element={<ProfilePage />} /> 
+      <Route path="/user" element={ <IsPrivate><ProfilePage /> </IsPrivate> } /> 
       <Route path="/" element={ <HomePage/>  }></Route> 
 
       {/* TO DO */}
       <Route path="/create-company" element={ <CompanyCreationPage/>  }></Route>
       <Route path="/company/:id" element={ <CompanySettingPage/>  }></Route>
       <Route path="/login" element={<LoginPage />}/>
-      <Route path="/user/modify-password" element={ <ModifyPasswordPage/>  }></Route>
+      <Route path="/user/modify-password" element={ <IsPrivate> <ModifyPasswordPage/> </IsPrivate>   }></Route>
       <Route path="/create-request" element={ <RequestCreationPage></RequestCreationPage> }></Route>
       <Route path="/request/review" element={ <RequestReviewPage/>  }></Route>
       <Route path="/request/:id/setting" element={ <RequestSettingPage/>  }></Route>

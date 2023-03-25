@@ -37,6 +37,7 @@ function AuthProviderWrapper(props) {
           setIsLoggedIn(false);
           setIsLoading(false);
           setUser(null);
+          return null
         });
 
     } else {
@@ -44,6 +45,7 @@ function AuthProviderWrapper(props) {
       setIsLoggedIn(false);
       setIsLoading(false);
       setUser(null);
+      return null
     }
   };
 
