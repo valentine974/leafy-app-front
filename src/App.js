@@ -1,35 +1,54 @@
 
 import './App.css';
 import {Routes, Route} from "react-router-dom"
-import CompanyCreationPage from './pages/CompanyCreationPage';
-import CompanySettingPage from "./pages/CompanySettingPage";
-import HomePage from './pages/HomePage';
-import LoginPage from "./pages/LoginPage";
-import ModifyPasswordPage from "./pages/ModifyPasswordPage"
-import RequestCreationPage from "./pages/RequestCreationPage"
-import RequestReviewPage from "./pages/RequestReviewPage"
-import RequestSettingPage from "./pages/RequestSettingPage"
-import UserCreationPage from "./pages/UserCreationPage"
-import UserSettingPage from "./pages/UserSettingPage"
+import CompanyCreationPage from './pages/Company/CompanyCreationPage';
+import CompanySettingPage from "./pages/Company/CompanySettingPage"; 
+import ModifyPasswordPage from "./pages/LoginPage/ModifyPasswordPage"
+import RequestCreationPage from "./pages/Requests/RequestCreationPage"
+import RequestReviewPage from "./pages/Requests/RequestReviewPage"
+import RequestSettingPage from "./pages/Requests/RequestSettingPage"
+import UserCreationPage from "./pages/ProfilePage/UserCreationPage"
+import UserSettingPage from "./pages/ProfilePage/UserSettingPage"
+
+
+
+import HomePage from "./pages/HomePage/HomePage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage"; 
+import LoginPage from "./pages/LoginPage/LoginPage";
+
+import Navbar from "./components/Navbar/Navbar";
+// import IsPrivate from "./components/IsPrivate/IsPrivate";
+import IsAnon from "./components/IsAnon/IsAnon";
+
 
 
 function App() {
   return (
     <div className="App">
+    <Navbar/>
      <Routes>
+      {/* DONE */}
+      <Route path="/user" element={ <ProfilePage /> } /> 
+      <Route path="/" element={ <HomePage/>  }></Route> 
+
+      {/* TO DO */}
       <Route path="/create-company" element={ <CompanyCreationPage/>  }></Route>
       <Route path="/company/:id" element={ <CompanySettingPage/>  }></Route>
-      <Route path="/" element={ <HomePage/>  }></Route>
-      <Route path="/login" element={ <LoginPage/>  }></Route>
-      <Route path="/users/:id/modify-password" element={ <ModifyPasswordPage/>  }></Route>
+      <Route path="/login" element={<LoginPage />}/>
+      <Route path="/user/modify-password" element={ <ModifyPasswordPage/>  }></Route>
       <Route path="/create-request" element={ <RequestCreationPage></RequestCreationPage> }></Route>
       <Route path="/request/review" element={ <RequestReviewPage/>  }></Route>
       <Route path="/request/:id/setting" element={ <RequestSettingPage/>  }></Route>
       <Route path="/create-user" element={ <UserCreationPage/>  }></Route>
-      <Route path="/users/:id/settings" element={ <UserSettingPage/>  }></Route>
+      <Route path="/user/:id/settings" element={ <UserSettingPage/>  }></Route>
+
+  
      </Routes>
     </div>
   );
 }
 
 export default App;
+
+ 
+
