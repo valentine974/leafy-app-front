@@ -17,8 +17,9 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 
 import Navbar from "./components/Navbar/Navbar";
-// import IsPrivate from "./components/IsPrivate/IsPrivate";
+import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
+
 
 
 
@@ -28,7 +29,7 @@ function App() {
     <Navbar/>
      <Routes>
       {/* DONE */}
-      <Route path="/user" element={ <ProfilePage /> } /> 
+      <Route path="/user" element={<ProfilePage />} /> 
       <Route path="/" element={ <HomePage/>  }></Route> 
 
       {/* TO DO */}

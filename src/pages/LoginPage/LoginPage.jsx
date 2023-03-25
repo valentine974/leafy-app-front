@@ -27,26 +27,15 @@ function LoginPage() {
     authService
     .login(requestBody)
     .then((response) => { 
-      
       storeToken(response.data.authToken);
       authenticateUser(); 
-      console.log(user.isNewEmployee)
-      if(user) {
-        console.log('is new')
-
-      navigate("/user/modify-password");
-
-      } else {
-        console.log('is not new')
-
-      navigate("/user");
-      }
-
-
     })
+    .then(()=>navigate("/user"))
+    
     .catch((error) => { 
-      const errorDescription = error.response.data.message;
-      setErrorMessage(errorDescription);
+      console.log(error)
+      // const errorDescription = error.response.data.message;
+      // setErrorMessage(errorDescription);
     });
 
     
