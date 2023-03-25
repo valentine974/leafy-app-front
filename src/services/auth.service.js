@@ -21,11 +21,20 @@ class AuthService {
     });
   }
 
+
+  getUser = (userId) =>{
+    return this.api.get(`/api/users/${userId}`)
+  }
+
   login = (requestBody) => {
     return this.api.post("/auth/login", requestBody);
     // same as
     // return axios.post("http://localhost:5005/auth/login");
   };
+
+  updateUserinfo = (id, requestBody) =>{
+    return this.api.put(`/api/users/${id}`, requestBody)
+  }
 
   modifyPassword= (id,requestBody)=>{
     return this.api.put(`/api/users/${id}/modify-password`, requestBody)

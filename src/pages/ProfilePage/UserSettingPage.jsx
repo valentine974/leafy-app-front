@@ -1,78 +1,85 @@
-
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState , useContext, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
-
+import { AuthContext } from "../../context/auth.context";
+import axios from "axios";
 function UserSettingPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+//const {email, name, surname, contractStartDate, position, companyId, validators} = req.body
+  const {user} = useContext(AuthContext); 
+  const [email, setEmail] = useState("")
+  const [name, setName] = useState("")
+  const [surname, setSurname] = useState("")
   const [errorMessage, setErrorMessage] = useState(undefined);
-
   const navigate = useNavigate();
 
+  useEffect(()=>{  
+    authService.getUser(user._id)
+    .then(foundUser =>{
+      const {email, name, surname} = foundUser.data
+      setEmail(email)
+      setName(name)
+      setSurname(surname)
+    })}, [])
+
   const handleEmail = (e) => setEmail(e.target.value);
-  const handlePassword = (e) => setPassword(e.target.value);
   const handleName = (e) => setName(e.target.value);
+  const handleSurname = (e) => setSurname(e.target.value);
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
-    // Create an object representing the request body
-    const requestBody = { email, password, name };
-
-    // Send a request to the server using axios
-    /* 
-    const authToken = localStorage.getItem("authToken");
-    axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/auth/signup`, 
-      requestBody, 
-      { headers: { Authorization: `Bearer ${authToken}` },
-    })
-    .then((response) => {})
-    */
-
-    // Or using a service
-    authService
-      .signup(requestBody)
-      .then((response) => {
-        // If the POST request is successful redirect to the login page
-        navigate("/login");
-      })
-      .catch((error) => {
-        // If the request resolves with an error, set the error message in the state
-        const errorDescription = error.response.data.message;
-        setErrorMessage(errorDescription);
-      });
+    if (email === "" || name === "" || surname === ""  ) {
+      setErrorMessage("Email, name and surname can not be empty" ) 
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!emailRegex.test(email)) {
+      setErrorMessage( "Provide a valid email address." );
+      return;
+    }
+    authService.updateUserinfo(user._id, {email,name, surname})
+    .then(()=>navigate("/user"))
+    .catch(err=>console.log("error in updating user info", err))
   };
 
+
+
+
   return (
-    <div className="SignupPage">
-      <h1>Sign Up</h1>
+    <div className="ModifyPasswordPage">
+      <h1>Set a new password for {user.email}</h1>
 
       <form onSubmit={handleSignupSubmit}>
-        <label>Email:</label>
-        <input type="email" name="email" value={email} onChange={handleEmail} />
 
-        <label>Password:</label>
+        <label>Email: </label>
         <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePassword}
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleEmail}
         />
 
-        <label>Name:</label>
-        <input type="text" name="name" value={name} onChange={handleName} />
+        <label>Name: </label>
+        <input
+          type="text"
+          name="name"
+          value={name}
+          onChange={handleName}
+        />
 
-        <button type="submit">Sign Up</button>
+      <label>Surname: </label>
+        <input
+          type="text"
+          name="surname"
+          value={surname}
+          onChange={handleSurname}
+        />
+
+        <button type="submit">Modify</button>
       </form>
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-      <p>Already have account?</p>
-      <Link to={"/login"}> Login</Link>
     </div>
   );
 }
-
 export default UserSettingPage;
