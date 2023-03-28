@@ -24,8 +24,26 @@ class AuthService {
     });
   }
 
+  createCompany = (requestBody) => {
+    return this.api.post(`/api/create-company`,requestBody)
+  }
+
+  updateCompany = (id,requestBody) => {
+    return this.api.put(`/api/companies/${id}`,requestBody)
+  }
+
+  getCompanies = ()=> {
+
+    return this.api.get(`/api/companies`)
+  }
+
   getUser = (userId) =>{
     return this.api.get(`/api/users/${userId}`)
+  }
+
+
+  getCompany = (companyId) =>{
+    return this.api.get(`/api/companies/${companyId}`)
   }
 
   uploadImage = (file) => {

@@ -38,14 +38,14 @@ function UserSettingPage() {
     authService
       .uploadImage(uploadData)
       .then((response) => {
-        console.log("new profile picture url is: ", response.data.profile_picture_url);
+        console.log("new profile picture url is: ", response.data.image_url);
         // response carries "fileUrl" which we can use to update the state
-        setProfilePictureUrl(response.data.profile_picture_url);
+        setProfilePictureUrl(response.data.image_url);
       })
       .catch((err) => console.log("Error while uploading the file: ", err));
   };
 
-  const handleSignupSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (email === "" || name === "" || surname === "") {
       setErrorMessage("Email, name and surname can not be empty");
@@ -67,7 +67,7 @@ function UserSettingPage() {
     <div className="ModifyPasswordPage">
       <h1>Set a new password for {user.email}</h1>
 
-      <form onSubmit={handleSignupSubmit}>
+      <form onSubmit={handleSubmit}>
         <label>
           Email:
           <input
@@ -94,7 +94,7 @@ function UserSettingPage() {
         </label>
         <label>
           Profile Picture:
-          <input type="file" name="profilePictureUrl" onChange={(e) => handleFileUpload(e)}  />
+          <input type="file" name="imageUrl" onChange={(e) => handleFileUpload(e)}  />
         </label>
         <button type="submit">Modify</button>
       </form>

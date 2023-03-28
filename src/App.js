@@ -19,6 +19,8 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
+import CompaniesPage from './pages/Company/CompaniesPage';
+import CompanyPage from './pages/Company/CompanyPage';
 
 
 
@@ -34,10 +36,12 @@ function App() {
       <Route path="/login" element={<LoginPage />}/>
       <Route path="/user/modify-password" element={ <IsPrivate> <ModifyPasswordPage/> </IsPrivate>   }></Route>
       <Route path="/user/settings" element={ <IsPrivate><UserSettingPage/> </IsPrivate>}></Route>
+      <Route path="/create-company" element={ <CompanyCreationPage/>  }></Route>
+      <Route path="/company/:id/settings" element={ <CompanySettingPage/>  }></Route>
+      <Route path="/companies" element={ <CompaniesPage/>  }></Route>
+      <Route path="/company/:id" element={ <CompanyPage/>  }></Route>
 
       {/* TO DO */}
-      <Route path="/create-company" element={ <CompanyCreationPage/>  }></Route>
-      <Route path="/company/:id" element={ <CompanySettingPage/>  }></Route>
       <Route path="/create-request" element={ <RequestCreationPage></RequestCreationPage> }></Route>
       <Route path="/request/review" element={ <RequestReviewPage/>  }></Route>
       <Route path="/request/:id/setting" element={ <RequestSettingPage/>  }></Route>

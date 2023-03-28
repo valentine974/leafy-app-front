@@ -22,10 +22,28 @@ function Navbar() {
             <button>Profile</button>
             {/* <img src="https://picsum.photos/id/402/200/300" style={{ width: 50, height: 50, borderRadius: 25}} alt="profile" /> */}
           </Link>
+          <Link to="/companies">
+            {" "}
+            <button>See Companies</button>{" "}
+          </Link>
+          <Link to="/company">
+            {" "}
+            <button>My company</button>{" "}
+          </Link>
 
           <span>{user && user.name}</span>
         </>
       )}
+      {/* AJOUTER MIDDLEWARE isAdmin */}
+      {/* {!isLoggedIn && ( 
+        <> 
+
+        <Link to="/companies">
+            {" "}
+            <button>See Companies</button>{" "}
+          </Link>
+        </>
+      )} */}
 
       {!isLoggedIn && (
         <> 

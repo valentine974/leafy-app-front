@@ -7,6 +7,7 @@ const AuthContext = React.createContext();
 function AuthProviderWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  // const [company, setCompany] = useState(null);
   const [user, setUser] = useState(null);
 
   const storeToken = (token) => {
@@ -28,7 +29,7 @@ function AuthProviderWrapper(props) {
           // Update state variables
           setIsLoggedIn(true);
           setIsLoading(false);
-          setUser(user);
+          setUser(user); 
           return user;
         })
         .catch((error) => {
@@ -36,7 +37,7 @@ function AuthProviderWrapper(props) {
           // Update state variables
           setIsLoggedIn(false);
           setIsLoading(false);
-          setUser(null);
+          setUser(null); 
           return null
         });
 
@@ -44,7 +45,7 @@ function AuthProviderWrapper(props) {
       // If the token is not available
       setIsLoggedIn(false);
       setIsLoading(false);
-      setUser(null);
+      setUser(null); 
       return null
     }
   };
