@@ -26,6 +26,10 @@ class AuthService {
     return this.api.get(`/api/users/${userId}`)
   }
 
+  uploadImage = (file) => {
+    return this.api.post("api/upload", file)
+  }
+
   login = (requestBody) => {
     return this.api.post("/auth/login", requestBody);
     // same as
