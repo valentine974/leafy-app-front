@@ -1,6 +1,9 @@
 import axios from "axios";
 
 
+// centralize all the API calls in this service
+// so that we can easily change the base URL
+
 class AuthService {
   constructor() {
     
@@ -21,15 +24,16 @@ class AuthService {
     });
   }
 
-
   getUser = (userId) =>{
     return this.api.get(`/api/users/${userId}`)
   }
 
+  uploadImage = (file) => {
+    return this.api.post(`/api/upload`, file)
+  }
+
   login = (requestBody) => {
     return this.api.post("/auth/login", requestBody);
-    // same as
-    // return axios.post("http://localhost:5005/auth/login");
   };
 
   updateUserinfo = (id, requestBody) =>{
@@ -41,8 +45,6 @@ class AuthService {
   }
   verify = () => {
     return this.api.get("/auth/verify");
-    // same as
-    // return axios.post("http://localhost:5005/auth/verify");
   };
 }
 

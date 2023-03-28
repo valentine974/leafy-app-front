@@ -1,7 +1,16 @@
+
+import { useState } from "react";
+
+
 function UserCreationPage() {
+
+    const [user, setUser] = useState(null)
+
+
     return ( 
         <div>
-            Profil creation
+            <h1>User Creation Page</h1>
+
         </div>
      );
 }
