@@ -28,19 +28,19 @@ function UserSettingPage() {
   const handleSurname = (e) => setSurname(e.target.value);
 
   const handleFileUpload = (e) => {
-    // console.log("The file to be uploaded is: ", e.target.files[0]);
-
+  
+    // file dialog box when clicked on the file button
     const uploadData = new FormData();
 
-    // imageUrl => this name has to be the same as in the model since we pass
+    // append the image to the uploadData object
     uploadData.append("profilePictureUrl", e.target.files[0]);
 
     authService
       .uploadImage(uploadData)
       .then((response) => {
-        console.log("new profile picture url is: ", response.data.secure_url);
+        console.log("new profile picture url is: ", response.data.profile_picture_url);
         // response carries "fileUrl" which we can use to update the state
-        setProfilePictureUrl(response.data.secure_url);
+        setProfilePictureUrl(response.data.profile_picture_url);
       })
       .catch((err) => console.log("Error while uploading the file: ", err));
   };
