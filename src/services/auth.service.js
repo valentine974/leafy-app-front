@@ -37,14 +37,24 @@ class AuthService {
     return this.api.get(`/api/companies`)
   }
 
+  getCompany = (companyId) =>{
+    return this.api.get(`/api/companies/${companyId}`)
+  }
+
+  createUser = (requestBody) => {
+    return this.api.post(`/auth/create-user`,requestBody)
+  }
+
+  getUsers = ()=> {
+    return this.api.get(`/api/users`)
+  }
+
   getUser = (userId) =>{
     return this.api.get(`/api/users/${userId}`)
   }
 
 
-  getCompany = (companyId) =>{
-    return this.api.get(`/api/companies/${companyId}`)
-  }
+
 
   uploadImage = (file) => {
     return this.api.post(`/api/upload`, file)

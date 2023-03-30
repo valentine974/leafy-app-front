@@ -15,15 +15,12 @@ import UserSettingPage from "./pages/ProfilePage/UserSettingPage"
 import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage"; 
 import LoginPage from "./pages/LoginPage/LoginPage";
-
 import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
 import CompaniesPage from './pages/Company/CompaniesPage';
 import CompanyPage from './pages/Company/CompanyPage';
-
-
-
+import UsersPage from './pages/ProfilePage/UsersPage';
 
 function App() {
   return (
@@ -31,7 +28,7 @@ function App() {
     <Navbar/>
      <Routes>
       {/* DONE */}
-      <Route path="/user" element={ <IsPrivate><ProfilePage /> </IsPrivate> } /> 
+      <Route path="/user/:id" element={ <IsPrivate><ProfilePage /> </IsPrivate> } /> 
       <Route path="/" element={ <HomePage/>  }></Route> 
       <Route path="/login" element={<LoginPage />}/>
       <Route path="/user/modify-password" element={ <IsPrivate> <ModifyPasswordPage/> </IsPrivate>   }></Route>
@@ -42,6 +39,8 @@ function App() {
       <Route path="/company/:id" element={ <CompanyPage/>  }></Route>
 
       {/* TO DO */}
+      {/* users route */}
+      <Route path="/users" element={ <UsersPage/>}></Route>
       <Route path="/create-request" element={ <RequestCreationPage></RequestCreationPage> }></Route>
       <Route path="/request/review" element={ <RequestReviewPage/>  }></Route>
       <Route path="/request/:id/setting" element={ <RequestSettingPage/>  }></Route>

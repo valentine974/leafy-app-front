@@ -1,6 +1,6 @@
 import "./ProfilePage.css";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
 import authService from "../../services/auth.service";
 function ProfilePage() {
@@ -12,11 +12,14 @@ function ProfilePage() {
   const [company, setCompany] = useState(null)
   const [errorMessage, setErrorMessage] = useState(undefined);
 
+  const { id } = useParams();
+
+
   console.log(company)
 
   useEffect(() => {
     console.log(user)
-    authService.getUser(user._id).then((foundUser) => {
+    authService.getUser(id).then((foundUser) => {
       const { email, name, surname, profilePictureUrl, companyId } = foundUser.data;
       setEmail(email);
       setName(name);

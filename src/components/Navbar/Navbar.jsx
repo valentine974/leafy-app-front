@@ -18,23 +18,30 @@ function Navbar() {
         <>
           <button onClick={logOutUser}>Logout</button>
 
-          <Link to="/user">
+          <Link to={`user/${user._id}`}>
             <button>Profile</button>
             {/* <img src="https://picsum.photos/id/402/200/300" style={{ width: 50, height: 50, borderRadius: 25}} alt="profile" /> */}
           </Link>
-          <Link to="/companies">
-            {" "}
-            <button>See Companies</button>{" "}
-          </Link>
-          <Link to="/company">
-            {" "}
-            <button>My company</button>{" "}
+
+          <Link to={`/company/${user.companyId}`}>
+            <button>My company</button>
           </Link>
 
           <span>{user && user.name}</span>
         </>
       )}
       {/* AJOUTER MIDDLEWARE isAdmin */}
+      {isLoggedIn && user && (user.position === "hr"|| user.position ==="admin") && (
+        <>
+          
+          <Link to="/companies">
+            <button>All companies</button>
+          </Link>
+          <Link to="/users">
+            <button>All users</button>
+          </Link>
+        </> 
+      )}
       {/* {!isLoggedIn && ( 
         <> 
 

@@ -40,7 +40,7 @@ function LoginPage() {
 
   useEffect(()=>{
     if(user){
-      user.isNewEmployee? navigate("/user/modify-password"): navigate("/user")
+      user.isNewEmployee? navigate("/user/modify-password"): navigate(`/user/${user._id}`)
     }
   },[user])
 
