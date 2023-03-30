@@ -40,9 +40,9 @@ function RequestCreationPage() {
     e.preventDefault();
     console.log("startDate:",startDate);
     if (startDate - Date.now() > 7) {
-        approvalLimitDate.setDate(Date.addDays(Date.now(), + 7));
+        approvalLimitDate.setDate(addDays(Date.now(), + 7));
     } else {
-        approvalLimitDate.setDate(Date.addDays(startDate, -1));
+        approvalLimitDate.setDate(addDays(startDate, -1));
     }
     console.log("approvalLimitDate:",  approvalLimitDate);
 
