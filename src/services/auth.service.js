@@ -53,7 +53,9 @@ class AuthService {
     return this.api.get(`/api/users/${userId}`)
   }
 
-
+  createRequest = (requestBody) => {
+    return this.api.post(`/api/user/create-request`,requestBody)
+  }
 
 
   uploadImage = (file) => {

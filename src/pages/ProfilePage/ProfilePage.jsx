@@ -42,7 +42,7 @@ function ProfilePage() {
       <p>{email}</p> 
       {company && <Link to="/company">Go to my company {company.address}</Link>}
 
-      
+      <Link to="/create-request ">Request LEAF</Link>
 
       <Link to="/user/settings">To modify user informations</Link>
       <Link to="/user/modify-password">To modify the password</Link>

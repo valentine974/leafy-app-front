@@ -37,14 +37,16 @@ function App() {
       <Route path="/company/:id/settings" element={ <CompanySettingPage/>  }></Route>
       <Route path="/companies" element={ <CompaniesPage/>  }></Route>
       <Route path="/company/:id" element={ <CompanyPage/>  }></Route>
+      <Route path="/users" element={ <UsersPage/>}></Route>
+      <Route path="/create-user" element={ <UserCreationPage/>}></Route>
 
       {/* TO DO */}
       {/* users route */}
-      <Route path="/users" element={ <UsersPage/>}></Route>
+
       <Route path="/create-request" element={ <RequestCreationPage></RequestCreationPage> }></Route>
       <Route path="/request/review" element={ <RequestReviewPage/>  }></Route>
       <Route path="/request/:id/setting" element={ <RequestSettingPage/>  }></Route>
-      <Route path="/create-user" element={ <UserCreationPage/>}></Route>
+
      </Routes>
     </div>
   );

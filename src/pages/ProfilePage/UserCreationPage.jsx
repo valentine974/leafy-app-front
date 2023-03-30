@@ -161,7 +161,7 @@ function UserCreationPage() {
 
           <label>
             Validators:
-            <select name="validators" onChange={handleValidators} multiple>
+            <select name="validators" value={validators} onChange={handleValidators} multiple>
             {managers.map((manager) => <option value={manager._id}>{manager.name}</option>)}
             </select>
           </label>
