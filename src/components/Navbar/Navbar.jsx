@@ -27,6 +27,11 @@ function Navbar() {
             <button>My company</button>
           </Link>
 
+
+          <Link to={`/request/review`}>
+            <button>My requests</button>
+          </Link>
+
           <span>{user && user.name}</span>
         </>
       )}

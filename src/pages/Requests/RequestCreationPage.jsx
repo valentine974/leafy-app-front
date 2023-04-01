@@ -16,6 +16,7 @@ function RequestCreationPage() {
   const [morningAfternoonEnd, setMorningAfternoonEnd] = useState("afternoon");
   const [comments, setComments] = useState("");
   const [approvalLimitDate, setApprovalLimitDate] = useState(new Date());
+   
 
   const handleIsFullDay = (e) => {
     setIsFullDay(e.target.checked);
@@ -38,14 +39,14 @@ function RequestCreationPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("startDate:",startDate);
+    console.log("startDate:", startDate);
     // if (startDate - Date.now() > 7) {
     //     approvalLimitDate.setDate(addDays(Date.now(), + 7));
     // } else {
     //     approvalLimitDate.setDate(addDays(startDate, -1));
     // }
     setApprovalLimitDate(new Date(startDate));
-    console.log("approvalLimitDate:",  approvalLimitDate);
+    console.log("approvalLimitDate:", approvalLimitDate);
 
     authService
       .createRequest({
@@ -59,15 +60,13 @@ function RequestCreationPage() {
         comments,
         approvalLimitDate,
       })
-      .then((response) => {
-        console.log("New request :", response);
-        navigate("/");
-      })
+      .then(() => navigate("/request/review"))
       .catch((err) => {
         console.log(err);
         setErrorMessage(err.response.data.message);
       });
   };
+  
 
   return (
     <div>
@@ -77,7 +76,11 @@ function RequestCreationPage() {
           <form onSubmit={handleSubmit}>
             <label>
               Full day
-                <input type="checkbox" checked={isFullDay} onChange={handleIsFullDay}/>
+              <input
+                type="checkbox"
+                checked={isFullDay}
+                onChange={handleIsFullDay}
+              />
             </label>
             <label>
               Start date

@@ -45,7 +45,7 @@ function App() {
 
       <Route path="/create-request" element={ <RequestCreationPage></RequestCreationPage> }></Route>
       <Route path="/request/review" element={ <RequestReviewPage/>  }></Route>
-      <Route path="/request/:id/setting" element={ <RequestSettingPage/>  }></Route>
+      <Route path="/request/:id/settings" element={ <RequestSettingPage/>  }></Route>
 
      </Routes>
     </div>

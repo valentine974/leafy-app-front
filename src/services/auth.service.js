@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"; 
 
 
 // centralize all the API calls in this service
@@ -24,6 +24,7 @@ class AuthService {
     });
   }
 
+  
   createCompany = (requestBody) => {
     return this.api.post(`/api/create-company`,requestBody)
   }
@@ -53,10 +54,27 @@ class AuthService {
     return this.api.get(`/api/users/${userId}`)
   }
 
-  createRequest = (requestBody) => {
+  createRequest = (requestBody) => { 
     return this.api.post(`/api/user/create-request`,requestBody)
   }
 
+  updateRequest = (id, requestBody) => { 
+    return this.api.put(`/api/requests/${id}/settings`,requestBody)
+  }
+
+  deleteRequest = (id)=>{
+    return this.api.delete(`/api/requests/${id}`)
+  }
+
+  getRequests = () =>{
+  
+    return this.api.get(`/api/requests`)
+  }
+  getRequest = (id) =>{
+  
+    return this.api.get(`/api/requests/${id}`)
+  }
+  
 
   uploadImage = (file) => {
     return this.api.post(`/api/upload`, file)
