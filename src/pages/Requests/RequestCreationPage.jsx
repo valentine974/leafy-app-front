@@ -15,7 +15,7 @@ function RequestCreationPage() {
   const [endDate, setEndDate] = useState("");
   const [morningAfternoonEnd, setMorningAfternoonEnd] = useState("afternoon");
   const [comments, setComments] = useState("");
-  let  approvalLimitDate = new Date();
+  const [approvalLimitDate, setApprovalLimitDate] = useState(new Date());
 
   const handleIsFullDay = (e) => {
     setIsFullDay(e.target.checked);
@@ -39,11 +39,12 @@ function RequestCreationPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("startDate:",startDate);
-    if (startDate - Date.now() > 7) {
-        approvalLimitDate.setDate(addDays(Date.now(), + 7));
-    } else {
-        approvalLimitDate.setDate(addDays(startDate, -1));
-    }
+    // if (startDate - Date.now() > 7) {
+    //     approvalLimitDate.setDate(addDays(Date.now(), + 7));
+    // } else {
+    //     approvalLimitDate.setDate(addDays(startDate, -1));
+    // }
+    setApprovalLimitDate(new Date(startDate));
     console.log("approvalLimitDate:",  approvalLimitDate);
 
     authService

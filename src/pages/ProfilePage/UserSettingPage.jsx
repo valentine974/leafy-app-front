@@ -10,23 +10,60 @@ function UserSettingPage() {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
-
+  const [companies, setCompanies] = useState([]);
+  const [companyId, setCompanyId] = useState("");
+  const [validators, setValidators] = useState([]);
   const [errorMessage, setErrorMessage] = useState(undefined);
+  const [managers, setManagers] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     authService.getUser(user._id).then((foundUser) => {
-      const { email, name, surname } = foundUser.data;
+      const { email, name, surname,companyId,validators } = foundUser.data;
       setEmail(email);
       setName(name);
       setSurname(surname);
-    });
+      setCompanyId(companyId);
+      setValidators(validators);
+    }).then(() => {
+      console.log("user", user);
+      if (user.position === "admin") {
+        authService
+          .getCompanies()
+          .then((response) => {
+            setCompanies(response.data);
+          })
+          .catch((err) => console.log("error in getting companies", err));
+      } else if (user.position === "hr") {
+        setCompanies(user.companyId);
+      }
+    }).catch((err) => console.log("error in getting user", err));
+
   }, []);
 
+  useEffect(() => {
+    authService
+      .getUsers()
+      .then((response) => {
+        setManagers(
+          response.data.filter(
+            (user) =>
+              (user.position === "manager" || user.position === "hr") &&
+              user.companyId === companyId
+          )
+        );
+      })
+      .catch((err) => console.log("error in getting managers", err));
+  }, [companyId]);
   const handleEmail = (e) => setEmail(e.target.value);
   const handleName = (e) => setName(e.target.value);
   const handleSurname = (e) => setSurname(e.target.value);
-
+  const handleCompanyId = (e) => {
+    setCompanyId(e.target.value);
+  };
+  const handleValidators = (e) => {
+    setValidators(e.target.value);
+  };
   const handleFileUpload = (e) => {
   
     // file dialog box when clicked on the file button
@@ -58,7 +95,7 @@ function UserSettingPage() {
     }
     profilePictureUrl === "" ? setProfilePictureUrl(user.profilePictureUrl) : setProfilePictureUrl(profilePictureUrl)
     authService
-      .updateUserinfo(user._id, {email,name,surname,profilePictureUrl})
+      .updateUserinfo(user._id, {email,name,surname,profilePictureUrl,companyId,validators})
       .then(() => navigate("/user"))
       .catch((err) => console.log("error in updating user info", err));
   };
@@ -94,8 +131,44 @@ function UserSettingPage() {
         </label>
         <label>
           Profile Picture:
-          <input type="file" name="imageUrl" onChange={(e) => handleFileUpload(e)}  />
+          <input
+            type="file"
+            name="imageUrl"
+            onChange={(e) => handleFileUpload(e)}
+          />
         </label>
+
+        {(user.position === "admin" || user.position ==="hr") && (
+          <>
+            <label>
+              Company:
+              <select name="companyId" onChange={handleCompanyId}>
+                {/* <option value={companyId._id} default>
+                  {companyId.name}
+                </option> */}
+                {companies.map((company) => ( 
+                  company._id === companyId._id ? <option key={company._id} value={company._id} default>{company.name}</option> :
+                  <option key={company._id} value={company._id}>{company.name}</option>
+                ))}
+              </select>
+            </label>
+
+            <label>
+              Validators:
+              <select
+                name="validators"
+                value={validators}
+                onChange={handleValidators}
+                multiple
+              >
+                {managers.map((manager) => (
+                  <option key={manager._id} value={manager._id}>{manager.name}</option>
+                ))}
+              </select>
+            </label>
+          </>
+        )}
+
         <button type="submit">Modify</button>
       </form>
 

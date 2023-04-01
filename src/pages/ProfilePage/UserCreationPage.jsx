@@ -154,7 +154,7 @@ function UserCreationPage() {
             Company:
             <select name="companyId" onChange={handleCompanyId}>
             <option value="" default>Choose a company</option>
-            {companies.map((company) => <option value={company._id}>{company.name}</option>)}
+            {companies.map((company) => <option key={company._id} value={company._id}>{company.name}</option>)}
             </select>
             
           </label>}
@@ -162,7 +162,7 @@ function UserCreationPage() {
           <label>
             Validators:
             <select name="validators" value={validators} onChange={handleValidators} multiple>
-            {managers.map((manager) => <option value={manager._id}>{manager.name}</option>)}
+            {managers.map((manager) => <option key={manager._id} value={manager._id}>{manager.name}</option>)}
             </select>
           </label>
 
