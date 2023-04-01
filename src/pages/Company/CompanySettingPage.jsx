@@ -64,7 +64,7 @@ function CompanySettingPage() {
     }
     authService
       .updateCompany(id,{siret,name,address,imageUrl, numberOfVacationDays})
-      .then(() => navigate("/company"))
+      .then(() => navigate(`/company/${id}`))
       .catch((err) => console.log("error in creating company info", err));
   };
 

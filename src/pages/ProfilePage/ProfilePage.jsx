@@ -8,24 +8,21 @@ function ProfilePage() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
-  const [profilePictureUrl, setProfilePictureUrl] = useState("")
+  const [imageUrl, setImageUrl] = useState("")
   const [company, setCompany] = useState(null)
   const [errorMessage, setErrorMessage] = useState(undefined);
 
   const { id } = useParams();
 
-
- 
-
   useEffect(() => {
-    console.log(user)
     authService.getUser(id).then((foundUser) => {
-      const { email, name, surname, profilePictureUrl, companyId } = foundUser.data;
+      console.log(foundUser)
+      const { email, name, surname, imageUrl, companyId } = foundUser.data;
       setEmail(email);
       setName(name);
       setSurname(surname);
       setCompany(companyId); 
-      setProfilePictureUrl(profilePictureUrl)
+      setImageUrl(imageUrl)
     }).catch((err) => console.log("error in getting user", err));
   }, []);
 
@@ -35,7 +32,7 @@ function ProfilePage() {
     <div className="pageContainer">
       <h1>Profile page</h1>
       <div className="profilePictureContainer">
-        <img className="profilePicture" src={profilePictureUrl} alt="prifile" />
+        <img className="profilePicture" src={imageUrl} alt="prifile" />
       </div>
 
       <p>{name} {surname}</p>
@@ -44,7 +41,7 @@ function ProfilePage() {
 
       <Link to="/create-request ">Request LEAF</Link>
 
-      <Link to="/user/settings">To modify user informations</Link>
+      <Link to={`/user/${id}/settings`}>To modify user informations</Link>
       <Link to="/user/modify-password">To modify the password</Link>
     </div>
   );

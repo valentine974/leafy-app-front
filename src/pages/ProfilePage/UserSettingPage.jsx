@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 import authService from "../../services/auth.service";
 import { AuthContext } from "../../context/auth.context";
 
@@ -9,7 +9,7 @@ function UserSettingPage() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
-  const [profilePictureUrl, setProfilePictureUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [companies, setCompanies] = useState([]);
   const [companyId, setCompanyId] = useState("");
   const [validators, setValidators] = useState([]);
@@ -17,14 +17,18 @@ function UserSettingPage() {
   const [managers, setManagers] = useState([]);
   const navigate = useNavigate();
 
+
+  const { id } = useParams();
+
   useEffect(() => {
-    authService.getUser(user._id).then((foundUser) => {
-      const { email, name, surname,companyId,validators } = foundUser.data;
+    authService.getUser(id).then((foundUser) => {
+      const { email, name, imageUrl,surname,companyId,validators } = foundUser.data;
       setEmail(email);
       setName(name);
       setSurname(surname);
       setCompanyId(companyId);
       setValidators(validators);
+      setImageUrl(imageUrl)
       
     }).then(() => {
       if (user.position === "admin") {
@@ -35,7 +39,7 @@ function UserSettingPage() {
           })
           .catch((err) => console.log("error in getting companies", err));
       } else if (user.position === "hr") {
-        setCompanies(user.companyId);
+        setCompanies([user.companyId]);
       }
     }).catch((err) => console.log("error in getting user", err));
 
@@ -63,8 +67,14 @@ function UserSettingPage() {
     setCompanyId(e.target.value);
   };
   const handleValidators = (e) => {
-    setValidators(e.target.value);
+    const selectedOptions = e.target.selectedOptions;
+    const values = [];
+    for (let i = 0; i < selectedOptions.length; i++) {
+      values.push(selectedOptions[i].value);
+    }
+    setValidators(values);
   };
+  
   
   const handleFileUpload = (e) => {
   
@@ -72,14 +82,14 @@ function UserSettingPage() {
     const uploadData = new FormData();
 
     // append the image to the uploadData object
-    uploadData.append("profilePictureUrl", e.target.files[0]);
+    uploadData.append("imageUrl", e.target.files[0]);
 
     authService
       .uploadImage(uploadData)
       .then((response) => {
         console.log("new profile picture url is: ", response.data.image_url);
         // response carries "fileUrl" which we can use to update the state
-        setProfilePictureUrl(response.data.image_url);
+        setImageUrl(response.data.image_url);
       })
       .catch((err) => console.log("Error while uploading the file: ", err));
   };
@@ -95,16 +105,22 @@ function UserSettingPage() {
       setErrorMessage("Provide a valid email address.");
       return;
     }
-    profilePictureUrl === "" ? setProfilePictureUrl(user.profilePictureUrl) : setProfilePictureUrl(profilePictureUrl)
+    imageUrl === "" ? setImageUrl(user.imageUrl) : setImageUrl(imageUrl)
     authService
-      .updateUserinfo(user._id, {email,name,surname,profilePictureUrl,companyId,validators})
-      .then(() => navigate("/user"))
+      .updateUserinfo(user._id, {email,name,surname,imageUrl,companyId,validators})
+      .then(() => navigate(`/user/${user._id}`))
       .catch((err) => console.log("error in updating user info", err));
   };
 
   return (
     <div className="ModifyPasswordPage">
       <h1>Set a new password for {user.email}</h1>
+      {user && 
+      <>
+
+      <div className="profilePicture">
+        <img src={imageUrl} alt="profile" />
+      </div>
 
       <form onSubmit={handleSubmit}>
         <label>
@@ -140,7 +156,7 @@ function UserSettingPage() {
           />
         </label>
 
-        {(user.position === "admin" || user.position ==="hr") && (
+        {user.position === "admin"  && 
           <>
             <label>
               Company:
@@ -151,26 +167,32 @@ function UserSettingPage() {
                 ))}
               </select>
             </label>
+        </> }
 
+        {(user.position === "hr" || user.position==="admin") &&
+        <>
             <label>
               Validators:
               <select
                 name="validators"
+                value={validators}
                 onChange={handleValidators}
                 multiple
               >
                 {managers.map((manager) => (
-                  validators.includes(manager._id) ? <option key={manager._id} value={manager._id} selected>{manager.name}</option> :
                   <option key={manager._id} value={manager._id}>{manager.name}</option>
                 ))}
               </select>
             </label>
           </>
-        )}
+        }
 
         <button type="submit">Modify</button>
       </form>
 
+      </>
+    }
+      
       {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );

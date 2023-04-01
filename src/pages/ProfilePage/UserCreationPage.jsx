@@ -113,7 +113,7 @@ function UserCreationPage() {
           </label>
           <label>
             Surname:
-            <input
+   setimageUrl         <input
               type="text"
               name="surname"
               value={surname}
@@ -141,10 +141,10 @@ function UserCreationPage() {
           <label>
             Position:
             <select name="position"  onChange={handlePosition}>
-              <option value="admin">Admin</option>
-              <option value="manager">Manager</option>
-              <option value="hr">HR</option>
-              <option value="employee">Employee</option>
+              <option key="admin" value="admin">Admin</option>
+              <option key="manager" value="manager">Manager</option>
+              <option key="hr" value="hr">HR</option>
+              <option key="employee" value="employee">Employee</option>
             </select>
           </label>
           

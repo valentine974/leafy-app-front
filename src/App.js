@@ -32,7 +32,7 @@ function App() {
       <Route path="/" element={ <HomePage/>  }></Route> 
       <Route path="/login" element={<LoginPage />}/>
       <Route path="/user/modify-password" element={ <IsPrivate> <ModifyPasswordPage/> </IsPrivate>   }></Route>
-      <Route path="/user/settings" element={ <IsPrivate><UserSettingPage/> </IsPrivate>}></Route>
+      <Route path="/user/:id/settings" element={ <IsPrivate><UserSettingPage/> </IsPrivate>}></Route>
       <Route path="/create-company" element={ <CompanyCreationPage/>  }></Route>
       <Route path="/company/:id/settings" element={ <CompanySettingPage/>  }></Route>
       <Route path="/companies" element={ <CompaniesPage/>  }></Route>
