@@ -25,8 +25,8 @@ function UserSettingPage() {
       setSurname(surname);
       setCompanyId(companyId);
       setValidators(validators);
+      
     }).then(() => {
-      console.log("user", user);
       if (user.position === "admin") {
         authService
           .getCompanies()
@@ -45,13 +45,14 @@ function UserSettingPage() {
     authService
       .getUsers()
       .then((response) => {
+
         setManagers(
           response.data.filter(
             (user) =>
+          
               (user.position === "manager" || user.position === "hr") &&
-              user.companyId === companyId
-          )
-        );
+              user.companyId._id === companyId._id
+              ))
       })
       .catch((err) => console.log("error in getting managers", err));
   }, [companyId]);
@@ -64,6 +65,7 @@ function UserSettingPage() {
   const handleValidators = (e) => {
     setValidators(e.target.value);
   };
+  
   const handleFileUpload = (e) => {
   
     // file dialog box when clicked on the file button
@@ -143,9 +145,6 @@ function UserSettingPage() {
             <label>
               Company:
               <select name="companyId" onChange={handleCompanyId}>
-                {/* <option value={companyId._id} default>
-                  {companyId.name}
-                </option> */}
                 {companies.map((company) => ( 
                   company._id === companyId._id ? <option key={company._id} value={company._id} default>{company.name}</option> :
                   <option key={company._id} value={company._id}>{company.name}</option>
@@ -157,11 +156,11 @@ function UserSettingPage() {
               Validators:
               <select
                 name="validators"
-                value={validators}
                 onChange={handleValidators}
                 multiple
               >
                 {managers.map((manager) => (
+                  validators.includes(manager._id) ? <option key={manager._id} value={manager._id} selected>{manager.name}</option> :
                   <option key={manager._id} value={manager._id}>{manager.name}</option>
                 ))}
               </select>

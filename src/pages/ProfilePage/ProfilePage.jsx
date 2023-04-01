@@ -15,7 +15,7 @@ function ProfilePage() {
   const { id } = useParams();
 
 
-  console.log(company)
+ 
 
   useEffect(() => {
     console.log(user)
@@ -26,7 +26,7 @@ function ProfilePage() {
       setSurname(surname);
       setCompany(companyId); 
       setProfilePictureUrl(profilePictureUrl)
-    });
+    }).catch((err) => console.log("error in getting user", err));
   }, []);
 
  
