@@ -1,4 +1,3 @@
-
 import { AuthContext } from "../../context/auth.context";
 import { useContext, useEffect, useState } from "react";
 import authService from "../../services/auth.service";
@@ -6,44 +5,43 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 function CompanyPage() {
-  
+  const { user } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [siret, setSiret] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [numberOfVacationDays, setNumberOfVacationDays] = useState("");
-  const {id} = useParams()
- 
+  const { id } = useParams();
+
   useEffect(() => {
-    authService.getCompany(id).then((foundCompany) => { 
-      const { name, address, siret, imageUrl,numberOfVacationDays } = foundCompany.data;
+    authService.getCompany(id).then((foundCompany) => {
+      const { name, address, siret, imageUrl, numberOfVacationDays } =
+        foundCompany.data;
       setName(name);
       setAddress(address);
-      setSiret(siret); 
-      setImageUrl(imageUrl); 
-      setNumberOfVacationDays(numberOfVacationDays); 
+      setSiret(siret);
+      setImageUrl(imageUrl);
+      setNumberOfVacationDays(numberOfVacationDays);
     });
   }, []);
 
-    return ( <div className="pageContainer"> 
-
-    {name && 
-
-    <>
-
-    <img src={imageUrl} alt='logo' /> 
-
-    
-    <Link to={`/company/${id}/settings`}>To modify company informations</Link>
-
-    </>
-    
-    }
-
-
-
-    
-    </div> );
+  return (
+    <div className="pageContainer">
+      <h1 className="pageTitle">{name}</h1>
+      {name && (
+        <>
+          <div className="imageContainer">
+          <img src={imageUrl} alt="logo" />
+          </div>
+          {(user.position === "hr" || user.position === "admin") && (
+            <Link to={`/company/${id}/settings`}>
+              To modify company informations
+            </Link>
+          )}
+        </>
+      )}
+    </div>
+  );
 }
 
 export default CompanyPage;

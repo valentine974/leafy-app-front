@@ -1,8 +1,9 @@
-import "./ProfilePage.css";
+import "./ProfilePages.css";
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
 import authService from "../../services/auth.service";
+
 function ProfilePage() {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
@@ -30,9 +31,9 @@ function ProfilePage() {
 
   return (
     <div className="pageContainer">
-      <h1>Profile page</h1>
-      <div className="profilePictureContainer">
-        <img className="profilePicture" src={imageUrl} alt="prifile" />
+      <h1 className="pageTitle">Profile page</h1>
+      <div className="imageContainer">
+        <img src={imageUrl} alt="prifile" />
       </div>
 
       <p>{name} {surname}</p>

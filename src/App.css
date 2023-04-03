@@ -46,3 +46,9 @@
     align-items: center;
     justify-content: center;
 }
+
+.pageTitle{
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 20px;
+}

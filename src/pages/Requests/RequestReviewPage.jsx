@@ -19,28 +19,32 @@ function RequestReviewPage() {
       .catch((err) => console.log("err in loading requests", err));
   }, [user]);
 
-
-  const handleDeleteButton = (id)=> { 
-
-    authService.deleteRequest(id)
-    let newRequests = requests.filter((request)=> request._id != id)
-    setRequests(newRequests)
-    
-
-  }
+  const handleDeleteButton = (id) => {
+    authService.deleteRequest(id);
+    let newRequests = requests.filter((request) => request._id != id);
+    setRequests(newRequests);
+  };
 
   return (
-    <div>
-      <h1>Request Review</h1>
+    <div className="pageContainer">
+      <h1 className="pageTitle">Request Review</h1>
 
       {requests?.map((request) => (
-        <div>
-          <h3>{request._id}</h3>
+        <div className={`requestCard ${request.status}`}>
+          <h3 className="">{request._id}</h3>
           <p>Status: {request.status}</p>
-          <p>Comments: {request.comments}</p> 
-          
-          <Link to={`/request/${request._id}/settings`}>To modify my request</Link>
-          <button onClick={()=>handleDeleteButton(request._id)} > Delete my request</button>
+          <p>Comments: {request.comments}</p>
+
+          {request.validations.map((validation) => (
+            <li>{validation.approval}</li>
+          ))}
+
+          <Link to={`/request/${request._id}/settings`}>
+            To modify my request
+          </Link>
+          <button onClick={() => handleDeleteButton(request._id)}>
+            Delete my request
+          </button>
         </div>
       ))}
 

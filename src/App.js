@@ -21,6 +21,7 @@ import IsAnon from "./components/IsAnon/IsAnon";
 import CompaniesPage from './pages/Company/CompaniesPage';
 import CompanyPage from './pages/Company/CompanyPage';
 import UsersPage from './pages/ProfilePage/UsersPage';
+import RequestHandlingPage from "./pages/Requests/RequestHandlingPage";
 
 function App() {
   return (
@@ -42,7 +43,7 @@ function App() {
 
       {/* TO DO */}
       {/* users route */}
-
+      <Route path="/handle-request" element={ <RequestHandlingPage/>  }></Route>
       <Route path="/create-request" element={ <RequestCreationPage></RequestCreationPage> }></Route>
       <Route path="/request/review" element={ <RequestReviewPage/>  }></Route>
       <Route path="/request/:id/settings" element={ <RequestSettingPage/>  }></Route>
