@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { useNavigate,useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import authService from "../../services/auth.service";
 import { AuthContext } from "../../context/auth.context";
 
@@ -17,46 +17,47 @@ function UserSettingPage() {
   const [managers, setManagers] = useState([]);
   const navigate = useNavigate();
 
-
   const { id } = useParams();
 
   useEffect(() => {
-    authService.getUser(id).then((foundUser) => {
-      const { email, name, imageUrl,surname,companyId,validators } = foundUser.data;
-      setEmail(email);
-      setName(name);
-      setSurname(surname);
-      setCompanyId(companyId);
-      setValidators(validators);
-      setImageUrl(imageUrl)
-      
-    }).then(() => {
-      if (user.position === "admin") {
-        authService
-          .getCompanies()
-          .then((response) => {
-            setCompanies(response.data);
-          })
-          .catch((err) => console.log("error in getting companies", err));
-      } else if (user.position === "hr") {
-        setCompanies([user.companyId]);
-      }
-    }).catch((err) => console.log("error in getting user", err));
-
+    authService
+      .getUser(id)
+      .then((foundUser) => {
+        const { email, name, imageUrl, surname, companyId, validators } =
+          foundUser.data;
+        setEmail(email);
+        setName(name);
+        setSurname(surname);
+        setCompanyId(companyId);
+        setValidators(validators);
+        setImageUrl(imageUrl);
+      })
+      .then(() => {
+        if (user.position === "admin") {
+          authService
+            .getCompanies()
+            .then((response) => {
+              setCompanies(response.data);
+            })
+            .catch((err) => console.log("error in getting companies", err));
+        } else if (user.position === "hr") {
+          setCompanies([user.companyId]);
+        }
+      })
+      .catch((err) => console.log("error in getting user", err));
   }, []);
 
   useEffect(() => {
     authService
       .getUsers()
       .then((response) => {
-
         setManagers(
           response.data.filter(
             (user) =>
-          
               (user.position === "manager" || user.position === "hr") &&
               user.companyId._id === companyId._id
-              ))
+          )
+        );
       })
       .catch((err) => console.log("error in getting managers", err));
   }, [companyId]);
@@ -74,10 +75,8 @@ function UserSettingPage() {
     }
     setValidators(values);
   };
-  
-  
+
   const handleFileUpload = (e) => {
-  
     // file dialog box when clicked on the file button
     const uploadData = new FormData();
 
@@ -105,9 +104,16 @@ function UserSettingPage() {
       setErrorMessage("Provide a valid email address.");
       return;
     }
-    imageUrl === "" ? setImageUrl(user.imageUrl) : setImageUrl(imageUrl)
+    imageUrl === "" ? setImageUrl(user.imageUrl) : setImageUrl(imageUrl);
     authService
-      .updateUserinfo(user._id, {email,name,surname,imageUrl,companyId,validators})
+      .updateUser(user._id, {
+        email,
+        name,
+        surname,
+        imageUrl,
+        companyId,
+        validators,
+      })
       .then(() => navigate(`/user/${user._id}`))
       .catch((err) => console.log("error in updating user info", err));
   };
@@ -115,84 +121,97 @@ function UserSettingPage() {
   return (
     <div className="ModifyPasswordPage">
       <h1>Set a new password for {user.email}</h1>
-      {user && 
-      <>
-
-      <div className="profilePicture">
-        <img src={imageUrl} alt="profile" />
-      </div>
-
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleEmail}
-          />
-        </label>
-
-        <label>
-          Name:
-          <input type="text" name="name" value={name} onChange={handleName} />
-        </label>
-
-        <label>
-          Surname:
-          <input
-            type="text"
-            name="surname"
-            value={surname}
-            onChange={handleSurname}
-          />
-        </label>
-        <label>
-          Profile Picture:
-          <input
-            type="file"
-            name="imageUrl"
-            onChange={(e) => handleFileUpload(e)}
-          />
-        </label>
-
-        {user.position === "admin"  && 
-          <>
-            <label>
-              Company:
-              <select name="companyId" onChange={handleCompanyId}>
-                {companies.map((company) => ( 
-                  company._id === companyId._id ? <option key={company._id} value={company._id} default>{company.name}</option> :
-                  <option key={company._id} value={company._id}>{company.name}</option>
-                ))}
-              </select>
-            </label>
-        </> }
-
-        {(user.position === "hr" || user.position==="admin") &&
+      {user && (
         <>
+          <div className="profilePicture">
+            <img src={imageUrl} alt="profile" />
+          </div>
+
+          <form onSubmit={handleSubmit}>
             <label>
-              Validators:
-              <select
-                name="validators"
-                value={validators}
-                onChange={handleValidators}
-                multiple
-              >
-                {managers.map((manager) => (
-                  <option key={manager._id} value={manager._id}>{manager.name}</option>
-                ))}
-              </select>
+              Email:
+              <input
+                type="email"
+                name="email"
+                value={email}
+                onChange={handleEmail}
+              />
             </label>
-          </>
-        }
 
-        <button type="submit">Modify</button>
-      </form>
+            <label>
+              Name:
+              <input
+                type="text"
+                name="name"
+                value={name}
+                onChange={handleName}
+              />
+            </label>
 
-      </>
-    }
-      
+            <label>
+              Surname:
+              <input
+                type="text"
+                name="surname"
+                value={surname}
+                onChange={handleSurname}
+              />
+            </label>
+            <label>
+              Profile Picture:
+              <input
+                type="file"
+                name="imageUrl"
+                onChange={(e) => handleFileUpload(e)}
+              />
+            </label>
+
+            {user.position === "admin" && (
+              <>
+                <label>
+                  Company:
+                  <select name="companyId" onChange={handleCompanyId}>
+                    {companies.map((company) =>
+                      company._id === companyId._id ? (
+                        <option key={company._id} value={company._id} default>
+                          {company.name}
+                        </option>
+                      ) : (
+                        <option key={company._id} value={company._id}>
+                          {company.name}
+                        </option>
+                      )
+                    )}
+                  </select>
+                </label>
+              </>
+            )}
+
+            {(user.position === "hr" || user.position === "admin") && (
+              <>
+                <label>
+                  Validators:
+                  <select
+                    name="validators"
+                    value={validators}
+                    onChange={handleValidators}
+                    multiple
+                  >
+                    {managers.map((manager) => (
+                      <option key={manager._id} value={manager._id}>
+                        {manager.name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </>
+            )}
+
+            <button type="submit">Modify</button>
+          </form>
+        </>
+      )}
+
       {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );

@@ -16,7 +16,10 @@ function Navbar() {
 
       {isLoggedIn && (
         <>
+          <Link to="/">
           <button onClick={logOutUser}>Logout</button>
+          </Link>
+          
 
           <Link to={`user/${user._id}`}>
             <button>Profile</button>
@@ -26,45 +29,56 @@ function Navbar() {
           <Link to={`/company/${user.companyId}`}>
             <button>My company</button>
           </Link>
-
-
-          <Link to={`/request/review`}>
-            <button>My requests</button>
-          </Link>
-
-          <span>{user && user.name}</span>
         </>
       )}
-      {/* AJOUTER MIDDLEWARE isAdmin */}
-      {isLoggedIn && user && (user.position === "hr"|| user.position ==="admin") && (
+
+
+      {isLoggedIn && user && user.position !== "admin" && (
         <>
-          
-          <Link to="/companies">
-            <button>All companies</button>
+        <Link to={`/request/review`}>
+            <button>My requests</button>
           </Link>
+        </>
+      )}
+
+
+      {isLoggedIn && user && (user.position === "hr"|| user.position ==="manager") && (
+        <>
+          <Link to="/handle-request">
+            <button>Handle requests</button>
+          </Link>
+        </>
+      )}
+
+      {isLoggedIn && user && (user.position === "hr"|| user.position ==="manager" || user.position ==="admin") && (
+        <>
           <Link to="/users">
             <button>All users</button>
           </Link>
         </> 
       )}
-      {/* {!isLoggedIn && ( 
-        <> 
 
+      {isLoggedIn && user && user.position === "admin" && (
+        <> 
         <Link to="/companies">
-            {" "}
-            <button>See Companies</button>{" "}
+            <button>All companies</button>
           </Link>
         </>
-      )} */}
+      )}
+
+      
 
       {!isLoggedIn && (
         <> 
           <Link to="/login">
-            {" "}
             <button>Login</button>{" "}
           </Link>
         </>
       )}
+
+      {isLoggedIn &&  <span>{user && user.name}</span>}
+
+
     </nav>
   );
 }

@@ -30,9 +30,9 @@ function ProfilePage() {
 
   return (
     <div className="pageContainer">
-      <h1>Profile page</h1>
-      <div className="profilePictureContainer">
-        <img className="profilePicture" src={imageUrl} alt="prifile" />
+      <h1 className="pageTitle">Profile page</h1>
+      <div className="imageContainer">
+        <img src={imageUrl} alt="prifile" />
       </div>
 
       <p>{name} {surname}</p>

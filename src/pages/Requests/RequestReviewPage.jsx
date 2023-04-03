@@ -34,10 +34,13 @@ function RequestReviewPage() {
       <h1>Request Review</h1>
 
       {requests?.map((request) => (
-        <div>
-          <h3>{request._id}</h3>
+        <div className="requestCard">
+          <h3 className="">{request._id}</h3>
           <p>Status: {request.status}</p>
           <p>Comments: {request.comments}</p> 
+          <ul>
+            {request.validations.map(validation=> <li>{validation.validatorId}:{validation.approved? "yes":"no"}</li>) }
+          </ul>
           
           <Link to={`/request/${request._id}/settings`}>To modify my request</Link>
           <button onClick={()=>handleDeleteButton(request._id)} > Delete my request</button>

@@ -84,7 +84,7 @@ class AuthService {
     return this.api.post("/auth/login", requestBody);
   };
 
-  updateUserinfo = (id, requestBody) =>{
+  updateUser = (id, requestBody) =>{
     return this.api.put(`/api/users/${id}`, requestBody)
   }
 
