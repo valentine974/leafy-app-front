@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
-import "./ProfilePage.css";
+import "./ProfilePages.css";
 function UsersPage() {
   const [users, setUsers] = useState(null);
   const { user } = useContext(AuthContext);

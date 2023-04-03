@@ -1,8 +1,9 @@
-import "./ProfilePage.css";
+import "./ProfilePages.css";
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
 import authService from "../../services/auth.service";
+
 function ProfilePage() {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");

@@ -54,16 +54,20 @@ class AuthService {
     return this.api.get(`/api/users/${userId}`)
   }
 
+  updateUser = (id, requestBody) =>{
+    return this.api.put(`/api/users/${id}`, requestBody)
+  }
+
   createRequest = (requestBody) => { 
     return this.api.post(`/api/user/create-request`,requestBody)
   }
 
   updateRequest = (id, requestBody) => { 
-    return this.api.put(`/api/requests/${id}/settings`,requestBody)
+    return this.api.put(`/api/request/${id}/settings`,requestBody)
   }
 
   deleteRequest = (id)=>{
-    return this.api.delete(`/api/requests/${id}`)
+    return this.api.delete(`/api/request/${id}`)
   }
 
   getRequests = () =>{
@@ -72,7 +76,7 @@ class AuthService {
   }
   getRequest = (id) =>{
   
-    return this.api.get(`/api/requests/${id}`)
+    return this.api.get(`/api/request/${id}`)
   }
   
 
@@ -84,9 +88,7 @@ class AuthService {
     return this.api.post("/auth/login", requestBody);
   };
 
-  updateUser = (id, requestBody) =>{
-    return this.api.put(`/api/users/${id}`, requestBody)
-  }
+
 
   modifyPassword= (id,requestBody)=>{
     return this.api.put(`/api/users/${id}/modify-password`, requestBody)
