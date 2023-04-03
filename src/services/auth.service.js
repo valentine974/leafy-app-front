@@ -1,5 +1,8 @@
-import axios from "axios";
+import axios from "axios"; 
 
+
+// centralize all the API calls in this service
+// so that we can easily change the base URL
 
 class AuthService {
   constructor() {
@@ -21,28 +24,77 @@ class AuthService {
     });
   }
 
+  
+  createCompany = (requestBody) => {
+    return this.api.post(`/api/create-company`,requestBody)
+  }
+
+  updateCompany = (id,requestBody) => {
+    return this.api.put(`/api/companies/${id}`,requestBody)
+  }
+
+  getCompanies = ()=> {
+
+    return this.api.get(`/api/companies`)
+  }
+
+  getCompany = (companyId) =>{
+    return this.api.get(`/api/companies/${companyId}`)
+  }
+
+  createUser = (requestBody) => {
+    return this.api.post(`/auth/create-user`,requestBody)
+  }
+
+  getUsers = ()=> {
+    return this.api.get(`/api/users`)
+  }
 
   getUser = (userId) =>{
     return this.api.get(`/api/users/${userId}`)
   }
 
-  login = (requestBody) => {
-    return this.api.post("/auth/login", requestBody);
-    // same as
-    // return axios.post("http://localhost:5005/auth/login");
-  };
-
-  updateUserinfo = (id, requestBody) =>{
+  updateUser = (id, requestBody) =>{
     return this.api.put(`/api/users/${id}`, requestBody)
   }
+
+  createRequest = (requestBody) => { 
+    return this.api.post(`/api/user/create-request`,requestBody)
+  }
+
+  updateRequest = (id, requestBody) => { 
+    return this.api.put(`/api/request/${id}/settings`,requestBody)
+  }
+
+  deleteRequest = (id)=>{
+    return this.api.delete(`/api/request/${id}`)
+  }
+
+  getRequests = () =>{
+  
+    return this.api.get(`/api/requests`)
+  }
+  getRequest = (id) =>{
+  
+    return this.api.get(`/api/request/${id}`)
+  }
+  
+
+  uploadImage = (file) => {
+    return this.api.post(`/api/upload`, file)
+  }
+
+  login = (requestBody) => {
+    return this.api.post("/auth/login", requestBody);
+  };
+
+
 
   modifyPassword= (id,requestBody)=>{
     return this.api.put(`/api/users/${id}/modify-password`, requestBody)
   }
   verify = () => {
     return this.api.get("/auth/verify");
-    // same as
-    // return axios.post("http://localhost:5005/auth/verify");
   };
 }
 
