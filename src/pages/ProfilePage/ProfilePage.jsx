@@ -53,7 +53,7 @@ function ProfilePage() {
 
       <p>{name} {surname}</p>
       <p>{email}</p> 
-      {company && <Link to="/company" style={adresseStyle}> {company.address}</Link>}
+      {company && <Link to={`/company/${company._id}`} style={adresseStyle}> {company.name}</Link>}
 
       <Link to="/create-request" style={linkStyle}>Request LEAF</Link>
       <Link to={`/user/${id}/settings`} style={linkStyle}>Profile setting</Link>

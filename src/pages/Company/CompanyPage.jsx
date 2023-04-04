@@ -32,7 +32,7 @@ function CompanyPage() {
   useEffect(() => {
     authService.getUsers()
     .then((foundUsers) => {
-      setAllEmployees(foundUsers.data.filter((user) => user.company === companyId))
+      setAllEmployees(foundUsers.data.filter((user) => user.companyId._id === companyId))
       console.log(allEmployees)
     });
   }, [companyId]);
@@ -45,6 +45,7 @@ function CompanyPage() {
           <div className="imageContainer">
           <img src={imageUrl} alt="logo" />
           </div>
+          <p>Address: {address}</p>
           {(user.position === "hr" || user.position === "admin") && (
             <Link to={`/company/${id}/settings`}>
               To modify company informations
@@ -59,8 +60,11 @@ function CompanyPage() {
           <>  
             <div className="cards">
               {allEmployees.map((employee) => (
-                <div className="card">
+                <div className="userCard">
+                  <div className="imageContainer">
                   <img src={employee.imageUrl} alt="avatar" />
+                  </div>
+                  
                   <h3>{employee.name}</h3>
                   <p>{employee.position}</p>
                   <p>{employee.email}</p>
