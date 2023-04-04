@@ -13,9 +13,10 @@ function UserCreationPage() {
   const [surname, setSurname] = useState("");
   const [companyId, setCompanyId] = useState("");
   const [validators, setValidators] = useState([]);
+  const [managers, setManagers] = useState([]); // managers are the possible validators
   const [contractStartDate, setContractStartDate] = useState("");
   const [companies, setCompanies] = useState([]);
-  const [managers, setManagers] = useState([]);
+
   const handleName = (e) => {
     setName(e.target.value);
   };
@@ -34,21 +35,30 @@ function UserCreationPage() {
   const handleCompanyId = (e) => {
     setCompanyId(e.target.value);
   };
+
   const handleValidators = (e) => {
-    setValidators(e.target.value);
+    const selectedOptions = e.target.selectedOptions;
+    const values = [];
+    for (let i = 0; i < selectedOptions.length; i++) {
+      values.push(selectedOptions[i].value);
+    }
+    setValidators(values);
   };
+
   const handleContractStartDate = (e) => {
     setContractStartDate(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    console.log("email:", email, "password:", password, "name:", name, "surname:", surname, "position:", position, "companyId:", companyId, "validators:", validators, "contractStartDate:", contractStartDate);
     if (
       name === "" ||
+      surname === "" ||
       email === "" ||
       password === "" ||
       position === "" ||
-      surname === "" ||
       companyId === "" ||
       validators === "" ||
       contractStartDate === ""
@@ -83,6 +93,7 @@ function UserCreationPage() {
         })
         .catch((err) => console.log("error in getting companies", err));
     } else if (user && user.position === "hr") {
+      setCompanyId(user.companyId)
       setCompanies([user.companyId]);
     }
   }, [user]);
@@ -93,16 +104,17 @@ function UserCreationPage() {
     authService
       .getUsers()
       .then((response) => {
-        console.log(response.data)
+        console.log("companyId:",companyId);
         setManagers(
           response.data.filter(
-            (manager) =>
-              (manager.position === "manager" || manager.position === "hr") &&
-              manager.companyId._id === companyId
-          ));
+            (user) =>
+              (user.position === "manager" || user.position === "hr") &&
+              user.companyId._id === companyId
+          )
+        );
       })
       .catch((err) => console.log("error in getting managers", err));
-  }, []);
+  }, [companyId]);
 
   return (
     <div className="pageContainer">
@@ -120,7 +132,7 @@ function UserCreationPage() {
               />
             </label>
             <label>
-              Surname: setimageUrl{" "}
+              Surname:
               <input
                 type="text"
                 name="surname"
@@ -149,9 +161,9 @@ function UserCreationPage() {
             <label>
               Position:
               <select name="position" onChange={handlePosition}>
-                <option key="admin" value="admin">
+{/*                 <option key="admin" value="admin">
                   Admin
-                </option>
+                </option> */}
                 <option key="manager" value="manager">
                   Manager
                 </option>
@@ -180,21 +192,21 @@ function UserCreationPage() {
               </label>
             )}
 
-{/*             <label>
-              Validators:
-              <select
-                name="validators"
-                value={validators}
-                onChange={handleValidators}
-                multiple
-              >
-                {managers.map((manager) => (
-                  <option key={manager._id} value={manager._id}>
-                    {manager.name}
-                  </option>
-                ))}
-              </select>
-            </label> */}
+            <label>
+                  Validators:
+                  <select
+                    name="validators"
+                    value={validators}
+                    onChange={handleValidators}
+                    multiple
+                  >
+                    {managers.map((manager) => (
+                      <option key={manager._id} value={manager._id}>
+                        {manager.name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
 
             <label>
               Contract Start Date:

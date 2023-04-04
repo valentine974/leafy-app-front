@@ -61,6 +61,8 @@ function UserSettingPage() {
       })
       .catch((err) => console.log("error in getting managers", err));
   }, [companyId]);
+
+
   const handleEmail = (e) => setEmail(e.target.value);
   const handleName = (e) => setName(e.target.value);
   const handleSurname = (e) => setSurname(e.target.value);
