@@ -43,12 +43,16 @@ class AuthService {
     return this.api.get(`/api/companies/${companyId}`)
   }
 
+
+
+
+  /* ---------------------- users ---------------------- */
+
+
   createUser = (requestBody) => {
     return this.api.post(`/auth/create-user`,requestBody)
   }
 
-
-  /* ---------------------- users ---------------------- */
   getUsers = ()=> {
     return this.api.get(`/api/users`)
   }
