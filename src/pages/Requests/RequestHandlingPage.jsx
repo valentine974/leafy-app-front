@@ -26,7 +26,6 @@ function RequestHandlingPage() {
 
 
   const handleApproval = (request) => {
-
     // update validation status
     // deep copy request object's properties and modify validations array
     const updatedRequest = {
@@ -37,7 +36,6 @@ function RequestHandlingPage() {
           : validation
       ),  
     };
-    
   
     authService
       .updateRequest(request._id, updatedRequest)

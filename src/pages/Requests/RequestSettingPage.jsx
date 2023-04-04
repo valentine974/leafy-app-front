@@ -44,12 +44,7 @@ function RequestSettingPage() {
 
         const {  isFullDay, startDate,morningAfternoonStart, endDate, morningAfternoonEnd, comments } = foundRequest.data;
         setIsFullDay(isFullDay);  
-
- 
-        
-
         setStartDate(formatDate(startDate))
-         
         setMorningAfternoonStart(morningAfternoonStart)
         setEndDate(formatDate(endDate))
         setMorningAfternoonEnd(morningAfternoonEnd)
