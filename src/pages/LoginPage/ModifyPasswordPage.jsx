@@ -27,7 +27,7 @@ function ModifyPasswordPage() {
             const requestBody = { password };
             authService
               .modifyPassword(user._id, requestBody)
-              .then(() => navigate("/user"))
+              .then(() => navigate(`/user/${user._id}`))
               .catch((err) => console.log("error in modifying password", err));
         }else{
             setErrorMessage("The two passwords are not identical");

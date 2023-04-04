@@ -22,8 +22,10 @@ function RequestHandlingPage() {
           );
         })
         .catch((err) => console.log("err in loading requests", err));
-  }, [user]);
+  }, [user, requests]);
 
+
+  useEffect(() => {console.log("page updated")}, [requests]);
 
   const handleApproval = (request) => {
     // update validation status
@@ -80,9 +82,10 @@ function RequestHandlingPage() {
     <div className="pageContainer">
       <h1 className="pageTitle">Pending Requests</h1>
       <div className="requestCards">
-        {requests?.map((request) => 
+        {requests && requests.map((request) => 
             <div className={`requestCard ${request.status}`} key={request._id}>
               <h3 className="">{request._id}</h3>
+              <p>Requester: {request.requester.name + " " + request.requester.surname}</p>
               <p>Status: {request.status}</p>
               <p>Comments: {request.comments}</p>
               <button onClick={() => handleApproval(request)}>Approve</button>

@@ -69,7 +69,7 @@ class AuthService {
   }
 
   modifyPassword= (id,requestBody)=>{
-    return this.api.put(`/api/users/${id}/modify-password`, requestBody)
+    return this.api.put(`/api/user/${id}/modify-password`, requestBody)
   }
 
 
