@@ -27,7 +27,22 @@ function ProfilePage() {
     }).catch((err) => console.log("error in getting user", err));
   }, []);
 
- 
+  const adresseStyle = {
+    textDecoration: "none",
+    color: "pink !important",
+    margin: "5px",
+    padding: "5px",
+  }
+  const linkStyle = {
+    textDecoration: "none",
+    color: "pink !important",
+    backgroundColor: "white !important",
+    margin: "5px",
+    padding: "5px",
+    borderRadius: "5px",
+    border: "1px solid pink",
+    boxShadow: "0 0 5px 0 rgba(0, 0, 0, 0.2)",
+  };
 
   return (
     <div className="pageContainer">
@@ -38,12 +53,11 @@ function ProfilePage() {
 
       <p>{name} {surname}</p>
       <p>{email}</p> 
-      {company && <Link to="/company">Go to my company {company.address}</Link>}
+      {company && <Link to="/company" style={adresseStyle}> {company.address}</Link>}
 
-      <Link to="/create-request ">Request LEAF</Link>
-
-      <Link to={`/user/${id}/settings`}>To modify user informations</Link>
-      <Link to="/user/modify-password">To modify the password</Link>
+      <Link to="/create-request" style={linkStyle}>Request LEAF</Link>
+      <Link to={`/user/${id}/settings`} style={linkStyle}>Profile setting</Link>
+      <Link to="/user/modify-password" style={linkStyle}>Change Password</Link>
     </div>
   );
 }
