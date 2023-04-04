@@ -24,30 +24,59 @@ function RequestHandlingPage() {
         .catch((err) => console.log("err in loading requests", err));
   }, [user]);
 
+
   const handleApproval = (request) => {
-    const updatedRequest = request.validations.map((validation) => {
-      if (validation.validatorId === user._id) {
-        validation.approval = "approved";
-      }
-    });
-    setRequests(updatedRequest);
+
+    // update validation status
+    // deep copy request object's properties and modify validations array
+    const updatedRequest = {
+      ...request,
+      validations: request.validations.map((validation) =>  
+        validation.validatorId === user._id
+          ? { ...validation, status: "approved" }
+          : validation
+      ),  
+    };
+    
+  
     authService
-      .updateRequest(request._id, JSON.parse(JSON.stringify(updatedRequest)))
+      .updateRequest(request._id, updatedRequest)
+      .then((updatedRequest) => {
+        // update the showing requests
+        setRequests((prevRequests) =>
+          prevRequests.map((prevRequest) =>
+            prevRequest._id === updatedRequest._id ? updatedRequest : prevRequest
+          )
+        );
+      })
       .catch((err) => console.log("err in updating request", err));
   };
 
   const handleRejection = (request) => {
-    const updatedRequest = request.validations.map((validation) => {
-      if (validation.validatorId === user._id) {
-        validation.approval = "rejected";
-      }
-    });
-    setRequests(updatedRequest);
+    
+    const updatedRequest = {
+      ...request,
+      validations: request.validations.map((validation) =>  
+        validation.validatorId === user._id
+          ? { ...validation, status: "rejected" }
+          : validation
+      ),  
+    };
+  
     authService
-      .updateRequest(request._id, JSON.parse(JSON.stringify(updatedRequest)))
-      .then((response) => console.log("response", response))
+      .updateRequest(request._id, updatedRequest)
+      .then((updatedRequest) => {
+        //update the showing requests (it takes quite a while to update)
+        setRequests((prevRequests) =>
+          prevRequests.map((prevRequest) =>
+            prevRequest._id === updatedRequest._id ? updatedRequest : prevRequest
+          )
+        );
+      })
       .catch((err) => console.log("err in updating request", err));
   };
+  
+ 
 
   return (
     <div className="pageContainer">
