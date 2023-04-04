@@ -9,9 +9,6 @@ import RequestReviewPage from "./pages/Requests/RequestReviewPage"
 import RequestSettingPage from "./pages/Requests/RequestSettingPage"
 import UserCreationPage from "./pages/ProfilePage/UserCreationPage"
 import UserSettingPage from "./pages/ProfilePage/UserSettingPage"
-
-
-
 import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage"; 
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -21,7 +18,7 @@ import IsAnon from "./components/IsAnon/IsAnon";
 import CompaniesPage from './pages/Company/CompaniesPage';
 import CompanyPage from './pages/Company/CompanyPage';
 import UsersPage from './pages/ProfilePage/UsersPage';
-import RequestHandlingPage from "./pages/Requests/RequestHandlingPage";
+import RequestHandlingPage from './pages/Requests/RequestHandlingPage';
 
 function App() {
   return (
