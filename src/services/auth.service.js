@@ -24,6 +24,7 @@ class AuthService {
     });
   }
 
+  /* --------------------- company ----------------------- */
   
   createCompany = (requestBody) => {
     return this.api.post(`/api/create-company`,requestBody)
@@ -46,17 +47,29 @@ class AuthService {
     return this.api.post(`/auth/create-user`,requestBody)
   }
 
+
+  /* ---------------------- users ---------------------- */
   getUsers = ()=> {
     return this.api.get(`/api/users`)
   }
 
   getUser = (userId) =>{
-    return this.api.get(`/api/users/${userId}`)
+    return this.api.get(`/api/user/${userId}`)
   }
 
-  updateUser = (id, requestBody) =>{
-    return this.api.put(`/api/users/${id}`, requestBody)
+  deleteUser = (id) =>{
+    return this.api.delete(`/api/user/${id}`)
   }
+  updateUser = (id, requestBody) =>{
+    return this.api.put(`/api/user/${id}/settings`, requestBody)
+  }
+
+  modifyPassword= (id,requestBody)=>{
+    return this.api.put(`/api/users/${id}/modify-password`, requestBody)
+  }
+
+
+  /* ---------------------- requests ---------------------- */
 
   createRequest = (requestBody) => { 
     return this.api.post(`/api/user/create-request`,requestBody)
@@ -79,23 +92,22 @@ class AuthService {
     return this.api.get(`/api/request/${id}`)
   }
   
+  /* ---------------------- auth ---------------------- */
 
-  uploadImage = (file) => {
-    return this.api.post(`/api/upload`, file)
-  }
 
   login = (requestBody) => {
     return this.api.post("/auth/login", requestBody);
   };
 
-
-
-  modifyPassword= (id,requestBody)=>{
-    return this.api.put(`/api/users/${id}/modify-password`, requestBody)
-  }
   verify = () => {
     return this.api.get("/auth/verify");
   };
+
+  /* --------------------- utils -------------------- */
+  uploadImage = (file) => {
+    return this.api.post(`/api/upload`, file)
+  }
+
 }
 
 // Create one instance (object) of the service
