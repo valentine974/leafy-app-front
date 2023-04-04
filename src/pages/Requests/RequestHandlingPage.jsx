@@ -6,8 +6,7 @@ import "./RequestPages.css";
 
 function RequestHandlingPage() {
   const { user } = useContext(AuthContext);
-
-  const [requests, setRequests] = useState(null);
+  const [requests, setRequests] = useState([]);
 
   useEffect(() => {
     user &&
@@ -51,7 +50,7 @@ function RequestHandlingPage() {
   };
 
   return (
-    <div>
+    <div className="pageContainer">
       <h1 className="pageTitle">Pending Requests</h1>
       <div className="requestCards">
         {requests?.map((request) => 

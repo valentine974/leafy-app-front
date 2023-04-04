@@ -73,113 +73,144 @@ function UserCreationPage() {
 
   const { user } = useContext(AuthContext);
 
+  // get all companies or the hr's company on load
   useEffect(() => {
-    if (user.position === "admin") {
+    if (user && user.position === "admin") {
       authService
         .getCompanies()
         .then((response) => {
           setCompanies(response.data);
         })
         .catch((err) => console.log("error in getting companies", err));
-    } else if (user.position === "hr") {
-      setCompanies(user.companyId);
+    } else if (user && user.position === "hr") {
+      setCompanies([user.companyId]);
     }
-  }, []);
+  }, [user]);
 
+
+  // get all managers the company's manager on load
   useEffect(() => {
     authService
       .getUsers()
       .then((response) => {
+        console.log(response.data)
         setManagers(
           response.data.filter(
-            (user) =>
-              (user.position === "manager" || user.position === "hr") &&
-              user.companyId === companyId
-          )
-        );
+            (manager) =>
+              (manager.position === "manager" || manager.position === "hr") &&
+              manager.companyId._id === companyId
+          ));
       })
       .catch((err) => console.log("error in getting managers", err));
-  }, [companyId]);
+  }, []);
 
   return (
-      <div>
-      {user && 
+    <div className="pageContainer">
+      {user && (
         <>
-        <h1>User Creation Page</h1>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Name:
-            <input type="text" name="name" value={name} onChange={handleName} />
-          </label>
-          <label>
-            Surname:
-   setimageUrl         <input
-              type="text"
-              name="surname"
-              value={surname}
-              onChange={handleSurname}
-            />
-          </label>
-          <label>
-            Email:
-            <input
-              type="email"
-              name="email"
-              value={email}
-              onChange={handleEmail}
-            />
-          </label>
-          <label>
-            Password:
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={handlePassword}
-            />
-          </label>
-          <label>
-            Position:
-            <select name="position"  onChange={handlePosition}>
-              <option key="admin" value="admin">Admin</option>
-              <option key="manager" value="manager">Manager</option>
-              <option key="hr" value="hr">HR</option>
-              <option key="employee" value="employee">Employee</option>
-            </select>
-          </label>
-          
-
-          {user.position === "admin" && 
+          <h1 className="pageTitle">User Creation Page</h1>
+          <form onSubmit={handleSubmit}>
             <label>
-            Company:
-            <select name="companyId" onChange={handleCompanyId}>
-            <option value="" default>Choose a company</option>
-            {companies.map((company) => <option key={company._id} value={company._id}>{company.name}</option>)}
-            </select>
-            
-          </label>}
+              Name:
+              <input
+                type="text"
+                name="name"
+                value={name}
+                onChange={handleName}
+              />
+            </label>
+            <label>
+              Surname: setimageUrl{" "}
+              <input
+                type="text"
+                name="surname"
+                value={surname}
+                onChange={handleSurname}
+              />
+            </label>
+            <label>
+              Email:
+              <input
+                type="email"
+                name="email"
+                value={email}
+                onChange={handleEmail}
+              />
+            </label>
+            <label>
+              Password:
+              <input
+                type="password"
+                name="password"
+                value={password}
+                onChange={handlePassword}
+              />
+            </label>
+            <label>
+              Position:
+              <select name="position" onChange={handlePosition}>
+                <option key="admin" value="admin">
+                  Admin
+                </option>
+                <option key="manager" value="manager">
+                  Manager
+                </option>
+                <option key="hr" value="hr">
+                  HR
+                </option>
+                <option key="employee" value="employee">
+                  Employee
+                </option>
+              </select>
+            </label>
 
-          <label>
-            Validators:
-            <select name="validators" value={validators} onChange={handleValidators} multiple>
-            {managers.map((manager) => <option key={manager._id} value={manager._id}>{manager.name}</option>)}
-            </select>
-          </label>
+            {user.position === "admin" && (
+              <label>
+                Company:
+                <select name="companyId" onChange={handleCompanyId}>
+                  <option value="" default>
+                    Choose a company
+                  </option>
+                  {companies.map((company) => (
+                    <option key={company._id} value={company._id}>
+                      {company.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
 
-          <label>
-            Contract Start Date:
-            <input
-              type="date"
-              name="contractStartDate"
-              value={contractStartDate}
-              onChange={handleContractStartDate}
-            />
-          </label>
-          <button type="submit">Create User</button>
-        </form>
-        </>}
-        {errorMessage && <p>{errorMessage}</p>}
-      </div>
+{/*             <label>
+              Validators:
+              <select
+                name="validators"
+                value={validators}
+                onChange={handleValidators}
+                multiple
+              >
+                {managers.map((manager) => (
+                  <option key={manager._id} value={manager._id}>
+                    {manager.name}
+                  </option>
+                ))}
+              </select>
+            </label> */}
+
+            <label>
+              Contract Start Date:
+              <input
+                type="date"
+                name="contractStartDate"
+                value={contractStartDate}
+                onChange={handleContractStartDate}
+              />
+            </label>
+            <button type="submit">Create User</button>
+          </form>
+        </>
+      )}
+      {errorMessage && <p>{errorMessage}</p>}
+    </div>
   );
 }
 
