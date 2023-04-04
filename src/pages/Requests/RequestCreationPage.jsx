@@ -2,10 +2,11 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
 import { AuthContext } from "../../context/auth.context";
-
+import formatDate from "../../utils/dateFormating";
+import { addDays } from "date-fns";
 function RequestCreationPage() {
   /* request setting page with all it's properties: status, isFullDay, startDate, morningAfternoonStart, endDate, morningAfternoonEnd, comments */
-
+  const msPerDay = 86400000;
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(undefined);
@@ -40,13 +41,11 @@ function RequestCreationPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("startDate:", startDate);
-    // if (startDate - Date.now() > 7) {
-    //     approvalLimitDate.setDate(addDays(Date.now(), + 7));
-    // } else {
-    //     approvalLimitDate.setDate(addDays(startDate, -1));
-    // }
-    setApprovalLimitDate(new Date(startDate));
-    console.log("approvalLimitDate:", approvalLimitDate);
+    // add 7 days to today's date
+    const limitDate = addDays(new Date(), 7);
+    console.log("limitDate:", limitDate);
+    setApprovalLimitDate(new Date(limitDate));
+
 
     authService
       .createRequest({
