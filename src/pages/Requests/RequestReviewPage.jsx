@@ -28,26 +28,26 @@ function RequestReviewPage() {
   return (
     <div className="pageContainer">
       <h1 className="pageTitle">Request Review</h1>
+      <div className="requestCards">
+        {requests?.map((request) => (
+          <div className={`requestCard ${request.status}`}>
+            <h3 className="">{request._id}</h3>
+            <p>Status: {request.status}</p>
+            <p>Comments: {request.comments}</p>
 
-      {requests?.map((request) => (
-        <div className={`requestCard ${request.status}`}>
-          <h3 className="">{request._id}</h3>
-          <p>Status: {request.status}</p>
-          <p>Comments: {request.comments}</p>
+            {request.validations.map((validation) => (
+              <li>{validation.approval}</li>
+            ))}
 
-          {request.validations.map((validation) => (
-            <li>{validation.approval}</li>
-          ))}
-
-          <Link to={`/request/${request._id}/settings`}>
-            To modify my request
-          </Link>
-          <button onClick={() => handleDeleteButton(request._id)}>
-            Delete my request
-          </button>
-        </div>
-      ))}
-
+            <Link to={`/request/${request._id}/settings`}>
+              To modify my request
+            </Link>
+            <button onClick={() => handleDeleteButton(request._id)}>
+              Delete my request
+            </button>
+          </div>
+        ))}
+      </div>
       <Link to="/create-request ">Request LEAF</Link>
     </div>
   );
