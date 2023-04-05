@@ -43,6 +43,43 @@ class AuthService {
     return this.api.get(`/api/companies/${companyId}`)
   }
 
+  /* ---------------------- messagings ----------------------  */
+
+  createConversation = (requestBody) => {
+    return this.api.post(`/api/create-conversation`,requestBody)
+  }
+
+  getConversations = ()=> { 
+    return this.api.get(`/api/conversations`)
+  }
+
+  getConversation = (conversationId) =>{
+    return this.api.get(`/api/conversation/${conversationId}`)
+  }
+
+  deleteConversation = (conversationId) =>{
+    return this.api.delete(`/api/conversation/${conversationId}`)
+  }
+
+  getUserConversations = (userId) =>{
+    return this.api.get(`/api/user/${userId}/conversations`)
+  }
+
+  sendMessage = (conversationId, requestBody) =>{
+    return this.api.post(`/api/conversation/${conversationId}/send-message`, requestBody)
+  }
+
+  deleteMessage = (conversationId, messageId) =>{
+    return this.api.delete(`/api/conversation/${conversationId}/delete-message/${messageId}`)
+  }
+
+  addParticipant = (conversationId, requestBody) =>{
+    return this.api.post(`/api/conversation/${conversationId}/add-participant`, requestBody)
+  }
+
+  removeParticipant = (conversationId, userId) =>{
+    return this.api.delete(`/api/conversation/${conversationId}/remove-participant/${userId}`)
+  }
 
 
 
