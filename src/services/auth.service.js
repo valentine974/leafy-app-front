@@ -81,8 +81,6 @@ class AuthService {
     return this.api.delete(`/api/conversation/${conversationId}/remove-participant/${userId}`)
   }
 
-
-
   /* ---------------------- users ---------------------- */
 
 
