@@ -121,8 +121,8 @@ function UserSettingPage() {
   };
 
   return (
-    <div className="ModifyPasswordPage">
-      <h1>Set a new password for {user.email}</h1>
+    <div className="pageContainer">
+      <h1>Change user information for {user.name}</h1>
       {user && (
         <>
           <div className="profilePicture">
