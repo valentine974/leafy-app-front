@@ -37,7 +37,7 @@ function UsersPage() {
 
   return (
     <div className="pageContainer">
-      <h1 className="pageTitle">Company Page </h1> 
+      <h1 className="pageTitle"> Manage Users </h1> 
       <div className="cards">
       {users && user &&
         users.map((oneUser) => (

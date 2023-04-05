@@ -25,8 +25,9 @@ function RequestHandlingPage() {
   }, [user]);
 
 
-  const handleApproval = (request) => {
+  useEffect(() => {console.log("page updated")}, [requests]);
 
+  const handleApproval = (request) => {
     // update validation status
     // deep copy request object's properties and modify validations array
     const updatedRequest = {
@@ -37,15 +38,15 @@ function RequestHandlingPage() {
           : validation
       ),  
     };
-    
   
     authService
       .updateRequest(request._id, updatedRequest)
       .then((updatedRequest) => {
         // update the showing requests
+        console.log("updated request", updatedRequest);
         setRequests((prevRequests) =>
           prevRequests.map((prevRequest) =>
-            prevRequest._id === updatedRequest._id ? updatedRequest : prevRequest
+            prevRequest._id === updatedRequest.data._id ? updatedRequest.data : prevRequest
           )
         );
       })
@@ -66,25 +67,24 @@ function RequestHandlingPage() {
     authService
       .updateRequest(request._id, updatedRequest)
       .then((updatedRequest) => {
+
         //update the showing requests (it takes quite a while to update)
         setRequests((prevRequests) =>
           prevRequests.map((prevRequest) =>
-            prevRequest._id === updatedRequest._id ? updatedRequest : prevRequest
+            prevRequest._id === updatedRequest.data._id ? updatedRequest.data : prevRequest
           )
         );
       })
       .catch((err) => console.log("err in updating request", err));
   };
   
- 
-
   return (
     <div className="pageContainer">
       <h1 className="pageTitle">Pending Requests</h1>
       <div className="requestCards">
-        {requests?.map((request) => 
+        {requests && requests.map((request) => 
             <div className={`requestCard ${request.status}`} key={request._id}>
-              <h3 className="">{request._id}</h3>
+              <h3 className="">{request.requester.name}</h3>
               <p>Status: {request.status}</p>
               <p>Comments: {request.comments}</p>
               <button onClick={() => handleApproval(request)}>Approve</button>

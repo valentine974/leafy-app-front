@@ -9,11 +9,11 @@ function RequestReviewPage() {
   const [requests, setRequests] = useState(null);
 
   useEffect(() => {
-    authService
+    user && authService
       .getRequests()
       .then((requests) => {
         setRequests(
-          requests.data.filter((request) => request.requester === user._id)
+          requests.data.filter((request) => request.requester._id === user._id)
         );
       })
       .catch((err) => console.log("err in loading requests", err));
@@ -21,7 +21,7 @@ function RequestReviewPage() {
 
   const handleDeleteButton = (id) => {
     authService.deleteRequest(id);
-    let newRequests = requests.filter((request) => request._id != id);
+    let newRequests = requests.filter((request) => request._id !== id);
     setRequests(newRequests);
   };
 
