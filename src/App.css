@@ -121,6 +121,7 @@ form button{
 .userCard{
   display:flex;
   flex-flow: column;
+  position: relative;
   justify-content: space-between;
   align-items: center;
   width: 200px;
@@ -129,4 +130,21 @@ form button{
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.chatBtn{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  box-sizing: border-box;
+  background-color:#ccc;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
