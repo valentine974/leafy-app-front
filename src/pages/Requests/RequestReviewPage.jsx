@@ -2,7 +2,7 @@ import authService from "../../services/auth.service";
 import { Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
-
+import formatDate from "../../utils/dateFormating";
 function RequestReviewPage() {
   const { user } = useContext(AuthContext);
 
@@ -31,12 +31,14 @@ function RequestReviewPage() {
       <div className="requestCards">
         {requests?.map((request) => (
           <div className={`requestCard ${request.status}`}>
-            <h3 className="">{request._id}</h3>
+            <p>Start date: {formatDate(request.startDate)}</p>
+            <p>Duration: {request.duration} days</p>
+            <p>To be approved before: {formatDate(request.approvalLimitDate)}</p>
             <p>Status: {request.status}</p>
             <p>Comments: {request.comments}</p>
 
             {request.validations.map((validation) => (
-              <li>{validation.approval}</li>
+              <li> {validation.validatorId.name}: {validation.status}</li>
             ))}
 
             <Link to={`/request/${request._id}/settings`}>

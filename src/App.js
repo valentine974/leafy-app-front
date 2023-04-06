@@ -19,6 +19,7 @@ import CompaniesPage from './pages/Company/CompaniesPage';
 import CompanyPage from './pages/Company/CompanyPage';
 import UsersPage from './pages/ProfilePage/UsersPage';
 import RequestHandlingPage from './pages/Requests/RequestHandlingPage';
+import ConversationPage from './pages/ConversationPage/ConversationPage';
 
 function App() {
   return (
@@ -37,13 +38,14 @@ function App() {
       <Route path="/company/:id" element={ <CompanyPage/>  }></Route>
       <Route path="/users" element={ <UsersPage/>}></Route>
       <Route path="/create-user" element={ <UserCreationPage/>}></Route>
-
-      {/* TO DO */}
-      {/* users route */}
       <Route path="/handle-request" element={ <RequestHandlingPage/>  }></Route>
       <Route path="/create-request" element={ <RequestCreationPage></RequestCreationPage> }></Route>
       <Route path="/request/review" element={ <RequestReviewPage/>  }></Route>
       <Route path="/request/:id/settings" element={ <RequestSettingPage/>  }></Route>
+
+      {/* TO DO */}
+      {/* conversation route */}
+      <Route path="/conversations" element={ <ConversationPage/> }></Route>
 
      </Routes>
     </div>

@@ -55,6 +55,11 @@ function Navbar() {
         <Link to={`/request/review`} style={linkStyle}>
             <button style={buttonStyle} >My requests</button>
           </Link>
+
+          <Link to={`/conversations`} style={linkStyle}>
+          {/* add unread messages on red number later */}
+            <button style={buttonStyle}>inMails</button>
+          </Link>
         </>
       )}
 
