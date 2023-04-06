@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 function CompanyPage() {
-  const { user } = useContext(AuthContext);
+  const { user, isLoggedIn } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [siret, setSiret] = useState("");
@@ -14,6 +14,11 @@ function CompanyPage() {
   const [companyId, setCompanyId] = useState("");
   const [allEmployees, setAllEmployees] = useState([]);
   const { id } = useParams();
+
+  const handleChat = () => {
+    console.log("chat")
+ 
+  }
 
   useEffect(() => {
     user && authService.getCompany(id).then((foundCompany) => {
@@ -68,6 +73,7 @@ function CompanyPage() {
                   <h3>{employee.name}</h3>
                   <p>{employee.position}</p>
                   <p>{employee.email}</p>
+                  {employee._id !== user._id && isLoggedIn && <button className="chatBtn" onClick={handleChat}>💬</button>}
                 </div>))}
             </div>
           </>
