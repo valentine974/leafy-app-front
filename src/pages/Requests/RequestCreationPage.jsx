@@ -3,21 +3,24 @@ import { useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
 import { AuthContext } from "../../context/auth.context";
 import formatDate from "../../utils/dateFormating";
-import { addDays } from "date-fns";
+import addDays from 'date-fns/addDays'
+import subDays from 'date-fns/subDays'
 function RequestCreationPage() {
   /* request setting page with all it's properties: status, isFullDay, startDate, morningAfternoonStart, endDate, morningAfternoonEnd, comments */
   const msPerDay = 86400000;
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const today = new Date().toISOString().substr(0, 10);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [isFullDay, setIsFullDay] = useState(true);
-  const [startDate, setStartDate] = useState("");
+  const [startDate, setStartDate] = useState(today);
   const [morningAfternoonStart, setMorningAfternoonStart] = useState("morning");
-  const [endDate, setEndDate] = useState("");
+  const [endDate, setEndDate] = useState(today);
   const [morningAfternoonEnd, setMorningAfternoonEnd] = useState("afternoon");
   const [comments, setComments] = useState("");
-  const [approvalLimitDate, setApprovalLimitDate] = useState(new Date());
+  const [approvalLimitDate, setApprovalLimitDate] = useState(today);
    
+  useEffect(() => {console.log("approval date changed to:",approvalLimitDate)}, [approvalLimitDate]);
 
   const handleIsFullDay = (e) => {
     setIsFullDay(e.target.checked);
@@ -42,9 +45,17 @@ function RequestCreationPage() {
     e.preventDefault();
     console.log("startDate:", startDate);
     // add 7 days to today's date
-    const limitDate = addDays(new Date(), 7);
+
+    let limitDate = addDays(new Date(), 7);
+    
+    if(new Date(startDate) < new Date(limitDate)) { 
+      console.log("leafy within 7 days");
+      limitDate = subDays(new Date(startDate), 1)
+      console.log("limitDate:", limitDate);
+    }
     console.log("limitDate:", limitDate);
-    setApprovalLimitDate(new Date(limitDate));
+
+    setApprovalLimitDate(limitDate);
 
 
     authService
@@ -59,7 +70,9 @@ function RequestCreationPage() {
         comments,
         approvalLimitDate,
       })
-      .then(() => navigate("/request/review"))
+      .then((request) => {
+        console.log(request.data)
+        navigate("/request/review")})
       .catch((err) => {
         console.log(err);
         setErrorMessage(err.response.data.message);

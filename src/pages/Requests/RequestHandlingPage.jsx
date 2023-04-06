@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 import "./RequestPages.css";
-
+import formatDate from "../../utils/dateFormating";
+ 
 function RequestHandlingPage() {
   const { user } = useContext(AuthContext);
   const [requests, setRequests] = useState([]);
@@ -16,7 +17,7 @@ function RequestHandlingPage() {
           setRequests(
             requests.data.filter((request) =>
               request.validations.some(
-                (validation) => user._id === validation.validatorId
+                (validation) => user._id === validation.validatorId._id
               )
             )
           );
@@ -33,7 +34,7 @@ function RequestHandlingPage() {
     const updatedRequest = {
       ...request,
       validations: request.validations.map((validation) =>  
-        validation.validatorId === user._id
+        validation.validatorId._id === user._id
           ? { ...validation, status: "approved" }
           : validation
       ),  
@@ -49,6 +50,7 @@ function RequestHandlingPage() {
             prevRequest._id === updatedRequest.data._id ? updatedRequest.data : prevRequest
           )
         );
+        console.log("requests", requests.data.filter((request) => request.requester._id === user._id));
       })
       .catch((err) => console.log("err in updating request", err));
   };
@@ -58,7 +60,7 @@ function RequestHandlingPage() {
     const updatedRequest = {
       ...request,
       validations: request.validations.map((validation) =>  
-        validation.validatorId === user._id
+        validation.validatorId._id === user._id
           ? { ...validation, status: "rejected" }
           : validation
       ),  
@@ -85,6 +87,9 @@ function RequestHandlingPage() {
         {requests && requests.map((request) => 
             <div className={`requestCard ${request.status}`} key={request._id}>
               <h3 className="">{request.requester.name}</h3>
+              <p>Start date: {formatDate(request.startDate)}</p>
+            <p>End date: {formatDate(request.endDate)}</p>
+            <p>To be approved before: {formatDate(request.approvalLimitDate)}</p>
               <p>Status: {request.status}</p>
               <p>Comments: {request.comments}</p>
               <button onClick={() => handleApproval(request)}>Approve</button>
