@@ -1,10 +1,7 @@
 
-
-
 function Chatbox() {
     return (  
-        <>
-            user && (
+        
                 <div className="chatbox">
                     <div className="chatbox__header">
                         <div className="chatbox__header__left">
@@ -26,8 +23,7 @@ function Chatbox() {
 
                     </div>
                 </div>
-            )
-        </>
+
     );
 }
 
