@@ -121,7 +121,10 @@ class AuthService {
   deleteRequest = (id)=>{
     return this.api.delete(`/api/request/${id}`)
   }
-
+  getUserRequests = (userId) =>{  
+    return this.api.get(`/api/user/${userId}/requests`)
+  }
+  
   getRequests = () =>{
   
     return this.api.get(`/api/requests`)

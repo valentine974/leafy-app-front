@@ -50,7 +50,7 @@ function RequestHandlingPage() {
             prevRequest._id === updatedRequest.data._id ? updatedRequest.data : prevRequest
           )
         );
-        console.log("requests", requests.data.filter((request) => request.requester._id === user._id));
+        console.log("updated request : ", updatedRequest.data.filter((request) => request.requester._id === user._id));
       })
       .catch((err) => console.log("err in updating request", err));
   };
@@ -76,6 +76,7 @@ function RequestHandlingPage() {
             prevRequest._id === updatedRequest.data._id ? updatedRequest.data : prevRequest
           )
         );
+        console.log("requests", requests.data.filter((request) => request.requester._id === user._id));
       })
       .catch((err) => console.log("err in updating request", err));
   };

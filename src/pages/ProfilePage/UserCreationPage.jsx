@@ -104,7 +104,6 @@ function UserCreationPage() {
     authService
       .getUsers()
       .then((response) => {
-        console.log("companyId:",companyId);
         setManagers(
           response.data.filter(
             (user) =>

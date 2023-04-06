@@ -32,7 +32,7 @@ function RequestReviewPage() {
         {requests?.map((request) => (
           <div className={`requestCard ${request.status}`}>
             <p>Start date: {formatDate(request.startDate)}</p>
-            <p>End date: {formatDate(request.endDate)}</p>
+            <p>Duration: {request.duration} days</p>
             <p>To be approved before: {formatDate(request.approvalLimitDate)}</p>
             <p>Status: {request.status}</p>
             <p>Comments: {request.comments}</p>
