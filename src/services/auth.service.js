@@ -49,10 +49,6 @@ class AuthService {
     return this.api.post(`/api/create-conversation`,requestBody)
   }
 
-  getConversations = ()=> { 
-    return this.api.get(`/api/conversations`)
-  }
-
   getConversation = (conversationId) =>{
     return this.api.get(`/api/conversation/${conversationId}`)
   }
