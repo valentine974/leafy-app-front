@@ -1,6 +1,18 @@
 .App {
   text-align: center;
+  max-width: 100%;
+
+  display: flex;
+  flex-flow: row nowrap;
+  
+
 }
+.page {
+  display: flex;
+  flex-flow:column nowrap;
+}
+ 
+ 
 
 .App-logo {
   height: 40vmin;
@@ -46,6 +58,8 @@
     align-self: center;
     align-items: center;
     justify-content: space-around;
+
+  background-color:rgb(255, 250, 240); 
 }
 
 .pageTitle{
@@ -79,7 +93,7 @@ input, select{
     box-sizing: border-box;
 }
 
-form button{
+form > button{
     align-self: center;
     max-width: 40%;
     height: 30px;
@@ -130,3 +144,15 @@ form button{
   padding: 20px;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
+
+.header {
+  background-color:rgb(162, 183, 127);
+  width: 100%;
+}
+.header img {
+  width:30px;
+  padding:20px;
+  margin: 0;
+
+}
+ 
