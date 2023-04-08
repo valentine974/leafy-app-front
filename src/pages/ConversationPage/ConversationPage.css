@@ -62,3 +62,16 @@
 .chatBox{
     height: 90%;
 }
+
+.others {
+    background-color: lightgrey;
+    color: black;
+    border-radius: 10px; 
+    text-align:left;
+}
+.me {
+    background-color: blue;
+    color:white;
+    border-radius: 10px;
+    text-align: right; 
+}

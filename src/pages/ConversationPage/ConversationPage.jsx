@@ -11,6 +11,7 @@ function ConversationPage() {
   const { user } = useContext(AuthContext);
   const [conversations, setConversations] = useState([]);
   const [currentConversation, setCurrentConversation]= useState(null);
+  console.log(conversations)
 
   const handleCurrentConversation =(conversation)=> { 
     console.log("on click :", conversation)
@@ -18,16 +19,26 @@ function ConversationPage() {
   }
 
   useEffect(() => {
-    user &&
-    authService
-      .getUserConversations(user._id)
-      .then((response) => { 
-        setConversations(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    updateConversation()
   }, [user]);
+
+  useEffect(()=>{
+    const updatedConversation= conversations.filter((conversation)=> conversation._id === currentConversation._id)
+    setCurrentConversation(updatedConversation)
+  },[conversations])
+
+  const updateConversation = ()=>{
+    user &&
+    authService.getUserConversations(user._id).then((response) => { 
+      setConversations(response.data);
+
+    
+      
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
   return (
     <div className="pageContainer conversationPage">
@@ -35,7 +46,7 @@ function ConversationPage() {
       <div className="chatRoom">
           {/* map all user's messages */}
           <div className="chatList">
-          {conversations &&
+          {(conversations && currentConversation) &&
           <div >
 
           {conversations.map((conversation) => (
@@ -48,7 +59,7 @@ function ConversationPage() {
           }
           </div>
           <div className="chatBox">
-            <Chatbox conversation={currentConversation}/>
+            <Chatbox conversation={currentConversation} updateConversation={updateConversation()}/>
           </div>
       </div>
     </div>
