@@ -7,8 +7,7 @@ import authService from "../../services/auth.service";
 
 function Chatbox(props) {
   const { user } = useContext(AuthContext);
-  const { conversation } = props;
-
+  const { conversation } = props; 
  
   const [message,setMessage, updateConversation]=useState("")
   const[errorMessage, setErrorMessage]=useState('')
@@ -32,9 +31,9 @@ function Chatbox(props) {
 
   }
 
-  useEffect(()=>{
+//   useEffect(()=>{
 
-  },[conversation])
+//   },[conversation])
 
   return (
     <div className="chatbox">
