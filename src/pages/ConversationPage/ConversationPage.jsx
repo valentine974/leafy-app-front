@@ -5,16 +5,23 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 import ChatListElem from "../../components/Chat/ChatListElem";
 import "./ConversationPage.css";
+import Chatbox from "../../components/Chat/Chatbox";
 
 function ConversationPage() {
   const { user } = useContext(AuthContext);
   const [conversations, setConversations] = useState([]);
+  const [currentConversation, setCurrentConversation]= useState(null);
+
+  const handleCurrentConversation =(conversation)=> { 
+    console.log("on click :", conversation)
+    setCurrentConversation(conversation)
+  }
 
   useEffect(() => {
+    user &&
     authService
       .getUserConversations(user._id)
-      .then((response) => {
-        console.log(response.data);
+      .then((response) => { 
         setConversations(response.data);
       })
       .catch((err) => {
@@ -28,14 +35,20 @@ function ConversationPage() {
       <div className="chatRoom">
           {/* map all user's messages */}
           <div className="chatList">
-            {conversations.map((conversation) => (
-              <>
+          {conversations &&
+          <div >
+
+          {conversations.map((conversation) => (
+              <button key={conversation._id} onClick={(()=> handleCurrentConversation(conversation))} >
                 <ChatListElem conversation={conversation} />
-              </>
+              </button>
             ))}
+
+          </div>
+          }
           </div>
           <div className="chatBox">
-            <h1>select one chat to see the details</h1>
+            <Chatbox conversation={currentConversation}/>
           </div>
       </div>
     </div>

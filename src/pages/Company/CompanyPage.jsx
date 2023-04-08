@@ -16,7 +16,7 @@ function CompanyPage() {
   const { id } = useParams();
 
   const handleChat = () => {
-    console.log("chat")
+    
  
   }
 

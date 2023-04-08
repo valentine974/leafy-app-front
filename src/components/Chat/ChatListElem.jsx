@@ -6,11 +6,11 @@ function ChatListElem(props) {
     <div className="singleChat card">
       <div className="left imagesContainer">
         {participants.map((participant) => (
-          <>
-            <div className="miniProfileImageContainer">
+          
+            <div key={participant._id} className="miniProfileImageContainer">
               <img src={participant.imageUrl} alt="profilePic" />
             </div>
-          </>
+          
         ))}
       </div>
       <div className="right">

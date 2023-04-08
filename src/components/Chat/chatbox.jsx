@@ -1,30 +1,38 @@
+import { useContext } from "react";
 
-function Chatbox() {
-    return (  
-        
-                <div className="chatbox">
-                    <div className="chatbox__header">
-                        <div className="chatbox__header__left">
+import { AuthContext } from "../../context/auth.context";
 
-                        </div>
-                        <div className="chatbox__header__right">
+function Chatbox(props) {
+ const {user}= useContext(AuthContext)
+  const { conversation } = props;
+  console.log("received prop", conversation)
+  return (
+    
+    <div className="chatbox">
+    {(user && conversation)?  
+    <>
+      <h1> 
+        Conversation with: {conversation.participants.map((participant) => <img key={participant._id} src={participant.imageUrl} alt={participant.name}  style={{"width":"30px",}} />  )} 
+      </h1>
 
-                        </div>
-                    </div>
-                    <div className="chatbox__body">
-                        <div className="chatbox__body__left">
+      <div className="messageContainer">
+      {conversation.messages.map((message)=>{
+        <div className={`singleMessage ${message.sender._id ===user._id?"right":"left"}`}>
+        <p><b>{message.sender.name}:</b> {message.content}</p>
 
-                        </div>
-                        <div className="chatbox__body__right">
+        </div>
+      })}
 
-                        </div>
-                    </div>
-                    <div className="chatbox__footer">
+      </div>
 
-                    </div>
-                </div>
+    
+      </>: 
+            <h1>select one chat to see the details</h1>
+    }
 
-    );
+    </div>
+ 
+  );
 }
 
 export default Chatbox;
