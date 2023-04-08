@@ -99,6 +99,11 @@ function Navbar() {
         <img src={leavesImage} alt="Leaves"/> <p >My requests</p>
             {/* <button style={buttonStyle} >My requests</button> */}
           </Link>
+
+          <Link to={`/conversations`} style={linkStyle}>
+          {/* add unread messages on red number later */}
+            <button style={buttonStyle}>inMails</button>
+          </Link>
         </>
       )}
 

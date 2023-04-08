@@ -49,10 +49,6 @@ class AuthService {
     return this.api.post(`/api/create-conversation`,requestBody)
   }
 
-  getConversations = ()=> { 
-    return this.api.get(`/api/conversations`)
-  }
-
   getConversation = (conversationId) =>{
     return this.api.get(`/api/conversation/${conversationId}`)
   }
@@ -121,7 +117,10 @@ class AuthService {
   deleteRequest = (id)=>{
     return this.api.delete(`/api/request/${id}`)
   }
-
+  getUserRequests = (userId) =>{  
+    return this.api.get(`/api/user/${userId}/requests`)
+  }
+  
   getRequests = () =>{
   
     return this.api.get(`/api/requests`)

@@ -8,7 +8,6 @@ function UserCreationPage() {
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [position, setPosition] = useState("");
   const [surname, setSurname] = useState("");
   const [companyId, setCompanyId] = useState("");
@@ -16,6 +15,7 @@ function UserCreationPage() {
   const [managers, setManagers] = useState([]); // managers are the possible validators
   const [contractStartDate, setContractStartDate] = useState("");
   const [companies, setCompanies] = useState([]);
+  
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -23,9 +23,7 @@ function UserCreationPage() {
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
+ 
   const handlePosition = (e) => {
     setPosition(e.target.value);
   };
@@ -52,12 +50,12 @@ function UserCreationPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("email:", email, "password:", password, "name:", name, "surname:", surname, "position:", position, "companyId:", companyId, "validators:", validators, "contractStartDate:", contractStartDate);
+    console.log("email:", email,  "name:", name, "surname:", surname, "position:", position, "companyId:", companyId, "validators:", validators, "contractStartDate:", contractStartDate);
     if (
       name === "" ||
       surname === "" ||
       email === "" ||
-      password === "" ||
+  
       position === "" ||
       companyId === "" ||
       validators === "" ||
@@ -69,8 +67,7 @@ function UserCreationPage() {
     authService
       .createUser({
         name,
-        email,
-        password,
+        email, 
         position,
         surname,
         companyId,
@@ -104,7 +101,6 @@ function UserCreationPage() {
     authService
       .getUsers()
       .then((response) => {
-        console.log("companyId:",companyId);
         setManagers(
           response.data.filter(
             (user) =>
@@ -149,15 +145,7 @@ function UserCreationPage() {
                 onChange={handleEmail}
               />
             </label>
-            <label>
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={password}
-                onChange={handlePassword}
-              />
-            </label>
+       
             <label>
               Position:
               <select name="position" onChange={handlePosition}>
