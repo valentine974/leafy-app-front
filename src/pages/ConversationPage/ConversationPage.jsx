@@ -10,11 +10,9 @@ function ConversationPage() {
   const { user } = useContext(AuthContext);
   const [conversations, setConversations] = useState([]);
   const [currentConversation, setCurrentConversation] = useState(null);
-  console.log("in page conversations",conversations);
-  console.log("in page current",currentConversation)
 
   const handleCurrentConversation = (conversation) => {
-    console.log("on click :", conversation);
+    // console.log("on click :", conversation);
     setCurrentConversation(conversation);
   };
 
@@ -28,14 +26,23 @@ function ConversationPage() {
         .catch((err) => {
           console.log(err);
         });
+
+    currentConversation &&
+      authService
+        .getConversation(currentConversation._id)
+        .then((response) => 
+        {
+          console.log("response", response.data)
+          setCurrentConversation(response.data)
+        })
+        .catch((err) => console.log(err));
   };
 
   useEffect(() => {
     updateConversation()
+  }, [user]);
 
-  }, []);
-
-  useEffect(() => {
+ /*  useEffect(() => {
     if(currentConversation && conversations){
       const updatedConversation = conversations.filter(
         (conversation) => conversation._id === currentConversation._id
@@ -44,7 +51,7 @@ function ConversationPage() {
   
       setCurrentConversation(updatedConversation[0]);
     } 
-  }, [conversations]);
+  }, [conversations]); */
 
 
 
@@ -70,7 +77,7 @@ function ConversationPage() {
         <div className="chatBox">
           <Chatbox
             conversation={currentConversation}
-            updateConversation={updateConversation()}
+            updateConversation={updateConversation}
           />
         </div>
       </div>

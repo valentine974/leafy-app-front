@@ -1,15 +1,13 @@
-import { useContext, useState, useEffect} from "react";
-
-
+import { useContext, useState} from "react";
 import { AuthContext } from "../../context/auth.context";
 import formatDateTime from "../../utils/dateTimeFormating"; 
 import authService from "../../services/auth.service"; 
 
 function Chatbox(props) {
   const { user } = useContext(AuthContext);
-  const { conversation } = props; 
+  const { conversation , updateConversation} = props; 
  
-  const [message,setMessage, updateConversation]=useState("")
+  const [message,setMessage]=useState("")
   const[errorMessage, setErrorMessage]=useState('')
 
   const handleText= (e)=>{
@@ -31,9 +29,7 @@ function Chatbox(props) {
 
   }
 
-//   useEffect(()=>{
-
-//   },[conversation])
+ 
 
   return (
     <div className="chatbox">
