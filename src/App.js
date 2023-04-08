@@ -19,13 +19,23 @@ import CompaniesPage from './pages/Company/CompaniesPage';
 import CompanyPage from './pages/Company/CompanyPage';
 import UsersPage from './pages/ProfilePage/UsersPage';
 import RequestHandlingPage from './pages/Requests/RequestHandlingPage';
+import menuImage from '../src/Images/menu.png'
 import ConversationPage from './pages/ConversationPage/ConversationPage';
 
+
 function App() {
+
+ 
   return (
     <div className="App">
-    <Navbar/>
-     <Routes>
+    <div className= "navbar">
+    <Navbar />
+    </div>
+    <div className="page"> 
+    <div className="header">
+    <img src={menuImage} alt="Menu" />
+    </div>
+    <Routes>
       {/* DONE */}
       <Route path="/user/:id" element={ <IsPrivate><ProfilePage /> </IsPrivate> } /> 
       <Route path="/" element={ <HomePage/>  }></Route> 
@@ -48,6 +58,8 @@ function App() {
       <Route path="/conversations" element={ <ConversationPage/> }></Route>
 
      </Routes>
+     </div>
+    
     </div>
   );
 }
