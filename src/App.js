@@ -21,6 +21,7 @@ import UsersPage from './pages/ProfilePage/UsersPage';
 import RequestHandlingPage from './pages/Requests/RequestHandlingPage';
 import menuImage from '../src/Images/menu.png'
 import ConversationPage from './pages/ConversationPage/ConversationPage';
+import ConversationListPage from './pages/ConversationPage/ConversationListPage';
 
 
 function App() {
@@ -55,8 +56,8 @@ function App() {
 
       {/* TO DO */}
       {/* conversation route */}
-      <Route path="/conversations" element={ <ConversationPage/> }></Route>
-
+      <Route path="/conversations" element={ <ConversationListPage/> }></Route>
+      <Route path="/conversation/:id" element={ <ConversationPage/> }></Route>
      </Routes>
      </div>
     

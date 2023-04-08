@@ -32,7 +32,7 @@ function HomePage() {
       <div className="cards">
       {features.map((feature) => (
       
-          <FeatureBox
+          <FeatureBox key={feature.featureName}
             featureName={feature.featureName}
             featureLogo={feature.featureLogo}
             featureImg={feature.featureImg}
