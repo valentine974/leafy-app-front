@@ -7,6 +7,7 @@ import subDays from 'date-fns/subDays'
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays'
 import differenceInBusinessDays from 'date-fns/differenceInBusinessDays'
 import { setDay } from "date-fns";
+import CalendarComponent from "../../components/Calendar/CalendarComponent";
 
 function RequestCreationPage() {
   /* request setting page with all it's properties: status, isFullDay, startDate, morningAfternoonStart, endDate, morningAfternoonEnd, comments */
@@ -120,6 +121,10 @@ function RequestCreationPage() {
   return (
     <div>
       <h1>Request Creation</h1>
+      <br />
+    <CalendarComponent/>
+    <br />
+
       <p> You have {daysLeft} vacation days left </p>
       {user && (
         <>

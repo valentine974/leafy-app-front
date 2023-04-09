@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 import formatDate from "../../utils/dateFormating";
+import CalendarComponent from "../../components/Calendar/CalendarComponent";
 function RequestReviewPage() {
   const { user } = useContext(AuthContext);
 
@@ -28,6 +29,10 @@ function RequestReviewPage() {
   return (
     <div className="pageContainer">
       <h1 className="pageTitle">Request Review</h1>
+      <br />
+      <CalendarComponent />
+      <br />
+
       <div className="requestCards">
         {requests?.map((request) => (
           <div className={`requestCard ${request.status}`}>

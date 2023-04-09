@@ -28,6 +28,7 @@ const features = [
 function HomePage() {
   return (
     <div className="pageContainer">
+
       <h1 className="pageTitle">Nice features of LEAFY to help you manage <br /> your team's vacations with zen inside</h1>
       <div className="cards">
       {features.map((feature) => (
