@@ -23,41 +23,57 @@ import menuImage from '../src/Images/menu.png'
 import ConversationPage from './pages/ConversationPage/ConversationPage';
 import ConversationListPage from './pages/ConversationPage/ConversationListPage';
 
+import { useState } from 'react';
+
 
 function App() {
+  const [toggleMenuPage, setToggleMenuPage] = useState("closeNavbar")
+  const [togglePage, setTogglePage] = useState("openPage")
+  console.log("menu state in page ini",toggleMenuPage)
 
+
+  const handleMenu =()=>{
+
+    toggleMenuPage ==="displayNavbar"?setToggleMenuPage("closeNavbar"):setToggleMenuPage("displayNavbar") 
+    toggleMenuPage ==="closeNavbar"?setTogglePage("closePage"):setTogglePage("displayPage") 
+     
+   
+    
+  }
  
   return (
-    <div className="App">
-    <div className= "navbar">
-    <Navbar />
-    </div>
-    <div className="page"> 
+    <div className="App"> 
+    <Navbar handleMenu={handleMenu} toggleMenuPage={toggleMenuPage}/>
+     
+    <div className={`page ${togglePage}`} onClick={()=>handleMenu()}> 
+
+
     <div className="header">
-    <img src={menuImage} alt="Menu" />
+    <img src={menuImage} alt="Menu" onClick={()=>handleMenu()}/> 
     </div>
+
     <Routes>
       {/* DONE */}
       <Route path="/user/:id" element={ <IsPrivate><ProfilePage /> </IsPrivate> } /> 
-      <Route path="/" element={ <HomePage/>  }></Route> 
+      <Route path="/" element={ <HomePage togglePage={togglePage}/>  }></Route> 
       <Route path="/login" element={<LoginPage />}/>
-      <Route path="/user/modify-password" element={ <IsPrivate> <ModifyPasswordPage/> </IsPrivate>   }></Route>
-      <Route path="/user/:id/settings" element={ <IsPrivate><UserSettingPage/> </IsPrivate>}></Route>
-      <Route path="/create-company" element={ <CompanyCreationPage/>  }></Route>
-      <Route path="/company/:id/settings" element={ <CompanySettingPage/>  }></Route>
-      <Route path="/companies" element={ <CompaniesPage/>  }></Route>
-      <Route path="/company/:id" element={ <CompanyPage/>  }></Route>
-      <Route path="/users" element={ <UsersPage/>}></Route>
-      <Route path="/create-user" element={ <UserCreationPage/>}></Route>
-      <Route path="/handle-request" element={ <RequestHandlingPage/>  }></Route>
-      <Route path="/create-request" element={ <RequestCreationPage></RequestCreationPage> }></Route>
-      <Route path="/request/review" element={ <RequestReviewPage/>  }></Route>
-      <Route path="/request/:id/settings" element={ <RequestSettingPage/>  }></Route>
+      <Route path="/user/modify-password" element={ <IsPrivate> <ModifyPasswordPage togglePage={togglePage}/> </IsPrivate>   }></Route>
+      <Route path="/user/:id/settings" element={ <IsPrivate><UserSettingPage togglePage={togglePage}/> </IsPrivate>}></Route>
+      <Route path="/create-company" element={ <CompanyCreationPage togglePage={togglePage}/>  }></Route>
+      <Route path="/company/:id/settings" element={ <CompanySettingPage togglePage={togglePage}/>  }></Route>
+      <Route path="/companies" element={ <CompaniesPage togglePage={togglePage}/>  }></Route>
+      <Route path="/company/:id" element={ <CompanyPage togglePage={togglePage}/>  }></Route>
+      <Route path="/users" element={ <UsersPage togglePage={togglePage}/>}></Route>
+      <Route path="/create-user" element={ <UserCreationPage togglePage={togglePage}/>}></Route>
+      <Route path="/handle-request" element={ <RequestHandlingPage togglePage={togglePage}/>  }></Route>
+      <Route path="/create-request" element={ <RequestCreationPage togglePage={togglePage}/> }></Route>
+      <Route path="/request/review" element={ <RequestReviewPage togglePage={togglePage}/>  }></Route>
+      <Route path="/request/:id/settings" element={ <RequestSettingPage togglePage={togglePage}/>  }></Route>
 
       {/* TO DO */}
       {/* conversation route */}
-      <Route path="/conversations" element={ <ConversationListPage/> }></Route>
-      <Route path="/conversation/:id" element={ <ConversationPage/> }></Route>
+      <Route path="/conversations" element={ <ConversationListPage togglePage={togglePage}/> }></Route>
+      <Route path="/conversation/:id" element={ <ConversationPage togglePage={togglePage}/> }></Route>
      </Routes>
      </div>
     

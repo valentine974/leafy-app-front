@@ -3,19 +3,20 @@ import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
 import homeImage from "../../Images/home-icon-silhouette.png";
-import logoutImage from "../../Images/logout.png";
-import profileImage from "../../Images/profile.png";
+import logoutImage from "../../Images/logout.png"; 
 import leavesImage from "../../Images/leavescute.png";
 import authService from "../../services/auth.service"; 
 
 
-function Navbar() {
+function Navbar(props) {
   // Subscribe to the AuthContext to gain access to
   // the values from AuthContext.Provider's `value` prop
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
   const[companyPicture, setCompanyPicture] = useState()
-  const[profilePicture, setProfilePicture] = useState()
-
+  const[profilePicture, setProfilePicture] = useState() 
+  const {handleMenu, toggleMenuPage} = props
+ 
+  
   
   useEffect(()=>{
     user &&
@@ -27,11 +28,11 @@ function Navbar() {
     authService
     .getUser(user._id)
     .then((response)=> setProfilePicture(response.data.imageUrl))
-
-    
-    // user && setProfilePicture(user.imageUrl)
+ 
 
   },[user])
+
+ 
 
   const linkStyle = {
     textDecoration: "none",
@@ -62,32 +63,29 @@ function Navbar() {
 
   return (
     
-    <nav>
+    <nav className={toggleMenuPage}>
     <h1>Menu</h1>
       <Link to="/" style={linkStyle}>
 
-      <img src={homeImage} alt="Home"/> <p>Home</p>
+      <img src={homeImage} alt="Home"  onClick={()=>{handleMenu(); }} /> <p>Home</p>
         {/* <button style={buttonStyle}>Home</button> */}
       </Link>
 
       {isLoggedIn && user && (
         <>
-          <Link to="/"  style={linkStyle}> 
+          <Link to="/"  style={linkStyle} onClick={()=>{handleMenu();  logOutUser();}}> 
  
-          <img src={logoutImage} alt="Logout"/><p onClick={logOutUser}  >  Logout</p>
+          <img src={logoutImage} alt="Logout" /><p  >  Logout</p>
            
           </Link>
           
 
-          <Link to={`user/${user._id}`} style={linkStyle}> 
-            <p ><img src={profilePicture} alt="Profile"/>Profile</p>
-            {/* <img src={profileImage} alt="Profile"/><p >Profile</p> */}
-            {/* <img src="https://picsum.photos/id/402/200/300" style={{ width: 50, height: 50, borderRadius: 25}} alt="profile" /> */}
+          <Link to={`user/${user._id}`} style={linkStyle} onClick={()=>{handleMenu();  }}> 
+            <p ><img src={profilePicture} alt="Profile"/>Profile</p> 
           </Link>
 
-          <Link to={`/company/${user.companyId}`}  style={linkStyle}> 
-            <p ><img src={companyPicture} alt="Company"/>My company</p>
-            {/* <button style={buttonStyle} >My company</button> */}
+          <Link to={`/company/${user.companyId}`}  style={linkStyle} onClick={()=>{handleMenu();  }}> 
+            <p ><img src={companyPicture} alt="Company"/>My company</p> 
           </Link>
         </>
       )}
@@ -95,12 +93,11 @@ function Navbar() {
 
       {isLoggedIn && user && user.position !== "admin" && (
         <>
-        <Link to={`/request/review`} style={linkStyle} >
-        <img src={leavesImage} alt="Leaves"/> <p >My requests</p>
-            {/* <button style={buttonStyle} >My requests</button> */}
+        <Link to={`/request/review`} style={linkStyle} onClick={()=>{handleMenu();  }}>
+        <img src={leavesImage} alt="Leaves"/> <p >My requests</p> 
           </Link>
 
-          <Link to={`/conversations`} style={linkStyle}>
+          <Link to={`/conversations`} style={linkStyle} onClick={()=>{handleMenu();  }}>
           {/* add unread messages on red number later */}
             <button style={buttonStyle}>inMails</button>
           </Link>
@@ -110,7 +107,7 @@ function Navbar() {
 
       {isLoggedIn && user && (user.position === "hr"|| user.position ==="manager") && (
         <>
-          <Link to="/handle-request" style={linkStyle}>
+          <Link to="/handle-request" style={linkStyle} onClick={()=>{handleMenu();  }}>
             <button style={buttonStyle}>Handle requests</button>
           </Link>
         </>
@@ -118,7 +115,7 @@ function Navbar() {
 
       {isLoggedIn && user && (user.position === "hr"|| user.position ==="manager" || user.position ==="admin") && (
         <>
-          <Link to="/users" style={linkStyle}>
+          <Link to="/users" style={linkStyle} onClick={()=>{handleMenu();  }}>
             <button style={buttonStyle}>All users</button>
           </Link>
         </> 
@@ -126,7 +123,7 @@ function Navbar() {
 
       {isLoggedIn && user && user.position === "admin" && (
         <> 
-        <Link to="/companies" style={linkStyle}>
+        <Link to="/companies" style={linkStyle} onClick={()=>{handleMenu();  }}>
             <button style={buttonStyle}>All companies</button>
           </Link>
         </>
@@ -136,7 +133,7 @@ function Navbar() {
 
       {!isLoggedIn && (
         <> 
-          <Link to="/login" style={linkStyle}>
+          <Link to="/login" style={linkStyle} onClick={()=>{handleMenu();  }}>
             <button style={buttonStyle}>Login</button>{" "}
           </Link>
         </>
