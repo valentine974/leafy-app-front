@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 import "./ProfilePages.css";
+import ChatBtn from "../../components/Chat/ChatBtn";
+
+
 function UsersPage() {
   const [users, setUsers] = useState(null);
   const { user, isLoggedIn } = useContext(AuthContext);
@@ -76,7 +79,7 @@ function UsersPage() {
             <h3>{oneUser.name}</h3>
             <Link to={`/user/${oneUser._id}`}> Go to user profile page </Link>
             {oneUser._id !== user._id &&<button onClick={()=> handleDelete(oneUser._id)}>Delete User</button>}
-            {oneUser._id !== user._id && isLoggedIn && <button className="chatBtn" onClick={()=>handleChat(oneUser._id)}>💬</button>}
+            {oneUser._id !== user._id && isLoggedIn && <button className="chatBtn" onClick={()=>handleChat(oneUser._id)}><ChatBtn/></button>}
           </div>
         ))}
       </div>

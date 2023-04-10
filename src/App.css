@@ -132,7 +132,7 @@ form > button{
   margin: 20px 0;
 }
 
-.userCard{
+.userCard, .requestCard{
   display:flex;
   flex-flow: column;
   position: relative;
@@ -160,16 +160,15 @@ form > button{
  
 .chatBtn{
   position: absolute;
-  bottom: 0;
+  top: 0;
   right: 0;
   width: 30px;
   height: 30px;
   margin: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 0px;
   text-align: center;
   box-sizing: border-box;
-  background-color:#ccc;
+  background-color: transparent;
   color: white;
   font-size: 1.2rem;
   font-weight: 600;

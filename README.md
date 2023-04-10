@@ -3,7 +3,17 @@
 # LEAFY 
 a leave request gestion app 
 
+deployed on notlify: https://leafy.netlify.app/
+
 ---
+
+#### To test the project yourself, you will need the following variables in .env
+
+- **PORT**: the port you want to use for local testing
+- **REACT_APP_SERVER_URL**: the deployed serveur url
+
+---
+
 
 ## Description
 
@@ -52,7 +62,3 @@ Models will be explained in the backend readme.
 - **messaging** (for the chat)
 - **nodemailer** (for the account creation, password reset, requests status change)
 
-## .env
-
-- **PORT**: the port you want to use for local testing
-- **REACT_APP_SERVER_URL**: the deployed serveur url

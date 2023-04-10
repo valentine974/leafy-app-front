@@ -9,6 +9,17 @@ function RequestReviewPage() {
 
   const [requests, setRequests] = useState(null);
 
+  const reactLinkStyle = {
+    textDecoration: "none",
+    color: "pink !important",
+    backgroundColor: "white !important",
+    margin: "5px",
+    padding: "5px",
+    borderRadius: "5px",
+    border: "1px solid pink",
+    boxShadow: "0 0 5px 0 rgba(0, 0, 0, 0.2)",
+  };
+
   useEffect(() => {
     user && authService
       .getRequests()
@@ -46,7 +57,7 @@ function RequestReviewPage() {
               <li> {validation.validatorId.name}: {validation.status}</li>
             ))}
 
-            <Link to={`/request/${request._id}/settings`}>
+            <Link to={`/request/${request._id}/settings`} style={reactLinkStyle}>
               To modify my request
             </Link>
             <button onClick={() => handleDeleteButton(request._id)}>
@@ -55,7 +66,7 @@ function RequestReviewPage() {
           </div>
         ))}
       </div>
-      <Link to="/create-request ">Request LEAF</Link>
+      <Link to="/create-request " style={reactLinkStyle}>Request LEAF</Link>
     </div>
   );
 }

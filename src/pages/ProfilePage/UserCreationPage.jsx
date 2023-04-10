@@ -17,6 +17,7 @@ function UserCreationPage() {
   const [companies, setCompanies] = useState([]);
   
 
+  
   const handleName = (e) => {
     setName(e.target.value);
   };

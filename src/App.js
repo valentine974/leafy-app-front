@@ -24,7 +24,15 @@ import ConversationPage from './pages/ConversationPage/ConversationPage';
 import ConversationListPage from './pages/ConversationPage/ConversationListPage';
 
 
+// font awesome
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {fab} from "@fortawesome/free-brands-svg-icons";
+import {faMessage}  from "@fortawesome/free-solid-svg-icons";
+library.add(fab, faMessage)
+
+
 function App() {
+// special styling for react objects like Link
 
  
   return (
