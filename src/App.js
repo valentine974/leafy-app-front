@@ -51,21 +51,21 @@ function App() {
       <Route path="/login" element={<LoginPage />}/>
       <Route path="/user/modify-password" element={ <IsPrivate> <ModifyPasswordPage/> </IsPrivate>   }></Route>
       <Route path="/user/:id/settings" element={ <IsPrivate><UserSettingPage/> </IsPrivate>}></Route>
-      <Route path="/create-company" element={ <CompanyCreationPage/>  }></Route>
-      <Route path="/company/:id/settings" element={ <CompanySettingPage/>  }></Route>
-      <Route path="/companies" element={ <CompaniesPage/>  }></Route>
-      <Route path="/company/:id" element={ <CompanyPage/>  }></Route>
-      <Route path="/users" element={ <UsersPage/>}></Route>
-      <Route path="/create-user" element={ <UserCreationPage/>}></Route>
-      <Route path="/handle-request" element={ <RequestHandlingPage/>  }></Route>
-      <Route path="/create-request" element={ <RequestCreationPage></RequestCreationPage> }></Route>
-      <Route path="/request/review" element={ <RequestReviewPage/>  }></Route>
-      <Route path="/request/:id/settings" element={ <RequestSettingPage/>  }></Route>
+      <Route path="/create-company" element={ <IsPrivate><CompanyCreationPage/> </IsPrivate>  }></Route>
+      <Route path="/company/:id/settings" element={  <IsPrivate><CompanySettingPage/></IsPrivate>  }></Route>
+      <Route path="/companies" element={ <IsPrivate><CompaniesPage/></IsPrivate>   }></Route>
+      <Route path="/company/:id" element={ <IsPrivate><CompanyPage/></IsPrivate>   }></Route>
+      <Route path="/users" element={ <IsPrivate><UsersPage/></IsPrivate>}></Route>
+      <Route path="/create-user" element={ <IsPrivate> <UserCreationPage/></IsPrivate>}></Route>
+      <Route path="/handle-request" element={ <IsPrivate><RequestHandlingPage/></IsPrivate>  }></Route>
+      <Route path="/create-request" element={ <IsPrivate><RequestCreationPage/></IsPrivate> }></Route>
+      <Route path="/request/review" element={<IsPrivate><RequestReviewPage/> </IsPrivate>  }></Route>
+      <Route path="/request/:id/settings" element={ <IsPrivate><RequestSettingPage/></IsPrivate>  }></Route>
 
       {/* TO DO */}
       {/* conversation route */}
-      <Route path="/conversations" element={ <ConversationListPage/> }></Route>
-      <Route path="/conversation/:id" element={ <ConversationPage/> }></Route>
+      <Route path="/conversations" element={<IsPrivate><ConversationListPage/></IsPrivate>  }></Route>
+      <Route path="/conversation/:id" element={ <IsPrivate><ConversationPage/></IsPrivate> }></Route>
      </Routes>
      </div>
     

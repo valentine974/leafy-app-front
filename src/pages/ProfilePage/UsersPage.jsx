@@ -69,6 +69,9 @@ function UsersPage() {
   return (
     <div className="pageContainer">
       <h1 className="pageTitle"> Manage Users </h1> 
+      <Link to="/create-user">
+        <button>Create a new user</button>
+      </Link>
       <div className="cards">
       {users && user &&
         users.map((oneUser) => (
@@ -83,9 +86,7 @@ function UsersPage() {
           </div>
         ))}
       </div>
-      <Link to="/create-user">
-        <button>Create a new user</button>
-      </Link>
+
     </div>
   );
 }

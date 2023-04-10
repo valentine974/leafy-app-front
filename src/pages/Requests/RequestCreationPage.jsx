@@ -141,10 +141,11 @@ function RequestCreationPage() {
       {user && (
         <div className="formBody">
           <form onSubmit={handleSubmit}>
-            <div>
-              <CalendarComponent date={date} onDateChange={handleDateChange} />
+
+              <CalendarComponent className="calendar" date={date} onDateChange={handleDateChange} />
+
               <p> You have {daysLeft} vacation days left </p>
-            </div>
+
             <label>
               Full day
               <input

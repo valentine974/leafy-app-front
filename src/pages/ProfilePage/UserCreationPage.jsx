@@ -56,7 +56,6 @@ function UserCreationPage() {
       name === "" ||
       surname === "" ||
       email === "" ||
-  
       position === "" ||
       companyId === "" ||
       validators === "" ||
@@ -68,9 +67,9 @@ function UserCreationPage() {
     authService
       .createUser({
         name,
+        surname,
         email, 
         position,
-        surname,
         companyId,
         validators,
         contractStartDate,
