@@ -124,7 +124,6 @@ function Navbar(props) {
       {isLoggedIn && user && user.position !== "admin" && (
         <>
 
-      <h1>HR & Managers</h1>
 
           
         </>
@@ -134,6 +133,7 @@ function Navbar(props) {
         user &&
         (user.position === "hr" || user.position === "manager") && (
           <>
+      <h1>HR & Managers</h1>
             <Link
               to="/handle-request"
               style={linkStyle}
