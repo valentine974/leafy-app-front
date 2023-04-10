@@ -51,17 +51,18 @@ function ProfilePage(props) {
   return (
     <div className={`pageContainer ${togglePage}`}>
       <div className={`pageTitle ${togglePage}`}>
-        <h1>Profile page</h1>
+      <h1>
+          {name} {surname}
+        </h1>
+        <p>{email}</p>
       </div>
       <div className="pageContent">
         <div className="imageContainer">
           <img src={imageUrl} alt="profile" />
         </div>
 
-        <p>
-          {name} {surname}
-        </p>
-        <p>{email}</p>
+        
+        
         {company && (
           <Link to={`/company/${company._id}`} style={adresseStyle}>
             {" "}

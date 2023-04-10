@@ -32,7 +32,7 @@ function RequestReviewPage(props) {
   return (
     <div className={`pageContainer ${togglePage}`}>
       <div className={`pageTitle ${togglePage}`}>
-        <h1>Request Review</h1>
+        <h1>LEAF REQUESTS</h1>
       </div>
       <div className="pageContent">
         <Link to="/create-request ">Request LEAF</Link>

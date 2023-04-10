@@ -69,11 +69,12 @@ function UsersPage(props) {
 
     <div className={`pageTitle ${togglePage}`}><h1 > Manage Users </h1></div>
     <div className="pageContent">
-    <div className="cards">
-
     <Link to="/create-user">
         <button>Create a new user</button>
       </Link>
+    <div className="cards">
+
+    
       {users && user &&
         users.map((oneUser) => (
           <div className="userCard" key={oneUser._id}>
