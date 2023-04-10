@@ -19,35 +19,56 @@ import CompaniesPage from './pages/Company/CompaniesPage';
 import CompanyPage from './pages/Company/CompanyPage';
 import UsersPage from './pages/ProfilePage/UsersPage';
 import RequestHandlingPage from './pages/Requests/RequestHandlingPage';
+import menuImage from '../src/Images/menu.png'
 import ConversationPage from './pages/ConversationPage/ConversationPage';
+import ConversationListPage from './pages/ConversationPage/ConversationListPage';
+
+
+// font awesome
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {fab} from "@fortawesome/free-brands-svg-icons";
+import {faMessage}  from "@fortawesome/free-solid-svg-icons";
+library.add(fab, faMessage)
+
 
 function App() {
+// special styling for react objects like Link
+
+ 
   return (
     <div className="App">
-    <Navbar/>
-     <Routes>
+    <div className= "navbar">
+    <Navbar />
+    </div>
+    <div className="page"> 
+    <div className="header">
+    <img src={menuImage} alt="Menu" />
+    </div>
+    <Routes>
       {/* DONE */}
       <Route path="/user/:id" element={ <IsPrivate><ProfilePage /> </IsPrivate> } /> 
       <Route path="/" element={ <HomePage/>  }></Route> 
       <Route path="/login" element={<LoginPage />}/>
       <Route path="/user/modify-password" element={ <IsPrivate> <ModifyPasswordPage/> </IsPrivate>   }></Route>
       <Route path="/user/:id/settings" element={ <IsPrivate><UserSettingPage/> </IsPrivate>}></Route>
-      <Route path="/create-company" element={ <CompanyCreationPage/>  }></Route>
-      <Route path="/company/:id/settings" element={ <CompanySettingPage/>  }></Route>
-      <Route path="/companies" element={ <CompaniesPage/>  }></Route>
-      <Route path="/company/:id" element={ <CompanyPage/>  }></Route>
-      <Route path="/users" element={ <UsersPage/>}></Route>
-      <Route path="/create-user" element={ <UserCreationPage/>}></Route>
-      <Route path="/handle-request" element={ <RequestHandlingPage/>  }></Route>
-      <Route path="/create-request" element={ <RequestCreationPage></RequestCreationPage> }></Route>
-      <Route path="/request/review" element={ <RequestReviewPage/>  }></Route>
-      <Route path="/request/:id/settings" element={ <RequestSettingPage/>  }></Route>
+      <Route path="/create-company" element={ <IsPrivate><CompanyCreationPage/> </IsPrivate>  }></Route>
+      <Route path="/company/:id/settings" element={  <IsPrivate><CompanySettingPage/></IsPrivate>  }></Route>
+      <Route path="/companies" element={ <IsPrivate><CompaniesPage/></IsPrivate>   }></Route>
+      <Route path="/company/:id" element={ <IsPrivate><CompanyPage/></IsPrivate>   }></Route>
+      <Route path="/users" element={ <IsPrivate><UsersPage/></IsPrivate>}></Route>
+      <Route path="/create-user" element={ <IsPrivate> <UserCreationPage/></IsPrivate>}></Route>
+      <Route path="/handle-request" element={ <IsPrivate><RequestHandlingPage/></IsPrivate>  }></Route>
+      <Route path="/create-request" element={ <IsPrivate><RequestCreationPage/></IsPrivate> }></Route>
+      <Route path="/request/review" element={<IsPrivate><RequestReviewPage/> </IsPrivate>  }></Route>
+      <Route path="/request/:id/settings" element={ <IsPrivate><RequestSettingPage/></IsPrivate>  }></Route>
 
       {/* TO DO */}
       {/* conversation route */}
-      <Route path="/conversations" element={ <ConversationPage/> }></Route>
-
+      <Route path="/conversations" element={<IsPrivate><ConversationListPage/></IsPrivate>  }></Route>
+      <Route path="/conversation/:id" element={ <IsPrivate><ConversationPage/></IsPrivate> }></Route>
      </Routes>
+     </div>
+    
     </div>
   );
 }

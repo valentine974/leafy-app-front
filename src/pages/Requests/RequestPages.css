@@ -1,3 +1,13 @@
+@media only screen and (max-width: 600px) {
+    .formBody{
+        width: 98%;
+    }
+}
+
+form{
+    min-width: 300px;
+
+}
 
 .pageContainer{
     display: flex;
@@ -9,7 +19,7 @@
 
 }
 
-.requestCards{
+.requestCards, .formBody{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

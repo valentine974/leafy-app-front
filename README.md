@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+<!-- create readme based on the project -->
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# LEAFY 
+a leave request gestion app 
 
-## Available Scripts
+deployed on notlify: https://leafy.netlify.app/
 
-In the project directory, you can run:
+---
 
-### `npm start`
+#### To test the project yourself, you will need the following variables in .env
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **PORT**: the port you want to use for local testing
+- **REACT_APP_SERVER_URL**: the deployed serveur url
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Description
 
-### `npm run build`
+This is the **frontend** of the Leafy project. It is a vacation request gestion app. It is a project for the ironhack bootcamp.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Account creation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Since it's a vacation request gestion app, it's desinated for companies. So it will always be the HR who will create the account for all users.The user will then receive an email with a link to login wil with given credentials.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+on first login, the user will be asked to change his password.
 
-### `npm run eject`
+## Authentication
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The user will be able to login with his email and password. The password will be encrypted with bcrypt, and token will be generated with JWT.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## User roles
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+There are 4 roles for the users:
+- **admin** (super user)
+- **hr** (human resources, user creator, vacation approver)
+- **manager** (vacation approver)
+- **employee** (basic user, no special rights)
 
-## Learn More
+## Pages: 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Home** (welcome page, for everyone)
+- **Login** (only for not logged in users)
+- **My company** (for logged in users)
+- **My profile** (for logged in users)
+- **My requests** (for logged in users)
+- **Hanle requests** (for logged in approvers)
+- **Create request** (for logged in users)
+- **Edit request** (for logged in users)
+- **Create user** (for logged in HR)
+- **Edit user** (for logged in HR)
+- **Create company** (for logged in Admin)
+- **Edit company** (for logged in Admin and HR)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Models
+Models will be explained in the backend readme.
 
-### Code Splitting
+## Interesting features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **react-calendar** (display loged in user's requests)
+- **messaging** (for the chat)
+- **nodemailer** (for the account creation, password reset, requests status change)
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

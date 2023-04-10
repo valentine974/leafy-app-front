@@ -1,30 +1,90 @@
+import { useContext, useState} from "react";
+import { AuthContext } from "../../context/auth.context";
+import formatDateTime from "../../utils/dateTimeFormating"; 
+import authService from "../../services/auth.service"; 
 
-function Chatbox() {
-    return (  
-        
-                <div className="chatbox">
-                    <div className="chatbox__header">
-                        <div className="chatbox__header__left">
+function Chatbox(props) {
+  const { user } = useContext(AuthContext);
+  const { conversation , updateConversation} = props; 
+ 
+  const [message,setMessage]=useState("")
+  const[errorMessage, setErrorMessage]=useState('')
 
-                        </div>
-                        <div className="chatbox__header__right">
+  const handleText= (e)=>{
+     setMessage(e.target.value)
+  }
 
-                        </div>
-                    </div>
-                    <div className="chatbox__body">
-                        <div className="chatbox__body__left">
+  const handleSubmit=(e)=>{
+     e.preventDefault()
 
-                        </div>
-                        <div className="chatbox__body__right">
+  if(message===""){setErrorMessage("Your message is empty")
+ return 
+ }
 
-                        </div>
-                    </div>
-                    <div className="chatbox__footer">
+     authService
+     .sendMessage(conversation._id, {sender:user._id,content:message})
+     .then((response)=>setMessage(""))
+     .then(()=> updateConversation())
+     .catch((err)=>console.log("err in sending message", err))
 
-                    </div>
-                </div>
+  }
 
-    );
+ 
+
+  return (
+    <div className="chatbox">
+      {(user && conversation)? (
+        <>
+          <h1>
+            Conversation with:
+            {conversation.participants.map((participant) => (
+              <img
+                key={participant._id}
+                src={participant.imageUrl}
+                alt={participant.name}
+                style={{ width: "30px" }}
+              />
+            ))}
+          </h1>
+
+          <div className="messageContainer">
+            {conversation.messages.map((message) => (
+              <div
+                key={message._id}
+                className={`singleMessage ${
+                  message.sender._id === user._id ? "me" : "others"
+                }`}
+              >
+                <p>
+                  <b>{message.sender.name}:</b> {message.content} 
+                </p>
+                <p style={{ color: "light-grey", fontSize: "0.5rem" }}>
+                  {formatDateTime(message.createdAt)}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="chatForm">
+            <form onSubmit={handleSubmit}>
+              <label>
+                Text:
+                <input
+                  type="textarea"
+                  value={message}
+                  onChange={handleText}
+                ></input>
+              </label>
+              <button type="submit" >Send</button>
+            </form>
+            {errorMessage && <p>{errorMessage}</p>}
+          </div>
+        </>
+      ) : (
+        <h1>select one chat to see the details</h1>
+      )}
+    </div>
+  );
 }
 
 export default Chatbox;

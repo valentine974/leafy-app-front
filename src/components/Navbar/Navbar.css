@@ -1,0 +1,33 @@
+nav {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: stretch;
+    align-items: start;
+
+    background-color: 	rgb(1, 98, 98);
+    /* background-color: 	rgb(162, 183, 127); */
+    max-width: 100%;
+    max-height: 100%;
+    height: 730px;
+
+    margin:0;
+    padding: 100px 20px 20px 20px;
+}
+
+nav img {
+    width: 30px;
+    border-radius: 20px;
+    padding-right: 10px;
+}
+
+nav p {
+    font-size: 1.3rem;
+    border-bottom: 1px solid rgb(212, 212, 212); 
+    max-width: 100%;
+}
+
+nav h1 {
+    color: white;
+    font-size: 2rem;
+}
+
