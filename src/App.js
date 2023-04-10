@@ -69,18 +69,18 @@ function App() {
        {/* need to add isPrivate */}
       <Route path="/user/modify-password" element={ <IsPrivate> <ModifyPasswordPage togglePage={togglePage}/> </IsPrivate>   }></Route>
       <Route path="/user/:id/settings" element={ <IsPrivate><UserSettingPage togglePage={togglePage}/> </IsPrivate>}></Route>
-      <Route path="/create-company" element={ <CompanyCreationPage togglePage={togglePage}/>  }></Route>
-      <Route path="/company/:id/settings" element={ <CompanySettingPage togglePage={togglePage}/>  }></Route>
-      <Route path="/companies" element={ <CompaniesPage togglePage={togglePage}/>  }></Route>
-      <Route path="/company/:id" element={ <CompanyPage togglePage={togglePage}/>  }></Route>
-      <Route path="/users" element={ <UsersPage togglePage={togglePage}/>}></Route>
-      <Route path="/create-user" element={ <UserCreationPage togglePage={togglePage}/>}></Route>
-      <Route path="/handle-request" element={ <RequestHandlingPage togglePage={togglePage}/>  }></Route>
-      <Route path="/create-request" element={ <RequestCreationPage togglePage={togglePage}/> }></Route>
-      <Route path="/request/review" element={ <RequestReviewPage togglePage={togglePage}/>  }></Route>
-      <Route path="/request/:id/settings" element={ <RequestSettingPage togglePage={togglePage}/>  }></Route>
-      <Route path="/conversations" element={ <ConversationListPage togglePage={togglePage}/> }></Route>
-      <Route path="/conversation/:id" element={ <ConversationPage togglePage={togglePage}/> }></Route>
+      <Route path="/create-company" element={ <IsPrivate><CompanyCreationPage togglePage={togglePage}/> </IsPrivate>     }></Route>
+      <Route path="/company/:id/settings" element={  <IsPrivate><CompanySettingPage togglePage={togglePage}/></IsPrivate>   }></Route>
+      <Route path="/companies" element={  <IsPrivate><CompaniesPage togglePage={togglePage}/></IsPrivate>  }></Route>
+      <Route path="/company/:id" element={ <IsPrivate><CompanyPage togglePage={togglePage}/> </IsPrivate>  }></Route>
+      <Route path="/users" element={ <IsPrivate><UsersPage togglePage={togglePage}/></IsPrivate> }></Route>
+      <Route path="/create-user" element={ <IsPrivate><UserCreationPage togglePage={togglePage}/></IsPrivate>}></Route>
+      <Route path="/handle-request" element={ <IsPrivate><RequestHandlingPage togglePage={togglePage}/> </IsPrivate> }></Route>
+      <Route path="/create-request" element={ <IsPrivate><RequestCreationPage togglePage={togglePage}/></IsPrivate>  }></Route>
+      <Route path="/request/review" element={ <IsPrivate><RequestReviewPage togglePage={togglePage}/> </IsPrivate>  }></Route>
+      <Route path="/request/:id/settings" element={  <IsPrivate><RequestSettingPage togglePage={togglePage}/> </IsPrivate> }></Route>
+      <Route path="/conversations" element={  <IsPrivate><ConversationListPage togglePage={togglePage}/></IsPrivate> }></Route>
+      <Route path="/conversation/:id" element={ <IsPrivate><ConversationPage togglePage={togglePage}/></IsPrivate>  }></Route>
       
       {/* old ones
       <Route path="/user/modify-password" element={ <IsPrivate> <ModifyPasswordPage/> </IsPrivate>   }></Route>
