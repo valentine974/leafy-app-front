@@ -42,7 +42,7 @@ function CalendarComponent(){
         value={date}
         tileClassName={({ date, view }) => {
       if(absentDays.find(elem => elem=== formatDate(date))){
-        console.log("this day is absent", formatDate(date))
+        // console.log("this day is absent", formatDate(date))
        return  'leafy-calendar-absent'
       }
     }}

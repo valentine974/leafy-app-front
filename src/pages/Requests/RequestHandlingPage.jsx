@@ -33,7 +33,7 @@ function RequestHandlingPage() {
     console.log("page updated");
   }, [requests]);
 
-  const handleChat = (receiverId) => {
+  const handleChat = (participantIds) => {
     // verify if the conversation already exists
     // latter on we will intergrate the attachement of the conversation to the request
     authService
@@ -44,7 +44,7 @@ function RequestHandlingPage() {
             (participant) => participant._id
           );
           return participantIds.every((id) =>
-            [user._id, receiverId].includes(id)
+            participantIds.includes(id)
           );
         });
       })
@@ -55,7 +55,7 @@ function RequestHandlingPage() {
         } else {
           // if not, create conversation then redirect to the conversation page
           authService
-            .createConversation({ participants: [user._id, receiverId] })
+            .createConversation({ participants: participantIds })
             .then((response) => {
               navigate(`/conversation/${response.data._id}`);
             })
@@ -146,7 +146,7 @@ function RequestHandlingPage() {
               {/* button to ask for information later when conversation models is built */}
               <button
                 className="chatBtn"
-                onClick={() => handleChat(request.requester._id)}
+                onClick={() => handleChat([ request.requester,...request.validations.map(item => item.validatorId._id)])}
               >
                 <ChatBtn/>
               </button>
