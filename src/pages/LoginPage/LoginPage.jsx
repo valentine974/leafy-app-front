@@ -7,7 +7,8 @@ import authService from "../../services/auth.service";
 
 // const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5006";
 
-function LoginPage() {
+function LoginPage(props) {
+  const {togglePage} =props
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
@@ -47,10 +48,10 @@ function LoginPage() {
 
 
   return (
-    <div className="pageContainer">
-      <h1 className="pageTitle">Login</h1>
-
-      <form onSubmit={handleLoginSubmit}>
+    <div className={`pageContainer ${togglePage}`}>
+    <div className={`pageTitle ${togglePage}`}><h1>Login</h1></div>
+    <div className="pageContent">
+    <form onSubmit={handleLoginSubmit}>
         <label>Email:</label>
         <input type="email" name="email" value={email} onChange={handleEmail} />
 
@@ -66,6 +67,10 @@ function LoginPage() {
       </form>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
  
+    </div>
+      
+
+      
     </div>
   );
 }

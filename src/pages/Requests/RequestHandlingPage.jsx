@@ -5,7 +5,8 @@ import { AuthContext } from "../../context/auth.context";
 import "./RequestPages.css";
 import formatDate from "../../utils/dateFormating";
  
-function RequestHandlingPage() {
+function RequestHandlingPage(props) {
+  const {togglePage}=props
   const { user } = useContext(AuthContext);
   const [requests, setRequests] = useState([]);
 
@@ -82,8 +83,11 @@ function RequestHandlingPage() {
   };
   
   return (
-    <div className="pageContainer">
-      <h1 className="pageTitle">Pending Requests</h1>
+    <div className={`pageContainer ${togglePage}`}>
+    <div className={`pageTitle ${togglePage}`}>
+    <h1 >Pending Requests</h1>
+    </div>
+    <div className="pageContent">
       <div className="requestCards">
         {requests && requests.map((request) => 
             <div className={`requestCard ${request.status}`} key={request._id}>
@@ -98,7 +102,9 @@ function RequestHandlingPage() {
               {/* button to ask for information later when conversation models is built */}
             </div>
           )}
-      </div>
+      </div></div>
+
+      
     </div>
   );
 }

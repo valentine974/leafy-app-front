@@ -26,20 +26,30 @@ const features = [
 ];
 
 function HomePage(props) {
-  const {togglePage} =props
+  const { togglePage } = props;
   return (
     <div className={`pageContainer ${togglePage}`}>
-      <h1 className="pageTitle">Nice features of LEAFY to help you manage <br /> your team's vacations with zen inside</h1>
-      <div className="cards">
-      {features.map((feature) => (
-      
-          <FeatureBox key={feature.featureName}
-            featureName={feature.featureName}
-            featureLogo={feature.featureLogo}
-            featureImg={feature.featureImg}
-            featureDescription={feature.featureDescription}
-          />
-      ))}
+      <div className={`pageTitle ${togglePage}`}>
+        <h1>
+          WELCOME TO LEAFY
+        </h1> <p>a bug-us adventure</p>
+      </div>
+      <div className="pageContent">
+      <p>
+          Nice features of LEAFY to help you manage <br /> your team's vacations
+          with zen inside
+        </p>
+        <div className="cards">
+          {features.map((feature) => (
+            <FeatureBox
+              key={feature.featureName}
+              featureName={feature.featureName}
+              featureLogo={feature.featureLogo}
+              featureImg={feature.featureImg}
+              featureDescription={feature.featureDescription}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

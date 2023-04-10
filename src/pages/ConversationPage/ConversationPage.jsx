@@ -6,7 +6,8 @@ import { AuthContext } from "../../context/auth.context";
 import "./ConversationPage.css";
 import Chatbox from "../../components/Chat/Chatbox";
 
-function ConversationPage() {
+function ConversationPage(props) {
+  const { togglePage } = props;
   const { user } = useContext(AuthContext);
   const [currentConversation, setCurrentConversation] = useState(null);
   const { id } = useParams();
@@ -32,9 +33,12 @@ function ConversationPage() {
   };
 
   return (
-
-      <>
-        <div className="pageContainer conversationPage">
+    <>
+      <div className={`pageContainer conversationPage ${togglePage}`}>
+        <div className={`pageTitle ${togglePage}`}>
+          <h1>ChatBox</h1>
+        </div>
+        <div className="pageContent">
           <div className="chatBox">
             <Chatbox
               conversation={currentConversation}
@@ -42,8 +46,8 @@ function ConversationPage() {
             />
           </div>
         </div>
-      </>
-    
+      </div>
+    </>
   );
 }
 

@@ -3,7 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import authService from "../../services/auth.service";
 import { AuthContext } from "../../context/auth.context";
 
-function CompanySettingPage() {
+function CompanySettingPage(props) {
+  const {togglePage} =props
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [siret, setSiret] = useState("");
@@ -86,10 +87,10 @@ function CompanySettingPage() {
   };
 
   return (
-    <div className="companyUpdatePage">
-      <h1>Update company information</h1>
-
-      {name && (
+    <div className={`pageContainer ${togglePage}`}>
+    <div className={`pageTitle ${togglePage}`}><h1>Update company information</h1></div>
+    <div className="pageContent">
+    {name && (
         <form onSubmit={handleSubmit}>
           <label>
             Name:
@@ -140,6 +141,10 @@ function CompanySettingPage() {
       )}
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
+    </div>
+      
+
+      
     </div>
   );
 }

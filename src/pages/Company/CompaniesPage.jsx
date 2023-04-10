@@ -2,7 +2,8 @@ import authService from "../../services/auth.service";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-function CompaniesPage() {
+function CompaniesPage(props) {
+  const{togglePage}=props
   const [companies, setCompanies] = useState(null);
 
   useEffect(() => {
@@ -15,9 +16,10 @@ function CompaniesPage() {
   }, []);
 
   return (
-    <div>
-      <h1 className="pageTitle">Companies</h1> 
-      {companies?.map((company) => (
+    <div className={`pageContainer ${togglePage}`}>
+    <div className={`pageTitle ${togglePage}`}><h1 >Companies</h1> </div>
+    <div className="pageContent">
+    {companies?.map((company) => (
         <div>
           <h3>{company.name}</h3>
           <Link to={`/company/${company._id}`}> Go to company page </Link>
@@ -26,6 +28,9 @@ function CompaniesPage() {
       <Link to="/create-company">
         <button>Create a new company</button>
       </Link>
+    </div>
+      
+      
     </div>
   );
 }

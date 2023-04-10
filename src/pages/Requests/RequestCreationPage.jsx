@@ -8,9 +8,9 @@ import differenceInCalendarDays from 'date-fns/differenceInCalendarDays'
 import differenceInBusinessDays from 'date-fns/differenceInBusinessDays'
 import { setDay } from "date-fns";
 
-function RequestCreationPage() {
+function RequestCreationPage(props) {
   /* request setting page with all it's properties: status, isFullDay, startDate, morningAfternoonStart, endDate, morningAfternoonEnd, comments */
-
+const {togglePage}=props
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const today = new Date().toISOString().substr(0, 10);
@@ -118,9 +118,12 @@ function RequestCreationPage() {
   
 
   return (
-    <div>
-      <h1>Request Creation</h1>
-      <p> You have {daysLeft} vacation days left </p>
+    <div className={`pageContainer ${togglePage}`}>
+
+    <div className={`pageTitle ${togglePage}`}>
+      <h1>Request Creation</h1></div>
+    <div className="pageContent">
+    <p> You have {daysLeft} vacation days left </p>
       {user && (
         <>
           <form onSubmit={handleSubmit}>
@@ -194,6 +197,9 @@ function RequestCreationPage() {
       )}
 
       {errorMessage && <p>{errorMessage}</p>}
+    </div>
+
+
     </div>
   );
 }

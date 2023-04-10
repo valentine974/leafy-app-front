@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
 import { AuthContext } from "../../context/auth.context";
 
-function UserCreationPage() {
+function UserCreationPage(props) {
+  const {togglePage}=props
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [name, setName] = useState("");
@@ -113,10 +114,12 @@ function UserCreationPage() {
   }, [companyId]);
 
   return (
-    <div className="pageContainer">
-      {user && (
+    <div className={`pageContainer ${togglePage}`}>
+    <div className={`pageTitle ${togglePage}`}><h1 className="pageTitle">User Creation</h1></div>
+    <div className="pageContent">
+    {user && (
         <>
-          <h1 className="pageTitle">User Creation Page</h1>
+          
           <form onSubmit={handleSubmit}>
             <label>
               Name:
@@ -210,6 +213,8 @@ function UserCreationPage() {
         </>
       )}
       {errorMessage && <p>{errorMessage}</p>}
+    </div>
+      
     </div>
   );
 }

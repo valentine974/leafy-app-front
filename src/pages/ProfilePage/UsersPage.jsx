@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 import "./ProfilePages.css";
-function UsersPage() {
+function UsersPage(props) {
+  const {togglePage}=props
   const [users, setUsers] = useState(null);
   const { user, isLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -64,9 +65,15 @@ function UsersPage() {
   }, [user]);
 
   return (
-    <div className="pageContainer">
-      <h1 className="pageTitle"> Manage Users </h1> 
-      <div className="cards">
+    <div className={`pageContainer ${togglePage}`}>
+
+    <div className={`pageTitle ${togglePage}`}><h1 > Manage Users </h1></div>
+    <div className="pageContent">
+    <div className="cards">
+
+    <Link to="/create-user">
+        <button>Create a new user</button>
+      </Link>
       {users && user &&
         users.map((oneUser) => (
           <div className="userCard" key={oneUser._id}>
@@ -80,9 +87,11 @@ function UsersPage() {
           </div>
         ))}
       </div>
-      <Link to="/create-user">
-        <button>Create a new user</button>
-      </Link>
+    </div>
+
+
+       
+     
     </div>
   );
 }

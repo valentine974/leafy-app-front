@@ -5,7 +5,8 @@ import { AuthContext } from "../../context/auth.context";
 import ChatListElem from "../../components/Chat/ChatListElem";
 import "./ConversationPage.css";
 
-function ConversationListPage() {
+function ConversationListPage(props) {
+  const {togglePage} =props
   const { user } = useContext(AuthContext);
   const [conversations, setConversations] = useState([]);
 
@@ -23,9 +24,11 @@ function ConversationListPage() {
 
 
   return (
-    <div className="pageContainer conversationPage">
-      <h1 className="pageTile">My conversations</h1>
-      <div className="chatRoom">
+    <div className={`pageContainer conversationPage ${togglePage}`}>
+
+<div className={`pageTitle ${togglePage}`}><h1 >My conversations</h1></div>
+    <div className="pageContent">
+    <div className="chatRoom">
         {/* map all user's messages */}
         <div className="chatList">
           {conversations && (
@@ -43,6 +46,12 @@ function ConversationListPage() {
         </div>
        
       </div>
+    </div>
+    
+
+   
+      
+      
     </div>
   );
 }

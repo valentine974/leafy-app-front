@@ -4,7 +4,8 @@ import authService from "../../services/auth.service";
 import { AuthContext } from "../../context/auth.context";
 import formatDate from "../../utils/dateFormating";
 
-function RequestSettingPage() {
+function RequestSettingPage(props) {
+  const {togglePage}= props
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState(undefined);
@@ -82,9 +83,10 @@ function RequestSettingPage() {
     };
   
     return (
-      <div>
-        <h1>Request Settings</h1>
-        {user && (
+      <div className={`pageContainer ${togglePage}`}>
+      <div className={`pageTitle ${togglePage}`}><h1>Request Settings</h1></div>
+      <div className="pageContent">
+      {user && (
           <>
             <form onSubmit={handleSubmit}>
               <label>
@@ -153,6 +155,9 @@ function RequestSettingPage() {
         )}
   
         {errorMessage && <p>{errorMessage}</p>}
+      </div>
+        
+     
       </div>
     );
 }
