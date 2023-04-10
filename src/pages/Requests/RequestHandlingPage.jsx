@@ -16,9 +16,9 @@ function RequestHandlingPage() {
     user &&
       authService
         .getRequests()
-        .then((requests) => {
+        .then((allrequests) => {
           setRequests(
-            requests.data.filter((request) =>
+            allrequests.data.filter((request) =>
               request.validations.some(
                 (validation) => user._id === validation.validatorId._id
               )
@@ -28,8 +28,9 @@ function RequestHandlingPage() {
         .catch((err) => console.log("err in loading requests", err));
   }, [user]);
 
-  // useEffect(() => {
-  // }, [requests]);
+  useEffect(() => {
+    console.log("showing requests get updated");
+  }, [requests]);
 
   const handleChat = (participantIds) => {
     // verify if the conversation already exists
@@ -65,6 +66,7 @@ function RequestHandlingPage() {
     // update validation status
     // deep copy request object's properties and modify validations array
 
+    console.log("approving request");
     const updatedRequest = {
       ...request,
       validations: request.validations.map((validation) =>
@@ -90,6 +92,7 @@ function RequestHandlingPage() {
   };
 
   const handleRejection = (request) => {
+
     console.log("rejecting request");
     const updatedRequest = {
       ...request,
@@ -118,7 +121,7 @@ function RequestHandlingPage() {
 
   return (
     <div className="pageContainer">
-      <h1 className="pageTitle">Pending Requests</h1>
+      <h1 className="pageTitle">Treat Requests</h1>
       <div className="requestCards">
         {requests &&
           requests.map((request) => (
