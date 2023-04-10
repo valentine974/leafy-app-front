@@ -64,7 +64,7 @@ function RequestCreationPage() {
             (acc, request) => acc + request.duration,
             0
           );
-          console.log("spent days", spentDays);
+          // console.log("spent days", spentDays);
           setDaysLeft(Math.floor((availableDays - spentDays) * 100) / 100);
         })
         .catch((err) => console.log("err in loading requests", err));
