@@ -33,7 +33,7 @@ function ProfilePage() {
     margin: "5px",
     padding: "5px",
   }
-  const linkStyle = {
+  const reactLinkStyle = {
     textDecoration: "none",
     color: "pink !important",
     backgroundColor: "white !important",
@@ -55,9 +55,9 @@ function ProfilePage() {
       <p>{email}</p> 
       {company && <Link to={`/company/${company._id}`} style={adresseStyle}> {company.name}</Link>}
 
-      <Link to="/create-request" style={linkStyle}>Request LEAF</Link>
-      <Link to={`/user/${id}/settings`} style={linkStyle}>Profile setting</Link>
-      <Link to="/user/modify-password" style={linkStyle}>Change Password</Link>
+      <Link to="/create-request" style={reactLinkStyle}>Request LEAF</Link>
+      <Link to={`/user/${id}/settings`} style={reactLinkStyle}>Profile setting</Link>
+      <Link to="/user/modify-password" style={reactLinkStyle}>Change Password</Link>
     </div>
   );
 }

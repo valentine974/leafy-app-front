@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import authService from "../../services/auth.service";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import ChatBtn from "../../components/Chat/ChatBtn";
 
 function CompanyPage() {
   const navigate = useNavigate();
@@ -98,7 +99,7 @@ function CompanyPage() {
                   <h3>{employee.name}</h3>
                   <p>{employee.position}</p>
                   <p>{employee.email}</p>
-                  {employee._id !== user._id && isLoggedIn && <button className="chatBtn" onClick={()=>handleChat(employee._id)}>💬</button>}
+                  {employee._id !== user._id && isLoggedIn && <button className="chatBtn" onClick={()=>handleChat(employee._id)}><ChatBtn/></button>}
                 </div>))}
             </div>
           </>

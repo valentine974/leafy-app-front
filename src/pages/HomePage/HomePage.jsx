@@ -28,7 +28,9 @@ const features = [
 function HomePage(props) {
   const {togglePage} =props
   return (
+
     <div className={`pageContainer ${togglePage}`}>
+
       <h1 className="pageTitle">Nice features of LEAFY to help you manage <br /> your team's vacations with zen inside</h1>
       <div className="cards">
       {features.map((feature) => (
