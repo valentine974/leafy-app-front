@@ -5,7 +5,6 @@ import { AuthContext } from "../../context/auth.context";
 import "./RequestPages.css";
 import formatDate from "../../utils/dateFormating";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ChatBtn from "../../components/Chat/ChatBtn";
 
 function RequestHandlingPage() {
@@ -29,9 +28,8 @@ function RequestHandlingPage() {
         .catch((err) => console.log("err in loading requests", err));
   }, [user]);
 
-  useEffect(() => {
-    console.log("page updated");
-  }, [requests]);
+  // useEffect(() => {
+  // }, [requests]);
 
   const handleChat = (participantIds) => {
     // verify if the conversation already exists
@@ -66,6 +64,7 @@ function RequestHandlingPage() {
   const handleApproval = (request) => {
     // update validation status
     // deep copy request object's properties and modify validations array
+
     const updatedRequest = {
       ...request,
       validations: request.validations.map((validation) =>
@@ -79,25 +78,19 @@ function RequestHandlingPage() {
       .updateRequest(request._id, updatedRequest)
       .then((updatedRequest) => {
         // update the showing requests
-        console.log("updated request", updatedRequest);
         setRequests((prevRequests) =>
           prevRequests.map((prevRequest) =>
-            prevRequest._id === updatedRequest.data._id
+         prevRequest._id === updatedRequest.data._id
               ? updatedRequest.data
               : prevRequest
-          )
-        );
-        console.log(
-          "updated request : ",
-          updatedRequest.data.filter(
-            (request) => request.requester._id === user._id
-          )
+         )
         );
       })
       .catch((err) => console.log("err in updating request", err));
   };
 
   const handleRejection = (request) => {
+    console.log("rejecting request");
     const updatedRequest = {
       ...request,
       validations: request.validations.map((validation) =>
@@ -111,16 +104,13 @@ function RequestHandlingPage() {
       .updateRequest(request._id, updatedRequest)
       .then((updatedRequest) => {
         //update the showing requests (it takes quite a while to update)
+        console.log("updated request", updatedRequest.data);
         setRequests((prevRequests) =>
           prevRequests.map((prevRequest) =>
             prevRequest._id === updatedRequest.data._id
               ? updatedRequest.data
               : prevRequest
           )
-        );
-        console.log(
-          "requests",
-          requests.data.filter((request) => request.requester._id === user._id)
         );
       })
       .catch((err) => console.log("err in updating request", err));
