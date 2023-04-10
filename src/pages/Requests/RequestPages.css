@@ -9,7 +9,7 @@
 
 }
 
-.requestCards{
+.requestCards, .formBody{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

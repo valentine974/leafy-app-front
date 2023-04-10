@@ -76,7 +76,7 @@ const navigate = useNavigate();
     <div className="pageContainer">
       <h1 className="pageTitle">Request Review</h1>
       <br />
-      <CalendarComponent />
+      <CalendarComponent date={new Date()} onDateChange={()=>console.log("this calendar is only a viewer, add new request please go to the request leaf page.")}/>
       <br />
 
       <div className="requestCards">

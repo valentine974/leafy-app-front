@@ -5,11 +5,12 @@ import Calendar from "react-calendar";
 import { useState,useContext } from "react";
 import authService from "../../services/auth.service"; 
 import { AuthContext } from "../../context/auth.context";
-import { eachDayOfInterval} from "date-fns";
+import { eachDayOfInterval, isWeekend} from "date-fns";
 import formatDate from "../../utils/dateFormating"
 
-function CalendarComponent(){
-  const [date, setDate] = useState(new Date());
+
+function CalendarComponent({date, onDateChange}){
+  
   const { user } = useContext(AuthContext);
   const [absentDays, setAbsentDays] = useState([]);
 
@@ -33,19 +34,29 @@ function CalendarComponent(){
 
   }, [user]);
 
+
+  const handleCalendarChange = (date) => {
+    onDateChange(date);
+  };
+
+
   return (
     // react-calendar element loop through the days and add
     // a class to the title if the day is absent
     // then the class will be styled in the css file
     <div>
-      <Calendar 
+      <Calendar
         value={date}
+        onChange={handleCalendarChange}
         tileClassName={({ date, view }) => {
-      if(absentDays.find(elem => elem=== formatDate(date))){
-        // console.log("this day is absent", formatDate(date))
-       return  'leafy-calendar-absent'
-      }
-    }}
+          if (absentDays.find((elem) => elem === formatDate(date))) {
+            // console.log("this day is absent", formatDate(date))
+            return "leafy-calendar-absent";
+          }}}
+        tileDisabled={({ date, view }) => {
+            return  isWeekend(date) || absentDays.find((elem) => elem === formatDate(date));
+        }}
+        selectRange={true}
       />
     </div>
   );

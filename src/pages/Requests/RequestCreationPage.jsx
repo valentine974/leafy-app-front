@@ -2,16 +2,16 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
 import { AuthContext } from "../../context/auth.context";
-import addDays from 'date-fns/addDays'
-import subDays from 'date-fns/subDays'
-import differenceInCalendarDays from 'date-fns/differenceInCalendarDays'
-import differenceInBusinessDays from 'date-fns/differenceInBusinessDays'
+import addDays from "date-fns/addDays";
+import subDays from "date-fns/subDays";
+import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
+import differenceInBusinessDays from "date-fns/differenceInBusinessDays";
 import { setDay } from "date-fns";
 import CalendarComponent from "../../components/Calendar/CalendarComponent";
 
 function RequestCreationPage() {
   /* request setting page with all it's properties: status, isFullDay, startDate, morningAfternoonStart, endDate, morningAfternoonEnd, comments */
-
+  const [date, setDate] = useState(new Date());
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const today = new Date().toISOString().substr(0, 10);
@@ -25,36 +25,51 @@ function RequestCreationPage() {
   const [daysLeft, setDaysLeft] = useState(0);
   const [companyVacationDays, setCompanyVacationDays] = useState(0);
 
+  const handleDateChange = (date) => {
+    setDate(date);
+    setStartDate(addDays(date[0], 1).toISOString().substr(0, 10));
+    setEndDate(date[1].toISOString().substr(0, 10));
+  };
+
   useEffect(() => {
     // get the comapny's vacationdays
-    console.log("user", user)
-    user && authService
-      .getCompany(user.companyId)
-      .then((company) => {
-        console.log("company vacation days: ", company.data.numberOfVacationDays)
-        setCompanyVacationDays(company.data.numberOfVacationDays)})
-      .catch((err) => console.log("err in loading requests", err));
-  },[user])
+    console.log("user", user);
+    user &&
+      authService
+        .getCompany(user.companyId)
+        .then((company) => {
+          console.log(
+            "company vacation days: ",
+            company.data.numberOfVacationDays
+          );
+          setCompanyVacationDays(company.data.numberOfVacationDays);
+        })
+        .catch((err) => console.log("err in loading requests", err));
+  }, [user]);
 
   useEffect(() => {
-    if(user){
-    let workedDays = differenceInCalendarDays(new Date(), new Date(user.contractStartDate))
-    let availableDays = Math.floor(companyVacationDays/365 * workedDays *100)/100
-    setDaysLeft(availableDays)
-    authService
-      .getUserRequests(user._id)  
-      .then((requests) => {
-        // get the number of eligible vacation days
-        let spentDays = requests.data.reduce((acc, request) => acc + request.duration, 0)
-        console.log("spent days", spentDays)
-        setDaysLeft(Math.floor((availableDays - spentDays)*100)/100)
-
-       
-
-      })
-      .catch((err) => console.log("err in loading requests", err));}
-
-  }, [companyVacationDays])
+    if (user) {
+      let workedDays = differenceInCalendarDays(
+        new Date(),
+        new Date(user.contractStartDate)
+      );
+      let availableDays =
+        Math.floor((companyVacationDays / 365) * workedDays * 100) / 100;
+      setDaysLeft(availableDays);
+      authService
+        .getUserRequests(user._id)
+        .then((requests) => {
+          // get the number of eligible vacation days
+          let spentDays = requests.data.reduce(
+            (acc, request) => acc + request.duration,
+            0
+          );
+          console.log("spent days", spentDays);
+          setDaysLeft(Math.floor((availableDays - spentDays) * 100) / 100);
+        })
+        .catch((err) => console.log("err in loading requests", err));
+    }
+  }, [companyVacationDays]);
 
   const handleIsFullDay = (e) => {
     setIsFullDay(e.target.checked);
@@ -81,21 +96,23 @@ function RequestCreationPage() {
     // add 7 days to today's date
 
     let limitDate = addDays(new Date(), 7);
-    
+
     //if start date is after end date, send error
     if (new Date(startDate) > new Date(endDate)) {
       setErrorMessage("Start date cannot be after end date");
       return;
     }
-    let duration = differenceInBusinessDays(new Date(endDate), new Date(startDate)) + 1
+    let duration =
+      differenceInBusinessDays(new Date(endDate), new Date(startDate)) + 1;
 
-    if(duration > daysLeft){
+    if (duration > daysLeft) {
       setErrorMessage("You don't have enough days left");
       return;
     }
     // add days left to verify if it's possible to create a request
-    if(new Date(startDate) < new Date(limitDate)) limitDate = subDays(new Date(startDate), 1)
-    
+    if (new Date(startDate) < new Date(limitDate))
+      limitDate = subDays(new Date(startDate), 1);
+
     authService
       .createRequest({
         status: "pending",
@@ -106,29 +123,28 @@ function RequestCreationPage() {
         morningAfternoonEnd,
         requester: user._id,
         comments,
-        approvalLimitDate:limitDate,
+        approvalLimitDate: limitDate,
       })
       .then((request) => {
-        console.log(request.data)
-        navigate("/request/review")})
+        console.log(request.data);
+        navigate("/request/review");
+      })
       .catch((err) => {
         console.log(err);
         setErrorMessage(err.response.data.message);
       });
   };
-  
 
   return (
-    <div>
-      <h1>Request Creation</h1>
-      <br />
-    <CalendarComponent/>
-    <br />
-
-      <p> You have {daysLeft} vacation days left </p>
+    <div className="pageContainer">
+      <h1 className="pageTitle">Request Creation</h1>
       {user && (
-        <>
+        <div className="formBody">
           <form onSubmit={handleSubmit}>
+            <div>
+              <CalendarComponent date={date} onDateChange={handleDateChange} />
+              <p> You have {daysLeft} vacation days left </p>
+            </div>
             <label>
               Full day
               <input
@@ -195,7 +211,7 @@ function RequestCreationPage() {
             </label>
             <button type="submit">Create</button>
           </form>
-        </>
+        </div>
       )}
 
       {errorMessage && <p>{errorMessage}</p>}
