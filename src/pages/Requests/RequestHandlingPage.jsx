@@ -18,9 +18,9 @@ function RequestHandlingPage(props) {
     user &&
       authService
         .getRequests()
-        .then((requests) => {
+        .then((allrequests) => {
           setRequests(
-            requests.data.filter((request) =>
+            allrequests.data.filter((request) =>
               request.validations.some(
                 (validation) => user._id === validation.validatorId._id
               )
@@ -30,8 +30,9 @@ function RequestHandlingPage(props) {
         .catch((err) => console.log("err in loading requests", err));
   }, [user]);
 
-  // useEffect(() => {
-  // }, [requests]);
+  useEffect(() => {
+    console.log("showing requests get updated");
+  }, [requests]);
 
   const handleChat = (participantIds) => {
     // verify if the conversation already exists
@@ -64,17 +65,12 @@ function RequestHandlingPage(props) {
       });
   };
   const handleApproval = (request) => {
-    // update validation status
-    // deep copy request object's properties and modify validations array
 
-    const updatedRequest = {
-      ...request,
-      validations: request.validations.map((validation) =>
-        validation.validatorId._id === user._id
-          ? { ...validation, status: "approved" }
-          : validation
-      ),
-    };
+    const updatedRequest = request.validations.map((validation) => {
+      if (validation.validatorId._id === user._id) {
+        validation.status = "approved"
+      }
+    })
 
     authService
       .updateRequest(request._id, updatedRequest)
@@ -92,21 +88,21 @@ function RequestHandlingPage(props) {
   };
 
   const handleRejection = (request) => {
-    console.log("rejecting request");
-    const updatedRequest = {
-      ...request,
-      validations: request.validations.map((validation) =>
-        validation.validatorId._id === user._id
-          ? { ...validation, status: "rejected" }
-          : validation
-      ),
-    };
 
+
+    const updatedRequest = request
+    updatedRequest.validations.map((validation) => {
+      if (validation.validatorId._id === user._id) {
+        validation.status = "rejected"
+      }
+    })
+
+  
     authService
       .updateRequest(request._id, updatedRequest)
       .then((updatedRequest) => {
         //update the showing requests (it takes quite a while to update)
-        console.log("updated request", updatedRequest.data);
+        
         setRequests((prevRequests) =>
           prevRequests.map((prevRequest) =>
             prevRequest._id === updatedRequest.data._id
