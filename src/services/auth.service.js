@@ -42,6 +42,12 @@ class AuthService {
     return this.api.get(`/api/companies/${companyId}`)
   }
 
+  deleteCompany = (companyId) =>{
+    return this.api.delete(`/api/companies/${companyId}`)
+  }
+
+
+
   /* ---------------------- messagings ----------------------  */
 
   createConversation = (requestBody) => {

@@ -15,8 +15,7 @@ function ChatListElem(props) {
         {/* preview of messages, show the last message in the conversation */}
         {messages.length > 0 ? (
           <>
-            <p>{messages[messages.length - 1].content}</p>
-            <p>{formatDate(messages[messages.length - 1].updatedAt)}</p>
+            <p className="chatDate">{formatDate(messages[messages.length - 1].updatedAt)}</p>
           </>
         ) : (
           <p>No messages yet</p>

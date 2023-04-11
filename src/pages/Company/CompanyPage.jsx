@@ -4,6 +4,7 @@ import authService from "../../services/auth.service";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import ChatBtn from "../../components/Chat/ChatBtn";
+import "./CompanyPage.css";
 
 function CompanyPage(props) {
   const { togglePage } = props;
@@ -75,12 +76,14 @@ function CompanyPage(props) {
   return (
     <div className={`pageContainer ${togglePage}`}>
       <div className={`pageTitle ${togglePage}`} > 
-        <h1>{name}</h1>
+      {name && (
+        <><h1>{name}</h1>
             {(user.position === "hr" || user.position === "admin") && (
               <Link to={`/company/${id}/settings`}>
                 <button>To modify company informations</button>
               </Link>
-            )}
+            )}</>)}
+        
       </div>
       <div className="pageContent">
         {name && (
@@ -103,15 +106,15 @@ function CompanyPage(props) {
 
                   <h3>{employee.name}</h3>
                   <p>{employee.position}</p>
-                  <p>{employee.email}</p>
-                  {/* {employee._id !== user._id && isLoggedIn && (
+                  <p className="running-email">{employee.email}</p>
+                  {employee._id !== user._id && isLoggedIn && (
                     <button
                       className="chatBtn"
                       onClick={() => handleChat(employee._id)}
                     >
                       <ChatBtn/>
                     </button>
-                  )} */}
+                  )}
                 </div>
               ))}
             </div>

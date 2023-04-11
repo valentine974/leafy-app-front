@@ -22,6 +22,16 @@ function ConversationListPage(props) {
         });
   }, [user]);
 
+  const linkStyle = {
+    textDecoration: "none",
+    margin: "5px",
+    color: "white",
+    display: "flex",
+    flexFlow: "row nowrap",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: "10px",
+  };
 
   return (
     <div className={`pageContainer conversationPage ${togglePage}`}>
@@ -37,7 +47,7 @@ function ConversationListPage(props) {
                 <Link
                   key={conversation._id}
                   to={`/conversation/${conversation._id}`}
-                >
+                 style={linkStyle}>
                   <ChatListElem conversation={conversation} />
                 </Link>
               ))}

@@ -99,53 +99,51 @@ function App() {
           ></Route>
           <Route
             path="/create-company"
-            element={<CompanyCreationPage togglePage={togglePage} />}
+            element={<IsPrivate><CompanyCreationPage togglePage={togglePage} /></IsPrivate>}
           ></Route>
           <Route
             path="/company/:id/settings"
-            element={<CompanySettingPage togglePage={togglePage} />}
+            element={<IsPrivate><CompanySettingPage togglePage={togglePage} /></IsPrivate> }
           ></Route>
           <Route
             path="/companies"
-            element={<CompaniesPage togglePage={togglePage} />}
+            element={<IsPrivate><CompaniesPage togglePage={togglePage} /></IsPrivate>}
           ></Route>
           <Route
             path="/company/:id"
-            element={<CompanyPage togglePage={togglePage} />}
+            element={<IsPrivate><CompanyPage togglePage={togglePage} /></IsPrivate>}
           ></Route>
           <Route
             path="/users"
-            element={<UsersPage togglePage={togglePage} />}
+            element={<IsPrivate><UsersPage togglePage={togglePage} /></IsPrivate>}
           ></Route>
           <Route
             path="/create-user"
-            element={<UserCreationPage togglePage={togglePage} />}
+            element={<IsPrivate><UserCreationPage togglePage={togglePage} /></IsPrivate>}
           ></Route>
           <Route
             path="/handle-request"
-            element={<RequestHandlingPage togglePage={togglePage} />}
+            element={<IsPrivate><RequestHandlingPage togglePage={togglePage} /></IsPrivate>}
           ></Route>
           <Route
             path="/create-request"
-            element={<RequestCreationPage togglePage={togglePage} />}
+            element={<IsPrivate><RequestCreationPage togglePage={togglePage} /></IsPrivate>}
           ></Route>
           <Route
             path="/request/review"
-            element={<RequestReviewPage togglePage={togglePage} />}
+            element={<IsPrivate><RequestReviewPage togglePage={togglePage} /></IsPrivate>}
           ></Route>
           <Route
             path="/request/:id/settings"
-            element={<RequestSettingPage togglePage={togglePage} />}
+            element={<IsPrivate><RequestSettingPage togglePage={togglePage} /></IsPrivate>}
           ></Route>
-          {/* TO DO */}
-          {/* conversation route */}
           <Route
             path="/conversations"
-            element={<ConversationListPage togglePage={togglePage} />}
+            element={<IsPrivate><ConversationListPage togglePage={togglePage} /></IsPrivate>}
           ></Route>
           <Route
             path="/conversation/:id"
-            element={<ConversationPage togglePage={togglePage} />}
+            element={<IsPrivate><ConversationPage togglePage={togglePage} /></IsPrivate>}
           ></Route>
         </Routes>
       </div>
