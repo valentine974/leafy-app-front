@@ -145,13 +145,13 @@ function RequestCreationPage(props) {
       <h1>Request Creation</h1></div>
       <p> You have {daysLeft} vacation days left </p>
     <div className="pageContent">
+    
   
+    <CalendarComponent className="calendar" date={date} onDateChange={handleDateChange} />
 
       {user && (
         <div className="formBody">
           <form onSubmit={handleSubmit}>
-              <CalendarComponent className="calendar" date={date} onDateChange={handleDateChange} />
-
             <label>
               Full day
               <input
