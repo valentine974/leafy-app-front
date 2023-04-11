@@ -35,14 +35,13 @@ function Chatbox(props) {
     <div className="chatbox">
       {(user && conversation)? (
         <>
-          <h1>
-            Conversation with:
+          <h1> 
             {conversation.participants.map((participant) => (
               <img
                 key={participant._id}
                 src={participant.imageUrl}
                 alt={participant.name}
-                style={{ width: "30px" }}
+                style={{ "width": "80px", "height":"80px", "borderRadius":"50%"  }}
               />
             ))}
           </h1>
@@ -67,9 +66,7 @@ function Chatbox(props) {
 
           <div className="chatForm">
             <form onSubmit={handleSubmit}>
-              <label>
-                Text:
-                <input
+              <label> <input
                   type="textarea"
                   value={message}
                   onChange={handleText}

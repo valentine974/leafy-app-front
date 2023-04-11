@@ -35,9 +35,10 @@ function ModifyPasswordPage(props) {
   return (
     <div className={`pageContainer ModifyPasswordPage ${togglePage}`}>
       <div className={`pageTitle ${togglePage}`}>
-        <h1>Set a new password for {user.email}</h1>
+        <h1>NEW PASSWORD</h1>
       </div>
       <div className="pageContent">
+        <h1>Set a new password for {user.email}</h1>
         <form onSubmit={handleSignupSubmit}>
           <label>Password:</label>
           <input

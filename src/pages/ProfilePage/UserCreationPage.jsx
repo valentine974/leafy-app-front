@@ -115,7 +115,7 @@ function UserCreationPage(props) {
 
   return (
     <div className={`pageContainer ${togglePage}`}>
-    <div className={`pageTitle ${togglePage}`}><h1 className="pageTitle">User Creation</h1></div>
+    <div className={`pageTitle ${togglePage}`}><h1 >USER CREATION</h1></div>
     <div className="pageContent">
     {user && (
         <>

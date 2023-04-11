@@ -67,7 +67,7 @@
     position: sticky;
   }
   .pageTitle h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: rgb(1, 98, 98);
     font-weight: 600;
     margin: 20px;
@@ -82,6 +82,12 @@
   .pageTitle.closePage{ 
     z-index: 2;
 
+  }
+  .pageTitle button {
+    background-color:  rgb(150, 188, 188); 
+    text-decoration: none;
+    color:rgb(1, 98, 98);
+    border: none
   }
 
   /* PAGES DISPLAY - pages content*/
@@ -100,7 +106,7 @@
   form {
     display: flex;
     flex-direction: column; 
-    width: 100%;
+    width: 80%;
     height: 100%;
   }
 
@@ -121,7 +127,7 @@
     box-sizing: border-box;
   }
 
-  form > button {
+  form button {
     align-self: center;
     max-width: 40%;
     height: 30px;
@@ -130,7 +136,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    background-color: #4caf50;
+    background-color: rgb(133, 177, 177); 
     color: white;
     font-size: 1.2rem;
     font-weight: 600;
@@ -148,6 +154,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  .imageContainer.profile {
+    width: 200px;
+    height: 200px;
   }
 
   .cards {

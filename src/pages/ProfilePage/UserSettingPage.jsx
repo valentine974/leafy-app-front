@@ -124,7 +124,7 @@ function UserSettingPage(props) {
   return (
     <div className={`pageContainer ${togglePage}`}>
 
-<div className={`pageTitle ${togglePage}`}><h1>Change user information for {user.name}</h1></div>
+<div className={`pageTitle ${togglePage}`}><h1>SETTINGS FOR: </h1> <h1 style={{"color":"darkgrey"}}><em>{user.name}{" "}{surname}</em></h1></div>
     <div className="pageContent">
     {user && (
         <>

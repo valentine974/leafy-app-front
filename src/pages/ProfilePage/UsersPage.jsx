@@ -67,11 +67,11 @@ function UsersPage(props) {
   return (
     <div className={`pageContainer ${togglePage}`}>
 
-    <div className={`pageTitle ${togglePage}`}><h1 > Manage Users </h1></div>
-    <div className="pageContent">
+    <div className={`pageTitle ${togglePage}`}><h1 > Manage Users </h1>
     <Link to="/create-user">
         <button>Create a new user</button>
-      </Link>
+      </Link></div>
+    <div className="pageContent">
     <div className="cards">
 
     
@@ -82,9 +82,9 @@ function UsersPage(props) {
             <img src={oneUser.imageUrl} alt="" />
             </div>
             <h3>{oneUser.name}</h3>
-            <Link to={`/user/${oneUser._id}`}> Go to user profile page </Link>
-            {oneUser._id !== user._id &&<button onClick={()=> handleDelete(oneUser._id)}>Delete User</button>}
-            {oneUser._id !== user._id && isLoggedIn && <button className="chatBtn" onClick={()=>handleChat(oneUser._id)}>💬</button>}
+            <Link to={`/user/${oneUser._id}`} style={{"textDecoration":"none"}} ><button style={{"width":"150px"}}>User page </button> </Link>
+            {oneUser._id !== user._id &&<button className="deleteButton" style={{"width":"150px"}} onClick={()=> handleDelete(oneUser._id)}>Delete User</button>}
+            {oneUser._id !== user._id && isLoggedIn && <button className="chatBtn" onClick={()=>handleChat(oneUser._id)} >💬</button>}
           </div>
         ))}
       </div>

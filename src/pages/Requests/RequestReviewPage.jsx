@@ -29,35 +29,58 @@ function RequestReviewPage(props) {
     setRequests(newRequests);
   };
 
+  const linkStyle = {
+    textDecoration: "none",
+    margin: "5px",
+    color: "white",
+    display: "flex",
+    flexFlow: "row nowrap",
+    justifyContent: "center",
+    paddingTop: "10px",
+  };
+
   return (
     <div className={`pageContainer ${togglePage}`}>
       <div className={`pageTitle ${togglePage}`}>
         <h1>LEAF REQUESTS</h1>
+        <button>
+        <Link className={linkStyle} to="/create-request ">Request LEAF</Link></button>
       </div>
       <div className="pageContent">
-        <Link to="/create-request ">Request LEAF</Link>
         <div className="requestCards">
           {requests?.map((request) => (
             <div className={`requestCard ${request.status}`}>
-              <p>Start date: {formatDate(request.startDate)}</p>
-              <p>Duration: {request.duration} days</p>
-              <p>
-                To be approved before: {formatDate(request.approvalLimitDate)}
-              </p>
-              <p>Status: {request.status}</p>
-              <p>Comments: {request.comments}</p>
-
-              {request.validations.map((validation) => (
-                <li>
-                  {" "}
-                  {validation.validatorId.name}: {validation.status}
-                </li>
+              <p><b>Start date:</b> {formatDate(request.startDate)}</p>
+              <p><b>Duration:</b> {request.duration} days</p>
+              {/* <p><b>To be approved before:</b>
+                 {formatDate(request.approvalLimitDate)}
+              </p> */}
+              <p><b>Status:</b> {request.status}</p>
+              
+              <p><b>Comments:</b> {request.comments?request.comments:"no comments"}</p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Validators</th>
+                    <th>Status</th> 
+                  </tr>
+                </thead>
+                <tbody> 
+                {request.validations.map((validation) => (
+                  <tr>
+                    <td>{validation.validatorId.name}</td>
+                    <td>{validation.status}</td>
+                  </tr> 
               ))}
 
+                </tbody>
+              </table>
+
+               
               <Link to={`/request/${request._id}/settings`}>
-                To modify my request
+                <button>To modify my request</button> 
               </Link>
-              <button onClick={() => handleDeleteButton(request._id)}>
+              <button onClick={() => handleDeleteButton(request._id)} className="deleteButton">
                 Delete my request
               </button>
             </div>

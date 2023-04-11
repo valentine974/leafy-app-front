@@ -57,7 +57,7 @@ function ProfilePage(props) {
         <p>{email}</p>
       </div>
       <div className="pageContent">
-        <div className="imageContainer">
+        <div className="imageContainer profile">
           <img src={imageUrl} alt="profile" />
         </div>
 
@@ -70,14 +70,17 @@ function ProfilePage(props) {
           </Link>
         )}
 
-        <Link to="/create-request" style={linkStyle}>
-          Request LEAF
+        <Link to="/create-request" >
+        <button>Request LEAF</button>
+          
         </Link>
-        <Link to={`/user/${id}/settings`} style={linkStyle}>
-          Profile setting
+        <Link to={`/user/${id}/settings`} >
+        <button>Profile setting</button>
+          
         </Link>
-        <Link to="/user/modify-password" style={linkStyle}>
-          Change Password
+        <Link to="/user/modify-password" >
+        <button>Change Password</button>
+          
         </Link>
       </div>
     </div>

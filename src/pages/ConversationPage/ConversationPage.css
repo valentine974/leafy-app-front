@@ -6,9 +6,11 @@
         justify-content: space-around;
         height: 90vh;
         width: 98vw;
-        border-radius: 5px;
+        /* border-radius: 5px; */
+        /* border: none; */
         overflow: auto;
-        background-color: pink;
+        /* background-color: pink; */
+
         padding: 0 0 0 0;
         margin: 20px;
     }
@@ -18,22 +20,25 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        height: 90%;
+        height: 100%;
         width: 500px;
         overflow: auto;
-        border: 1px solid black;
+        /* border: 1px solid black; */
     }
     
     .singleChat{
-        border: 1px solid gray;
+        /* border: 1px solid gray; */
         border-radius: 5px;
+        background-color: rgb(169, 207, 207);
+        padding: 20px;
+        margin: 10px;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
         height: 60px;
-        width: 95%;
-        position: relative;
+        width: 80%;
+        /* position: relative; */
     }
     
     .singleChat,.right{
@@ -54,13 +59,13 @@
     
     .miniProfileImageContainer img{
         height: 100%;
-        width: 100%;
+        width: 100%; 
         border-radius: 50%;
         object-fit: contain;
     }
     
     .chatBox{
-        height: 90%;
+        height: 80%; 
     }
     
     .others {
@@ -68,12 +73,26 @@
         color: black;
         border-radius: 10px; 
         text-align:left;
+        margin: 10px;
+        padding: 10px;
     }
     .me {
-        background-color: blue;
+        background-color: rgb(133, 177, 177); 
         color:white;
         border-radius: 10px;
         text-align: right; 
+        margin: 10px;
+        padding: 10px;
+
+    }
+
+    .chatForm, input{ 
+        margin: 0;
+        margin-left: -5px;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
     }
   }
   

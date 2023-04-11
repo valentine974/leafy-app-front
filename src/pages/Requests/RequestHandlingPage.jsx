@@ -85,7 +85,7 @@ function RequestHandlingPage(props) {
   return (
     <div className={`pageContainer ${togglePage}`}>
     <div className={`pageTitle ${togglePage}`}>
-    <h1 >Pending Requests</h1>
+    <h1 >PENDING REQUESTS</h1>
     </div>
     <div className="pageContent">
       <div className="requestCards">

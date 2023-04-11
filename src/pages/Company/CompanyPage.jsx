@@ -75,19 +75,19 @@ function CompanyPage(props) {
     <div className={`pageContainer ${togglePage}`}>
       <div className={`pageTitle ${togglePage}`} > 
         <h1>{name}</h1>
+            {(user.position === "hr" || user.position === "admin") && (
+              <Link to={`/company/${id}/settings`}>
+                <button>To modify company informations</button>
+              </Link>
+            )}
       </div>
       <div className="pageContent">
         {name && (
           <>
             <div className="imageContainer">
-              <img src={imageUrl} alt="logo" />
+              <img src={imageUrl} alt="logo"   />
             </div>
             <p>Address: {address}</p>
-            {(user.position === "hr" || user.position === "admin") && (
-              <Link to={`/company/${id}/settings`}>
-                To modify company informations
-              </Link>
-            )}
           </>
         )}
 
