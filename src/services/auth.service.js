@@ -15,11 +15,10 @@ class AuthService {
     this.api.interceptors.request.use((config) => {
       // Retrieve the JWT token from the local storage
       const storedToken = localStorage.getItem("authToken");
-
       if (storedToken) {
         config.headers = { Authorization: `Bearer ${storedToken}` };
       }
-
+      
       return config;
     });
   }
@@ -42,6 +41,12 @@ class AuthService {
   getCompany = (companyId) =>{
     return this.api.get(`/api/companies/${companyId}`)
   }
+
+  deleteCompany = (companyId) =>{
+    return this.api.delete(`/api/companies/${companyId}`)
+  }
+
+
 
   /* ---------------------- messagings ----------------------  */
 

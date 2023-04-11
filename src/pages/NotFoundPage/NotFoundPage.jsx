@@ -1,10 +1,14 @@
 import "./NotFoundPage.css";
 
-function NotFoundPage() {
+function NotFoundPage(props) {
+  const {togglePage}=props
   return (
-    <div>
-      <h1>Page Not Found</h1>
-      <p>This page doesn't seem to exist</p>
+    <div className={`pageContainer ${togglePage}`}>
+    <div className={`pageTitle ${togglePage}`}><h1>Page Not Found</h1></div>
+    <div className="pageContent"><p>This page doesn't seem to exist</p></div>
+    
+      
+      
     </div>
   );
 }

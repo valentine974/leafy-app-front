@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
 import { AuthContext } from "../../context/auth.context";
 
-function CompanyCreationPage() {    
+function CompanyCreationPage(props) {   
+  const {togglePage} =props 
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [siret, setSiret] = useState("");
@@ -54,8 +55,10 @@ function CompanyCreationPage() {
   };
 
   return (
-    <div className="companyCreationPage">
-      <h1>Create a new company</h1>
+    <div className={`pageContainer ${togglePage}`}>
+    <div className={`pageTitle ${togglePage}`}><h1>Create a new company</h1></div>
+    <div className="pageContent">
+      
 
       <form onSubmit={handleSubmit}>
       
@@ -99,6 +102,7 @@ function CompanyCreationPage() {
       </form>
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
+      </div>
     </div>
   );
 }

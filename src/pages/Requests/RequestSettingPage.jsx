@@ -3,9 +3,13 @@ import { useNavigate,useParams } from "react-router-dom";
 import authService from "../../services/auth.service";
 import { AuthContext } from "../../context/auth.context";
 import formatDate from "../../utils/dateFormating";
+import CalendarComponent from "../../components/Calendar/CalendarComponent";
+import addDays from "date-fns/addDays";
 
-function RequestSettingPage() {
+function RequestSettingPage(props) {
+  const {togglePage}= props
     const { user } = useContext(AuthContext);
+    const [date, setDate] = useState(new Date());
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState(undefined);
     const [isFullDay, setIsFullDay] = useState(true);
@@ -16,6 +20,14 @@ function RequestSettingPage() {
     const [comments, setComments] = useState("");
     const [approvalLimitDate, setApprovalLimitDate] = useState(new Date());
   
+
+
+    const handleDateChange = (date) => {
+      setDate(date);
+      setStartDate(addDays(date[0], 1).toISOString().substr(0, 10));
+      setEndDate(date[1].toISOString().substr(0, 10));
+    };
+
     const handleIsFullDay = (e) => {
       setIsFullDay(e.target.checked);
     };
@@ -82,9 +94,17 @@ function RequestSettingPage() {
     };
   
     return (
-      <div>
-        <h1>Request Settings</h1>
-        {user && (
+      <div className={`pageContainer ${togglePage}`}>
+      <div className={`pageTitle ${togglePage}`}><h1>Request Settings</h1></div>
+      <div className="pageContent">
+
+
+
+  
+      <CalendarComponent className="calendar" date={date} onDateChange={handleDateChange} />
+
+
+      {user && (
           <>
             <form onSubmit={handleSubmit}>
               <label>
@@ -153,6 +173,9 @@ function RequestSettingPage() {
         )}
   
         {errorMessage && <p>{errorMessage}</p>}
+      </div>
+        
+     
       </div>
     );
 }

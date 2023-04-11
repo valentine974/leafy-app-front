@@ -1,0 +1,49 @@
+@media (min-width: 350px)  and (max-width: 1768px) and ( min-height:640px) and (max-height:1025px){
+ 
+
+    .closeNavbar{
+        display:none;
+    }
+    .displayNavbar{
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: stretch;
+        align-items: start;
+    
+        background-color: 	rgb(1, 98, 98);
+        /* background-color: 	rgb(162, 183, 127); */
+        /* max-width: 900px;
+        max-height: 100%;  */
+        width: 60%;
+        height: 100%;
+    
+        margin:0;
+        padding: 100px 20px 20px 20px;
+        position : fixed;
+        z-index: 4;
+    }
+    
+    nav img {
+        width: 30px; 
+        padding-right: 10px;
+    }
+    
+    nav p {
+        font-size: 1.3rem;
+        border-bottom: 1px solid rgb(212, 212, 212); 
+        max-width: 100%;
+    }
+    
+    nav h1 {
+        color: white;
+        font-size: 2rem;
+        margin-top: 30px;
+    }
+
+     
+  }
+  
+
+
+
+

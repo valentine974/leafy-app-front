@@ -1,10 +1,14 @@
 import { AuthContext } from "../../context/auth.context";
 import { useContext, useEffect, useState } from "react";
 import authService from "../../services/auth.service";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import ChatBtn from "../../components/Chat/ChatBtn";
+import "./CompanyPage.css";
 
-function CompanyPage() {
+function CompanyPage(props) {
+  const { togglePage } = props;
+  const navigate = useNavigate();
   const { user, isLoggedIn } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -15,70 +19,108 @@ function CompanyPage() {
   const [allEmployees, setAllEmployees] = useState([]);
   const { id } = useParams();
 
-  const handleChat = () => {
-    console.log("chat")
- 
-  }
+  const handleChat = (receiverId) => {
+    // verify if the conversation already exists
+
+    authService
+      .getUserConversations(user._id)
+      .then((conversations) => {
+        return conversations.data.filter((conversation) => {
+          const participantIds = conversation.participants.map(
+            (participant) => participant._id
+          );
+          return participantIds.every((id) =>
+            [user._id, receiverId].includes(id)
+          );
+        });
+      })
+      .then((conversationArr) => {
+        if (conversationArr.length > 0) {
+          // if it exists, redirect to the conversation page
+          navigate(`/conversation/${conversationArr[0]._id}`);
+        } else {
+          // if not, create conversation then redirect to the conversation page
+          authService
+            .createConversation({ participants: [user._id, receiverId] })
+            .then((response) => {
+              navigate(`/conversation/${response.data._id}`);
+            })
+            .catch((err) => console.log(err));
+        }
+      });
+  };
 
   useEffect(() => {
-    user && authService.getCompany(id).then((foundCompany) => {
-      const { name, address, siret, imageUrl, numberOfVacationDays, _id } =
-        foundCompany.data;
-      setCompanyId(_id);
-      setName(name);
-      setAddress(address);
-      setSiret(siret);
-      setImageUrl(imageUrl);
-      setNumberOfVacationDays(numberOfVacationDays);
-    });
+    user &&
+      authService.getCompany(id).then((foundCompany) => {
+        const { name, address, siret, imageUrl, numberOfVacationDays, _id } =
+          foundCompany.data;
+        setCompanyId(_id);
+        setName(name);
+        setAddress(address);
+        setSiret(siret);
+        setImageUrl(imageUrl);
+        setNumberOfVacationDays(numberOfVacationDays);
+      });
   }, [user]);
 
-
   useEffect(() => {
-    authService.getUsers()
-    .then((foundUsers) => {
-      setAllEmployees(foundUsers.data.filter((user) => user.companyId._id === companyId))
-      console.log(allEmployees)
+    authService.getUsers().then((foundUsers) => {
+      setAllEmployees(
+        foundUsers.data.filter((user) => user.companyId._id === companyId)
+      );
+      // console.log(allEmployees)
     });
   }, [companyId]);
 
   return (
-    <div className="pageContainer">
-      <h1 className="pageTitle">{name}</h1>
+    <div className={`pageContainer ${togglePage}`}>
+      <div className={`pageTitle ${togglePage}`} > 
       {name && (
-        <>
-          <div className="imageContainer">
-          <img src={imageUrl} alt="logo" />
-          </div>
-          <p>Address: {address}</p>
-          {(user.position === "hr" || user.position === "admin") && (
-            <Link to={`/company/${id}/settings`}>
-              To modify company informations
-            </Link>
-          )}
-        </>
-      )}
+        <><h1>{name}</h1>
+            {(user.position === "hr" || user.position === "admin") && (
+              <Link to={`/company/${id}/settings`}>
+                <button>To modify company informations</button>
+              </Link>
+            )}</>)}
+        
+      </div>
+      <div className="pageContent">
+        {name && (
+          <>
+            <div className="imageContainer">
+              <img src={imageUrl} alt="logo"   />
+            </div>
+            <p>Address: {address}</p>
+          </>
+        )}
 
-      <h1 className="pageTitle"> The Team</h1>
-      {
-        allEmployees && (
-          <>  
+        {allEmployees && (
+          <>
             <div className="cards">
               {allEmployees.map((employee) => (
-                <div className="userCard">
+                <div key={employee._id} className="userCard">
                   <div className="imageContainer">
-                  <img src={employee.imageUrl} alt="avatar" />
+                    <img src={employee.imageUrl} alt="avatar" />
                   </div>
-                  
+
                   <h3>{employee.name}</h3>
                   <p>{employee.position}</p>
-                  <p>{employee.email}</p>
-                  {employee._id !== user._id && isLoggedIn && <button className="chatBtn" onClick={handleChat}>💬</button>}
-                </div>))}
+                  <p className="running-email">{employee.email}</p>
+                  {employee._id !== user._id && isLoggedIn && (
+                    <button
+                      className="chatBtn"
+                      onClick={() => handleChat(employee._id)}
+                    >
+                      <ChatBtn/>
+                    </button>
+                  )}
+                </div>
+              ))}
             </div>
           </>
-        )
-      }
+        )}
+      </div>
     </div>
   );
 }

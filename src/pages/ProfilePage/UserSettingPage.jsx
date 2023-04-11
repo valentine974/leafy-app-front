@@ -3,8 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import authService from "../../services/auth.service";
 import { AuthContext } from "../../context/auth.context";
 
-function UserSettingPage() {
+function UserSettingPage(props) {
   //const {email, name, surname, contractStartDate, position, companyId, validators} = req.body
+  const {togglePage}=props
   const { user } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -121,9 +122,11 @@ function UserSettingPage() {
   };
 
   return (
-    <div className="pageContainer">
-      <h1>Change user information for {user.name}</h1>
-      {user && (
+    <div className={`pageContainer ${togglePage}`}>
+
+<div className={`pageTitle ${togglePage}`}><h1>SETTINGS FOR: </h1> <h1 style={{"color":"darkgrey"}}><em>{user.name}{" "}{surname}</em></h1></div>
+    <div className="pageContent">
+    {user && (
         <>
           <div className="profilePicture">
             <img src={imageUrl} alt="profile" />
@@ -215,6 +218,9 @@ function UserSettingPage() {
       )}
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
+    </div>
+      
+      
     </div>
   );
 }

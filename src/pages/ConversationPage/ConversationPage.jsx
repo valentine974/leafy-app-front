@@ -1,44 +1,53 @@
 import authService from "../../services/auth.service";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useContext } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
-import ChatListElem from "../../components/Chat/ChatListElem";
-import "./ConversationPage.css";
 
-function ConversationPage() {
+import "./ConversationPage.css";
+import Chatbox from "../../components/Chat/Chatbox";
+
+function ConversationPage(props) {
+  const { togglePage } = props;
   const { user } = useContext(AuthContext);
-  const [conversations, setConversations] = useState([]);
+  const [currentConversation, setCurrentConversation] = useState(null);
+  const { id } = useParams();
 
   useEffect(() => {
+    updateConversation();
+    const interval = setInterval(() => {
+      updateConversation();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const updateConversation = () => {
     authService
-      .getUserConversations(user._id)
+      .getConversation(id)
       .then((response) => {
-        console.log(response.data);
-        setConversations(response.data);
+        console.log("response", response.data);
+        setCurrentConversation(response.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [user]);
+      .catch((err) =>
+        console.log("error in retriving the conversation by id", err)
+      );
+  };
 
   return (
-    <div className="pageContainer conversationPage">
-      <h1 className="pageTile">My conversations</h1>
-      <div className="chatRoom">
-          {/* map all user's messages */}
-          <div className="chatList">
-            {conversations.map((conversation) => (
-              <>
-                <ChatListElem conversation={conversation} />
-              </>
-            ))}
-          </div>
+    <>
+      <div className={`pageContainer conversationPage ${togglePage}`}>
+        <div className={`pageTitle ${togglePage}`}>
+          <h1>ChatBox</h1>
+        </div>
+        <div className="pageContent">
           <div className="chatBox">
-            <h1>select one chat to see the details</h1>
+            <Chatbox
+              conversation={currentConversation}
+              updateConversation={updateConversation}
+            />
           </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
