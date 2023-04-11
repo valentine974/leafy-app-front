@@ -24,6 +24,12 @@ import ConversationListPage from "./pages/ConversationPage/ConversationListPage"
 
 import { useState } from "react";
 
+// font awesome
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { faMessage } from "@fortawesome/free-solid-svg-icons";
+library.add(fab, faMessage);
+
 function App() {
   const [toggleMenuPage, setToggleMenuPage] = useState("closeNavbar");
   const [togglePage, setTogglePage] = useState("openPage");
@@ -54,7 +60,7 @@ function App() {
         onClick={() => handleMenuFromPage()}
       >
         <div className={`header ${togglePage}`}>
-          <img src={menuImage} alt="Menu" onClick={() => handleMenu()} /> 
+          <img src={menuImage} alt="Menu" onClick={() => handleMenu()} />
         </div>
 
         <Routes>
@@ -63,7 +69,7 @@ function App() {
             path="/user/:id"
             element={
               <IsPrivate>
-                <ProfilePage togglePage={togglePage}/>{" "}
+                <ProfilePage togglePage={togglePage} />{" "}
               </IsPrivate>
             }
           />
@@ -71,12 +77,14 @@ function App() {
             path="/"
             element={<HomePage togglePage={togglePage} />}
           ></Route>
-          <Route path="/login" element={<LoginPage togglePage={togglePage}/>} />
+          <Route
+            path="/login"
+            element={<LoginPage togglePage={togglePage} />}
+          />
           <Route
             path="/user/modify-password"
             element={
               <IsPrivate>
-                {" "}
                 <ModifyPasswordPage togglePage={togglePage} />{" "}
               </IsPrivate>
             }

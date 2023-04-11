@@ -18,6 +18,7 @@ function UserCreationPage(props) {
   const [companies, setCompanies] = useState([]);
   
 
+  
   const handleName = (e) => {
     setName(e.target.value);
   };
@@ -56,7 +57,6 @@ function UserCreationPage(props) {
       name === "" ||
       surname === "" ||
       email === "" ||
-  
       position === "" ||
       companyId === "" ||
       validators === "" ||
@@ -68,9 +68,9 @@ function UserCreationPage(props) {
     authService
       .createUser({
         name,
+        surname,
         email, 
         position,
-        surname,
         companyId,
         validators,
         contractStartDate,

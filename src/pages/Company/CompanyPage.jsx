@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import authService from "../../services/auth.service";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import ChatBtn from "../../components/Chat/ChatBtn";
 
 function CompanyPage(props) {
   const { togglePage } = props;
@@ -108,7 +109,7 @@ function CompanyPage(props) {
                       className="chatBtn"
                       onClick={() => handleChat(employee._id)}
                     >
-                      💬
+                      <ChatBtn/>
                     </button>
                   )} */}
                 </div>

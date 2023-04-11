@@ -61,7 +61,7 @@ function ProfilePage(props) {
           <img src={imageUrl} alt="profile" />
         </div>
 
-        
+
         
         {company && (
           <Link to={`/company/${company._id}`} style={adresseStyle}>
@@ -83,6 +83,7 @@ function ProfilePage(props) {
           
         </Link>
       </div>
+
     </div>
   );
 }

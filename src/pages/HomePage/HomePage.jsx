@@ -28,6 +28,7 @@ const features = [
 function HomePage(props) {
   const { togglePage } = props;
   return (
+
     <div className={`pageContainer ${togglePage}`}>
       <div className={`pageTitle ${togglePage}`}>
         <h1>
