@@ -74,7 +74,7 @@ function UsersPage(props) {
       <div className={`pageTitle ${togglePage}`}>
         <h1> Manage Users </h1>
         <Link to="/create-user">
-          <button>Create a new user</button>
+          <button className="blueButton" >Create a new user</button>
         </Link>
       </div>
       <div className="pageContent">
@@ -92,11 +92,11 @@ function UsersPage(props) {
                   to={`/user/${oneUser._id}`}
                   style={{ textDecoration: "none" }}
                 >
-                  <button style={{ width: "150px" }}>User page </button>{" "}
+                  <button className="blueButton" style={{ width: "150px" }}>User page </button>{" "}
                 </Link>
                 {oneUser._id !== user._id && (
                   <button
-                    className="deleteButton"
+                    className="blueButton deleteButton"
                     style={{ width: "150px" }}
                     onClick={() => handleDelete(oneUser._id)}
                   >

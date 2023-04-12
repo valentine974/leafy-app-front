@@ -71,15 +71,15 @@ function ProfilePage(props) {
         )}
 
         <Link to="/create-request" >
-        <button>Request LEAF</button>
+        <button className="blueButton">Request LEAF</button>
           
         </Link>
         <Link to={`/user/${id}/settings`} >
-        <button>Profile setting</button>
+        <button className="blueButton">Profile setting</button>
           
         </Link>
         <Link to="/user/modify-password" >
-        <button>Change Password</button>
+        <button className="blueButton">Change Password</button>
           
         </Link>
       </div>

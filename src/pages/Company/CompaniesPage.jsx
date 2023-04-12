@@ -27,7 +27,7 @@ function CompaniesPage(props) {
     <div className={`pageContainer ${togglePage}`}>
     <div className={`pageTitle ${togglePage}`}><h1 >Companies</h1> 
     <Link to="/create-company">
-        <button>Create a new company</button>
+        <button className="blueButton">Create a new company</button>
       </Link>
       </div>
     <div className="pageContent">

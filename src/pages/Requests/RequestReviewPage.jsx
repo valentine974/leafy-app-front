@@ -91,7 +91,7 @@ const navigate = useNavigate();
     <div className={`pageContainer ${togglePage}`}>
       <div className={`pageTitle ${togglePage}`}>
         <h1>LEAF REQUESTS</h1>
-        <button>
+        <button className="blueButton">
         <Link className={linkStyle} to="/create-request ">Request LEAF</Link></button>
       </div>
       <div className="pageContent">
@@ -129,9 +129,9 @@ const navigate = useNavigate();
 
                
               <Link to={`/request/${request._id}/settings`}>
-                <button>To modify my request</button> 
+                <button className="blueButton">To modify my request</button> 
               </Link>
-              <button onClick={() => handleDeleteButton(request._id)} className="deleteButton">
+              <button onClick={() => handleDeleteButton(request._id)} className="blueButton deleteButton">
                 Delete my request
               </button>
               <button
