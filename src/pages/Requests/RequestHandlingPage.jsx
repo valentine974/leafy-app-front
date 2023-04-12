@@ -76,19 +76,19 @@ function RequestHandlingPage(props) {
       .updateRequest(request._id, updatedRequest)
       .then((updatedRequest) => {
         // update the showing requests
-        setRequests((prevRequests) =>
-          prevRequests.map((prevRequest) =>
-         prevRequest._id === updatedRequest.data._id
-              ? updatedRequest.data
-              : prevRequest
-         )
-        );
+        //update the showing requests (it takes quite a while to update)
+        const prevRequests = [...requests]
+        for(let i=0;i<prevRequests.length;i++){
+          if(prevRequests[i]._id === updatedRequest.data._id){
+            prevRequests[i].status=updatedRequest.data.status
+          }
+        }
+        setRequests(prevRequests)
       })
       .catch((err) => console.log("err in updating request", err));
   };
 
   const handleRejection = (request) => {
-
 
     const updatedRequest = request
     updatedRequest.validations.map((validation) => {
@@ -96,20 +96,18 @@ function RequestHandlingPage(props) {
         validation.status = "rejected"
       }
     })
-
   
     authService
       .updateRequest(request._id, updatedRequest)
       .then((updatedRequest) => {
         //update the showing requests (it takes quite a while to update)
-        
-        setRequests((prevRequests) =>
-          prevRequests.map((prevRequest) =>
-            prevRequest._id === updatedRequest.data._id
-              ? updatedRequest.data
-              : prevRequest
-          )
-        );
+        const prevRequests = [...requests]
+        for(let i=0;i<prevRequests.length;i++){
+          if(prevRequests[i]._id === updatedRequest.data._id){
+            prevRequests[i].status=updatedRequest.data.status
+          }
+        }
+        setRequests(prevRequests)
       })
       .catch((err) => console.log("err in updating request", err));
   };

@@ -2,9 +2,10 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
 import { AuthContext } from "../../context/auth.context";
+import { Select } from "antd";
 
 function UserCreationPage(props) {
-  const {togglePage}=props
+  const { togglePage } = props;
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [name, setName] = useState("");
@@ -16,18 +17,16 @@ function UserCreationPage(props) {
   const [managers, setManagers] = useState([]); // managers are the possible validators
   const [contractStartDate, setContractStartDate] = useState("");
   const [companies, setCompanies] = useState([]);
-  
 
-  
   const handleName = (e) => {
     setName(e.target.value);
   };
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
- 
-  const handlePosition = (e) => {
-    setPosition(e.target.value);
+
+  const handlePosition = (value) => {
+    setPosition(value);
   };
   const handleSurname = (e) => {
     setSurname(e.target.value);
@@ -36,13 +35,9 @@ function UserCreationPage(props) {
     setCompanyId(e.target.value);
   };
 
-  const handleValidators = (e) => {
-    const selectedOptions = e.target.selectedOptions;
-    const values = [];
-    for (let i = 0; i < selectedOptions.length; i++) {
-      values.push(selectedOptions[i].value);
-    }
-    setValidators(values);
+  const handleValidators = (selectedOptions) => {
+    const selectedValidators = selectedOptions.map((option) => option.value);
+    setValidators(selectedValidators);
   };
 
   const handleContractStartDate = (e) => {
@@ -52,7 +47,22 @@ function UserCreationPage(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("email:", email,  "name:", name, "surname:", surname, "position:", position, "companyId:", companyId, "validators:", validators, "contractStartDate:", contractStartDate);
+    console.log(
+      "email:",
+      email,
+      "name:",
+      name,
+      "surname:",
+      surname,
+      "position:",
+      position,
+      "companyId:",
+      companyId,
+      "validators:",
+      validators,
+      "contractStartDate:",
+      contractStartDate
+    );
     if (
       name === "" ||
       surname === "" ||
@@ -69,7 +79,7 @@ function UserCreationPage(props) {
       .createUser({
         name,
         surname,
-        email, 
+        email,
         position,
         companyId,
         validators,
@@ -91,11 +101,10 @@ function UserCreationPage(props) {
         })
         .catch((err) => console.log("error in getting companies", err));
     } else if (user && user.position === "hr") {
-      setCompanyId(user.companyId)
+      setCompanyId(user.companyId);
       setCompanies([user.companyId]);
     }
   }, [user]);
-
 
   // get all managers the company's manager on load
   useEffect(() => {
@@ -115,106 +124,105 @@ function UserCreationPage(props) {
 
   return (
     <div className={`pageContainer ${togglePage}`}>
-    <div className={`pageTitle ${togglePage}`}><h1 >USER CREATION</h1></div>
-    <div className="pageContent">
-    {user && (
-        <>
-          
-          <form onSubmit={handleSubmit}>
-            <label>
-              Name:
-              <input
-                type="text"
-                name="name"
-                value={name}
-                onChange={handleName}
-              />
-            </label>
-            <label>
-              Surname:
-              <input
-                type="text"
-                name="surname"
-                value={surname}
-                onChange={handleSurname}
-              />
-            </label>
-            <label>
-              Email:
-              <input
-                type="email"
-                name="email"
-                value={email}
-                onChange={handleEmail}
-              />
-            </label>
-       
-            <label>
-              Position:
-              <select name="position" onChange={handlePosition}>
-{/*                 <option key="admin" value="admin">
-                  Admin
-                </option> */}
-                <option key="manager" value="manager">
-                  Manager
-                </option>
-                <option key="hr" value="hr">
-                  HR
-                </option>
-                <option key="employee" value="employee">
-                  Employee
-                </option>
-              </select>
-            </label>
-
-            {user.position === "admin" && (
+      <div className={`pageTitle ${togglePage}`}>
+        <h1>USER CREATION</h1>
+      </div>
+      <div className="pageContent">
+        {user && (
+          <>
+            <form onSubmit={handleSubmit}>
               <label>
-                Company:
-                <select name="companyId" onChange={handleCompanyId}>
-                  <option value="" default>
-                    Choose a company
-                  </option>
-                  {companies.map((company) => (
-                    <option key={company._id} value={company._id}>
-                      {company.name}
-                    </option>
-                  ))}
-                </select>
+                Name:
+                <input
+                  type="text"
+                  name="name"
+                  value={name}
+                  style={{width: '100%',}}
+                  onChange={handleName}
+                />
               </label>
-            )}
+              <label>
+                Surname:
+                <input
+                  type="text"
+                  name="surname"
+                  style={{width: '100%',}}
+                  value={surname}
+                  onChange={handleSurname}
+                />
+              </label>
+              <label>
+                Email:
+                <input
+                  type="email"
+                  name="email"
+                  style={{width: '100%',}}
+                  value={email}
+                  onChange={handleEmail}
+                />
+              </label>
+              <label>
+                Position: <br />
+                <Select
+                  defaultValue="employee"
+                  onChange={handlePosition}
+                  style={{
+                    width: "100%",
+                  }}
+                  options={[
+                    { value: "employee", label: "Employee" },
+                    { value: "manager", label: "Manager" },
+                    { value: "hr", label: "HR" },
+                  ]}
+                />
+              </label>
 
-            <label>
-                  Validators:
-                  <select
-                    name="validators"
-                    value={validators}
-                    onChange={handleValidators}
-                    multiple
-                  >
-                    {managers.map((manager) => (
-                      <option key={manager._id} value={manager._id}>
-                        {manager.name}
-                      </option>
-                    ))}
-                  </select>
+              {user.position === "admin" && (
+                <label>
+                  Company: <br />
+                  <Select
+                    onChange={handleCompanyId}
+                    options={companies.map((company) => ({
+                      value: company._id,
+                      label: company.name,
+                    }))}
+                  />
                 </label>
+              )}
 
-            <label>
-              Contract Start Date:
-              <input
-                type="date"
-                name="contractStartDate"
-                value={contractStartDate}
-                onChange={handleContractStartDate}
-              />
-            </label>
-            <button type="submit">Create User</button>
-          </form>
-        </>
-      )}
-      {errorMessage && <p>{errorMessage}</p>}
-    </div>
-      
+              <label>
+                Validators: <br />
+                <Select
+                  name="validators"
+                  mode="multiple"
+                  placeholder="Please select"
+                  style={{
+                    width: "100%",
+                  }}
+                  onChange={handleValidators}
+                  options={managers.map((manager) => ({
+                    value: manager._id,
+                    label: manager.name,
+                  }))}
+                />
+              </label>
+
+              <label>
+                Contract Start Date:
+                <input
+                  type="date"
+                  name="contractStartDate"
+                  value={contractStartDate}
+                  style={{width: '100%',}}
+                  onChange={handleContractStartDate}
+                />
+              </label>
+              <button type="submit">Create User</button>
+            </form>
+          </>
+        )}
+        {errorMessage && <p>{errorMessage}</p>}
+      </div>
     </div>
   );
 }
