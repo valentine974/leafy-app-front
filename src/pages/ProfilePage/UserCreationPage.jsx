@@ -36,8 +36,8 @@ function UserCreationPage(props) {
   };
 
   const handleValidators = (selectedOptions) => {
-    const selectedValidators = selectedOptions.map((option) => option.value);
-    setValidators(selectedValidators);
+    console.log(selectedOptions)
+    setValidators(selectedOptions);
   };
 
   const handleContractStartDate = (e) => {
@@ -164,7 +164,7 @@ function UserCreationPage(props) {
               <label>
                 Position: <br />
                 <Select
-                  defaultValue="employee"
+                  placeholder="Please select"
                   onChange={handlePosition}
                   style={{
                     width: "100%",
