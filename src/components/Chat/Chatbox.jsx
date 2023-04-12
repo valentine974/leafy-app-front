@@ -2,6 +2,7 @@ import { useContext, useState} from "react";
 import { AuthContext } from "../../context/auth.context";
 import formatDateTime from "../../utils/dateTimeFormating"; 
 import authService from "../../services/auth.service"; 
+import Loading from '../../components/Loading/Loading'
 
 function Chatbox(props) {
   const { user } = useContext(AuthContext);
@@ -78,7 +79,10 @@ function Chatbox(props) {
           </div>
         </>
       ) : (
-        <h1>select one chat to see the details</h1>
+        <>
+        <Loading/>
+    </>
+         
       )}
     </div>
   );

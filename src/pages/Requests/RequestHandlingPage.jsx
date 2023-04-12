@@ -124,16 +124,16 @@ function RequestHandlingPage(props) {
         {requests &&
           requests.map((request) => (
             <div className={`requestCard ${request.status}`} key={request._id}>
-              <h3 className="">{request.requester.name}</h3>
-              <p>Start date: {formatDate(request.startDate)}</p>
-              <p>End date: {formatDate(request.endDate)}</p>
+              <h2 className="">{request.requester.name}{" "}{request.requester.surname} </h2>
+              <p><b>Start date:</b>  {formatDate(request.startDate)}</p>
+              <p><b>End date:</b> {formatDate(request.endDate)}</p>
               <p>
-                To be approved before: {formatDate(request.approvalLimitDate)}
+              <b>To be approved before:</b> {formatDate(request.approvalLimitDate)}
               </p>
-              <p>Status: {request.status}</p>
-              <p>Comments: {request.comments}</p>
-              <button onClick={() => handleApproval(request)}>Approve</button>
-              <button onClick={() => handleRejection(request)}>Reject</button>
+              <p><b>Status:</b> {request.status}</p>
+              <p><b>Comments:</b> {request.comments?request.comments:"no comments"}</p>
+              <button className="blueButton" onClick={() => handleApproval(request)}>Approve</button>
+              <button className="blueButton deleteButton" onClick={() => handleRejection(request)}>Reject</button>
               {/* button to ask for information later when conversation models is built */}
               <button
                 className="chatBtn"

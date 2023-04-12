@@ -142,8 +142,9 @@ function RequestCreationPage(props) {
     <div className={`pageContainer ${togglePage}`}>
 
     <div className={`pageTitle ${togglePage}`}>
-      <h1>Request Creation</h1></div>
-      <p> You have {daysLeft} vacation days left </p>
+      <h1>Request Creation</h1>
+      <p > You have <b style={{"fontSize":"1.2rem","color":"darkred"}} >{daysLeft}</b> vacation days left </p>
+      </div>
     <div className="pageContent">
     
   
@@ -216,7 +217,7 @@ function RequestCreationPage(props) {
                 onChange={handleComments}
               />
             </label>
-            <button type="submit">Create</button>
+            <button className="blueButton" type="submit">Create</button>
           </form>
         </div>
       )}

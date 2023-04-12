@@ -13,7 +13,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
-import IsAnon from "./components/IsAnon/IsAnon";
+// import IsAnon from "./components/IsAnon/IsAnon";
 import CompaniesPage from "./pages/Company/CompaniesPage";
 import CompanyPage from "./pages/Company/CompanyPage";
 import UsersPage from "./pages/ProfilePage/UsersPage";

@@ -3,25 +3,25 @@ import FeatureBox from "../../components/Features/FeatureBox";
 
 const features = [
   {
-    featureName: "One",
+    featureName: "1. Company leaves",
     featureLogo: "🚀",
     featureImg: "https://picsum.photos/200",
     featureDescription:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit dignissimos culpa rem sunt quia ab ullam debitis minima provident! Et amet officia distinctio atque ducimus enim facilis nulla sequi natus!",
+      "Easily manage leaves and absences. Record sick days and annual leave and watch leaves counter update automatically.",
   },
   {
-    featureName: "Two",
+    featureName: "2. HR management ",
     featureLogo: "🚀",
     featureImg: "https://picsum.photos/200",
     featureDescription:
-      "lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit dignissimos culpa rem sunt quia ab ullam debitis minima provident! Et amet officia distinctio atque ducimus enim facilis nulla sequi natus!",
+      "Give the tools to your employees to communicate with the HRs and their management.",
   },
   {
-    featureName: "Three",
+    featureName: "3. Seamless experience",
     featureLogo: "🚀",
     featureImg: "https://picsum.photos/200",
     featureDescription:
-      "lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit dignissimos culpa rem sunt quia ab ullam debitis minima provident! Et amet officia distinctio atque ducimus enim facilis nulla sequi natus!",
+      "It will never as easy as with LEAFY to manage your employee's Holidays.",
   },
 ];
 
@@ -38,7 +38,7 @@ function HomePage(props) {
       <div className="pageContent">
       <p>
           Nice features of LEAFY to help you manage <br /> your team's vacations
-          with zen inside
+          with zen inside.
         </p>
         <div className="cards">
           {features.map((feature) => (
