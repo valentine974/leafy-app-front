@@ -1,10 +1,13 @@
 import formatDate from "../../utils/dateFormating";
+import Loading from "../../components/Loading/Loading"
 
 function ChatListElem(props) {
   const { participants, messages } = props.conversation;
   return (
     <div className="singleChat card">
+    {participants? (<>
       <div className="left imagesContainer">
+      
         {participants.map((participant) => (
           <div key={participant._id} className="miniProfileImageContainer">
             <img src={participant.imageUrl} alt="profilePic" />
@@ -21,6 +24,7 @@ function ChatListElem(props) {
           <p>No messages yet</p>
         )}
       </div>
+      </>): <Loading/>}
     </div>
   );
 }
