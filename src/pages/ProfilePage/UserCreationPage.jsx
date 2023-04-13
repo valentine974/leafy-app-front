@@ -32,8 +32,8 @@ function UserCreationPage(props) {
   const handleSurname = (e) => {
     setSurname(e.target.value);
   };
-  const handleCompanyId = (e) => {
-    setCompanyId(e.target.value);
+  const handleCompanyId = (value) => {
+    setCompanyId(value);
   };
 
   const handleValidators = (selectedOptions) => {
