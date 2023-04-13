@@ -6,6 +6,7 @@ import formatDate from "../../utils/dateFormating";
 import CalendarComponent from "../../components/Calendar/CalendarComponent";
 import ChatBtn from "../../components/Chat/ChatBtn";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../components/Loading/Loading";
 
 function RequestReviewPage(props) {
   const { togglePage } = props;
@@ -89,6 +90,7 @@ const navigate = useNavigate();
 
   return (
     <div className={`pageContainer ${togglePage}`}>
+    {requests? (<>
       <div className={`pageTitle ${togglePage}`}>
         <h1>LEAF REQUESTS</h1>
         <button className="blueButton">
@@ -144,7 +146,7 @@ const navigate = useNavigate();
           ))}
         </div>
       </div>
-
+</>): <Loading/> }
     </div>
   );
 }

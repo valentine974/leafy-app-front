@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
 import authService from "../../services/auth.service";
+import Loading from "../../components/Loading/Loading";
 
 function ProfilePage(props) {
   const { togglePage } = props;
@@ -63,12 +64,12 @@ function ProfilePage(props) {
 
 
         
-        {company && (
+        {company?(
           <Link to={`/company/${company._id}`} style={adresseStyle}>
             {" "}
             {company.name}
           </Link>
-        )}
+        ):<Loading/>}
 
         <Link to="/create-request" >
         <button className="blueButton">Request LEAF</button>

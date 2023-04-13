@@ -8,6 +8,7 @@ import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
 import differenceInBusinessDays from "date-fns/differenceInBusinessDays";
 import { setDay } from "date-fns";
 import CalendarComponent from "../../components/Calendar/CalendarComponent";
+import Loading from "../../components/Loading/Loading";
 
 function RequestCreationPage(props) {
   /* request setting page with all it's properties: status, isFullDay, startDate, morningAfternoonStart, endDate, morningAfternoonEnd, comments */
@@ -140,7 +141,7 @@ function RequestCreationPage(props) {
   return (
 
     <div className={`pageContainer ${togglePage}`}>
-
+{user? ( <>
     <div className={`pageTitle ${togglePage}`}>
       <h1>Request Creation</h1>
       <p > You have <b style={{"fontSize":"1.2rem","color":"darkred"}} >{daysLeft}</b> vacation days left </p>
@@ -150,7 +151,7 @@ function RequestCreationPage(props) {
   
     <CalendarComponent className="calendar" date={date} onDateChange={handleDateChange} />
 
-      {user && (
+      
         <div className="formBody">
           <form onSubmit={handleSubmit}>
             <label>
@@ -220,11 +221,11 @@ function RequestCreationPage(props) {
             <button className="blueButton" type="submit">Create</button>
           </form>
         </div>
-      )}
+        
 
       {errorMessage && <p>{errorMessage}</p>}
     </div>
-
+</>): <Loading/> }
 
     </div>
   );

@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import ChatBtn from "../../components/Chat/ChatBtn";
 import "./CompanyPage.css";
 import addressImage from '../../Images/maps-and-flags.png'
+import Loading from "../../components/Loading/Loading";
 
 function CompanyPage(props) {
   const { togglePage } = props;
@@ -75,19 +76,21 @@ function CompanyPage(props) {
   }, [companyId]);
 
   return (
+    
     <div className={`pageContainer ${togglePage}`}>
+    {name? (<>
       <div className={`pageTitle ${togglePage}`} > 
-      {name && (
+       
         <><h1>{name}</h1>
             {(user.position === "hr" || user.position === "admin") && (
               <Link to={`/company/${id}/settings`}>
                 <button className="blueButton">Modify company informations</button>
               </Link>
-            )}</>)}
+            )}</>
         
       </div>
       <div className="pageContent">
-        {name && (
+         
           <>
             <div className="imageContainer profile">
               <img src={imageUrl} alt="logo"   />
@@ -95,7 +98,7 @@ function CompanyPage(props) {
             <p style={{"margin":"10px", "display":"flex","flexFlow":"row nowrap", "alignItems":"center", "color":"#026162"}} ><img src={addressImage} alt="address:" style={{"width":"30px", "marginRight":"10px"}} /> {address}</p>
             {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20167.388123479293!2d4.310304228205223!3d50.81405575549326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3c46de30bb961%3A0xfec0c86e0044474e!2sForest%2C%20Belgique!5e0!3m2!1sfr!2sfr!4v1681239911248!5m2!1sfr!2sfr" style={{"border":"0","height":"450", "width":"600"}} /> */}
           </>
-        )}
+         
 
         {allEmployees && (
           <>
@@ -122,7 +125,8 @@ function CompanyPage(props) {
             </div>
           </>
         )}
-      </div>
+      </div></>): <Loading/> }
+
     </div>
   );
 }

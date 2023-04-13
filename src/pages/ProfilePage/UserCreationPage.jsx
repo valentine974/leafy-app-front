@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
 import { AuthContext } from "../../context/auth.context";
 import { Select } from "antd";
+import Loading from "../../components/Loading/Loading";
 
 function UserCreationPage(props) {
   const { togglePage } = props;
@@ -128,7 +129,7 @@ function UserCreationPage(props) {
         <h1>USER CREATION</h1>
       </div>
       <div className="pageContent">
-        {user && (
+        {user? (
           <>
             <form onSubmit={handleSubmit}>
               <label>
@@ -220,7 +221,7 @@ function UserCreationPage(props) {
               <button type="submit">Create User</button>
             </form>
           </>
-        )}
+        ): <Loading/>}
         {errorMessage && <p>{errorMessage}</p>}
       </div>
     </div>

@@ -1,6 +1,7 @@
 import authService from "../../services/auth.service";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Loading from "../../components/Loading/Loading";
 
 function CompaniesPage(props) {
   const{togglePage}=props
@@ -31,23 +32,26 @@ function CompaniesPage(props) {
       </Link>
       </div>
     <div className="pageContent">
-    {companies?.map((company) => (
-        <div key={company._id}>
+    <div className="cards">
+    {companies? companies.map((company) => (
+        <div className="companyCard " key={company._id}>
         <div className="imageContainer">
           <img src={company.imageUrl} alt="logo" />
         </div>
-          <h3>{company.name}</h3>
-        <button><Link to={`/company/${company._id}`}> Go to company page </Link> </button>
+        <h3>{company.name}</h3> 
+        <button className="blueButton"><Link to={`/company/${company._id}`}> Go to company page </Link> </button>
         <button
-                    className="deleteButton"
-                    style={{ width: "150px" }}
+                    className="blueButton deleteButton" 
                     onClick={() => handleDelete(company._id)}
                   >
-                    Delete User
+                    Delete Company
           </button>
   
         </div>
-      ))}
+      )): <Loading/> }
+    </div>
+    
+ 
 
     </div>
       

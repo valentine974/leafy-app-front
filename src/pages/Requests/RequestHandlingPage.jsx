@@ -6,6 +6,7 @@ import "./RequestPages.css";
 import formatDate from "../../utils/dateFormating";
 import ChatBtn from "../../components/Chat/ChatBtn";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../components/Loading/Loading";
 
  
 function RequestHandlingPage(props) {
@@ -119,7 +120,7 @@ function RequestHandlingPage(props) {
     </div>
     <div className="pageContent">
       <div className="requestCards">
-        {requests &&
+        {requests? 
           requests.map((request) => (
             <div className={`requestCard ${request.status}`} key={request._id}>
               <h2 className="">{request.requester.name}{" "}{request.requester.surname} </h2>
@@ -141,7 +142,7 @@ function RequestHandlingPage(props) {
               </button>
             </div>
 
-          ))}
+          )): <Loading/> }
       </div>
     </div>
  </div>

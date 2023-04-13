@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/auth.context";
 import formatDate from "../../utils/dateFormating";
 import CalendarComponent from "../../components/Calendar/CalendarComponent";
 import addDays from "date-fns/addDays";
+import Loading from "../../components/Loading/Loading";
 
 function RequestSettingPage(props) {
   const {togglePage}= props
@@ -104,7 +105,7 @@ function RequestSettingPage(props) {
       <CalendarComponent className="calendar" date={date} onDateChange={handleDateChange} />
 
 
-      {user && (
+      {user? (
           <>
             <form onSubmit={handleSubmit}>
               <label>
@@ -170,7 +171,7 @@ function RequestSettingPage(props) {
               <button type="submit">Change request</button>
             </form>
           </>
-        )}
+        ) : <Loading/> }
   
         {errorMessage && <p>{errorMessage}</p>}
       </div>

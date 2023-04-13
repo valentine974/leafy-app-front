@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 import "./ProfilePages.css";
 import ChatBtn from "../../components/Chat/ChatBtn";
+import Loading from "../../components/Loading/Loading";
 
 function UsersPage(props) {
   const { togglePage } = props;
@@ -79,7 +80,7 @@ function UsersPage(props) {
       </div>
       <div className="pageContent">
         <div className="cards">
-          {users &&
+          {users? (
             user &&
             users.map((oneUser) => (
               <div className="userCard" key={oneUser._id}>
@@ -112,7 +113,7 @@ function UsersPage(props) {
                   </button>
                 )}
               </div>
-            ))}
+            ))):<Loading/> }
         </div>
       </div>
     </div>

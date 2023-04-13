@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import authService from "../../services/auth.service";
 import { AuthContext } from "../../context/auth.context";
+import Loading from "../../components/Loading/Loading";
 
 function CompanySettingPage(props) {
   const {togglePage} =props
@@ -90,7 +91,7 @@ function CompanySettingPage(props) {
     <div className={`pageContainer ${togglePage}`}>
     <div className={`pageTitle ${togglePage}`}><h1>Update company information</h1></div>
     <div className="pageContent">
-    {name && (
+    {name? (
         <form onSubmit={handleSubmit}>
           <label>
             Name:
@@ -138,7 +139,7 @@ function CompanySettingPage(props) {
 
           <button type="submit">Update</button>
         </form>
-      )}
+      ): <Loading/>}
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
