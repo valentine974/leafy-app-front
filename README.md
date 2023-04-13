@@ -3,7 +3,7 @@
 # LEAFY 
 a leave request gestion app 
 
-deployed on notlify: https://leafy.netlify.app/
+deployed on notlify: https://leafy-app.netlify.app/
 
 ---
 
