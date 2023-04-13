@@ -36,10 +36,9 @@ function HomePage(props) {
         </h1> <p>a bug-us adventure</p>
       </div>
       <div className="pageContent">
-      <p>
-          Nice features of LEAFY to help you manage <br /> your team's vacations
-          with zen inside.
-        </p>
+      <h2>
+      Empower Your Team & Optimize Workflow with Leafy
+        </h2>
         <div className="cards">
           {features.map((feature) => (
             <FeatureBox
