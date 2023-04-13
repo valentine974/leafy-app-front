@@ -2,6 +2,8 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import authService from "../../services/auth.service";
 import { AuthContext } from "../../context/auth.context";
+import { Select } from "antd";
+import Loading from "../../components/Loading/Loading";
 
 function UserSettingPage(props) {
   //const {email, name, surname, contractStartDate, position, companyId, validators} = req.body
@@ -24,8 +26,10 @@ function UserSettingPage(props) {
     authService
       .getUser(id)
       .then((foundUser) => {
+        console.log("foundUser", foundUser);
         const { email, name, imageUrl, surname, companyId, validators } =
           foundUser.data;
+        console.log("name", name);
         setEmail(email);
         setName(name);
         setSurname(surname);
@@ -67,15 +71,10 @@ function UserSettingPage(props) {
   const handleEmail = (e) => setEmail(e.target.value);
   const handleName = (e) => setName(e.target.value);
   const handleSurname = (e) => setSurname(e.target.value);
-  const handleCompanyId = (e) => {
-    setCompanyId(e.target.value);
+  const handleCompanyId = (value) => {
+    setCompanyId(value);
   };
-  const handleValidators = (e) => {
-    const selectedOptions = e.target.selectedOptions;
-    const values = [];
-    for (let i = 0; i < selectedOptions.length; i++) {
-      values.push(selectedOptions[i].value);
-    }
+  const handleValidators = (values) => {
     setValidators(values);
   };
 
@@ -98,6 +97,7 @@ function UserSettingPage(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
     if (email === "" || name === "" || surname === "") {
       setErrorMessage("Email, name and surname can not be empty");
       return;
@@ -108,8 +108,9 @@ function UserSettingPage(props) {
       return;
     }
     imageUrl === "" ? setImageUrl(user.imageUrl) : setImageUrl(imageUrl);
+    companyId === "" && setCompanyId(user.companyId)
     authService
-      .updateUser(user._id, {
+      .updateUser(id, {
         email,
         name,
         surname,
@@ -117,16 +118,18 @@ function UserSettingPage(props) {
         companyId,
         validators,
       })
-      .then(() => navigate(`/user/${user._id}`))
+      .then((returnedUser) => {
+        console.log("user updated", returnedUser.data);
+        navigate(`/user/${returnedUser.data._id}`)})
       .catch((err) => console.log("error in updating user info", err));
   };
 
   return (
     <div className={`pageContainer ${togglePage}`}>
 
-<div className={`pageTitle ${togglePage}`}><h1>SETTINGS FOR: </h1> <h1 style={{"color":"darkgrey"}}><em>{user.name}{" "}{surname}</em></h1></div>
+<div className={`pageTitle ${togglePage}`}><h1>SETTINGS FOR: </h1> <h1 style={{"color":"darkgrey"}}><em>{name}{" "}{surname}</em></h1></div>
     <div className="pageContent">
-    {user && (
+    {user? (
         <>
           <div className="profilePicture">
             <img src={imageUrl} alt="profile" />
@@ -139,6 +142,7 @@ function UserSettingPage(props) {
                 type="email"
                 name="email"
                 value={email}
+                style={{width: "100%",}}
                 onChange={handleEmail}
               />
             </label>
@@ -149,6 +153,7 @@ function UserSettingPage(props) {
                 type="text"
                 name="name"
                 value={name}
+                style={{width: "100%",}}
                 onChange={handleName}
               />
             </label>
@@ -159,6 +164,7 @@ function UserSettingPage(props) {
                 type="text"
                 name="surname"
                 value={surname}
+                style={{width: "100%",}}
                 onChange={handleSurname}
               />
             </label>
@@ -167,55 +173,51 @@ function UserSettingPage(props) {
               <input
                 type="file"
                 name="imageUrl"
+                style={{width: "100%",}}
                 onChange={(e) => handleFileUpload(e)}
               />
             </label>
 
             {user.position === "admin" && (
               <>
-                <label>
-                  Company:
-                  <select name="companyId" onChange={handleCompanyId}>
-                    {companies.map((company) =>
-                      company._id === companyId._id ? (
-                        <option key={company._id} value={company._id} default>
-                          {company.name}
-                        </option>
-                      ) : (
-                        <option key={company._id} value={company._id}>
-                          {company.name}
-                        </option>
-                      )
-                    )}
-                  </select>
+                  <label>
+                  Company: <br />
+                  <Select
+                    onChange={handleCompanyId}
+                    options={companies.map((company) => ({
+                      value: company._id,
+                      label: company.name,
+                    }))}
+                  />
                 </label>
               </>
             )}
 
             {(user.position === "hr" || user.position === "admin") && (
               <>
-                <label>
-                  Validators:
-                  <select
-                    name="validators"
-                    value={validators}
-                    onChange={handleValidators}
-                    multiple
-                  >
-                    {managers.map((manager) => (
-                      <option key={manager._id} value={manager._id}>
-                        {manager.name}
-                      </option>
-                    ))}
-                  </select>
-                </label>
+              <label>
+                Validators: <br />
+                <Select
+                  name="validators"
+                  mode="multiple"
+                  defaultValue={validators}
+                  placeholder="Please select"
+                  style={{width: "100%",}}
+                  onChange={handleValidators}
+                  options={managers.map((manager) => ({
+                    value: manager._id,
+                    label: manager.name,
+                  }))}
+                />
+              </label>
               </>
             )}
 
             <button type="submit">Modify</button>
+
           </form>
         </>
-      )}
+      ): <Loading/>}
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
