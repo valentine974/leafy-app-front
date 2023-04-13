@@ -51,6 +51,7 @@ function ProfilePage(props) {
 
   return (
     <div className={`pageContainer ${togglePage}`}>
+    {name? (<>
       <div className={`pageTitle ${togglePage}`}>
       <h1>
           {name} {surname}
@@ -64,12 +65,12 @@ function ProfilePage(props) {
 
 
         
-        {company?(
+        {company &&(
           <Link to={`/company/${company._id}`} style={adresseStyle}>
             {" "}
             {company.name}
           </Link>
-        ):<Loading/>}
+        )}
 
         <Link to="/create-request" >
         <button className="blueButton">Request LEAF</button>
@@ -84,7 +85,7 @@ function ProfilePage(props) {
           
         </Link>
       </div>
-
+</>): <Loading/>}
     </div>
   );
 }
