@@ -79,13 +79,16 @@ const navigate = useNavigate();
   };
 
   const linkStyle = {
-    textDecoration: "none",
+    textDecoration: "none!important",
     margin: "5px",
     color: "white",
     display: "flex",
     flexFlow: "row nowrap",
     justifyContent: "center",
     paddingTop: "10px",
+    "&.pageContainer a": {
+      textDecoration: "none !important",
+    }
   };
 
   return (
@@ -93,8 +96,8 @@ const navigate = useNavigate();
     {requests? (<>
       <div className={`pageTitle ${togglePage}`}>
         <h1>LEAF REQUESTS</h1>
-        <button className="blueButton">
-        <Link className={linkStyle} to="/create-request ">Request LEAF</Link></button>
+        
+        <Link className={linkStyle} to="/create-request "><button className="blueButton">Request LEAF</button></Link>
       </div>
       <div className="pageContent">
       <br />

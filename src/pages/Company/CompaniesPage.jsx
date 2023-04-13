@@ -39,7 +39,7 @@ function CompaniesPage(props) {
           <img src={company.imageUrl} alt="logo" />
         </div>
         <h3>{company.name}</h3> 
-        <button className="blueButton"><Link to={`/company/${company._id}`}> Go to company page </Link> </button>
+        <Link to={`/company/${company._id}`}> <button className="blueButton"> Go to company page  </button></Link>
         <button
                     className="blueButton deleteButton" 
                     onClick={() => handleDelete(company._id)}
