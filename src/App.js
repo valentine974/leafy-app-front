@@ -32,8 +32,7 @@ library.add(fab, faMessage);
 
 function App() {
   const [toggleMenuPage, setToggleMenuPage] = useState("closeNavbar");
-  const [togglePage, setTogglePage] = useState("openPage");
-  console.log("menu state in page ini", toggleMenuPage);
+  const [togglePage, setTogglePage] = useState("openPage"); 
 
   const handleMenu = () => {
     toggleMenuPage === "displayNavbar"

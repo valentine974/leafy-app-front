@@ -13,9 +13,8 @@ function RequestReviewPage(props) {
 
   const { user } = useContext(AuthContext);
 const navigate = useNavigate();
-  const [requests, setRequests] = useState(null);
-
-
+  const [requests, setRequests] = useState(null);  
+ 
   const handleChat = (participantIds) => {
     // verify if the conversation already exists
     // latter on we will intergrate the attachement of the conversation to the request
@@ -62,12 +61,10 @@ const navigate = useNavigate();
     user &&
       authService
         .getRequests()
-        .then((requests) => {
-
-          console.log(requests)
+        .then((requests) => {  
           setRequests(
             requests.data.filter(
-              (request) => request.requester._id === user._id
+              (request) =>   request.requester._id === user._id 
             )
           );
         })
