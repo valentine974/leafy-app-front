@@ -63,6 +63,8 @@ const navigate = useNavigate();
       authService
         .getRequests()
         .then((requests) => {
+
+          console.log(requests)
           setRequests(
             requests.data.filter(
               (request) => request.requester._id === user._id
@@ -93,7 +95,7 @@ const navigate = useNavigate();
 
   return (
     <div className={`pageContainer ${togglePage}`}>
-    {requests? (<>
+    {/* {requests? (<> */}
       <div className={`pageTitle ${togglePage}`}>
         <h1>LEAF REQUESTS</h1>
         
@@ -149,7 +151,7 @@ const navigate = useNavigate();
           ))}
         </div>
       </div>
-</>): <Loading/> }
+{/* // </>): <Loading/> } */}
     </div>
   );
 }
