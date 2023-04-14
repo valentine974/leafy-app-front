@@ -1,99 +1,102 @@
-@media (min-width: 350px)  and (max-width: 1768px) and ( min-height:640px) and (max-height:1025px) {
-    .chatRoom{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-around;
-        height: 90vh;
-        width: 98vw;
-        /* border-radius: 5px; */
-        /* border: none; */
-        overflow: auto;
-        /* background-color: pink; */
+.chatRoom{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%; 
+ 
+    overflow: auto; 
 
-        padding: 0 0 0 0;
-        margin: 20px;
-    }
-    
-    .chatList{
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        height: 100%;
-        width: 500px;
-        overflow: auto;
-        /* border: 1px solid black; */
-    }
-    
-    .singleChat{
-        /* border: 1px solid gray; */
-        border-radius: 5px;
-        background-color: rgb(169, 207, 207);
-        padding: 20px;
-        margin: 10px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        height: 60px;
-        width: 80%;
-        /* position: relative; */
-    }
-    
-    .singleChat,.right{
-        align-self: flex-end;
-    }
-    
-    .imagesContainer{
-        display: flex;
-        flex-flow: row nowrap;
-        align-items: center;
-        justify-content: space-around;
-    }
-    
-    .miniProfileImageContainer{
-        height: 50px;
-        width: 50px;
-    }
-    
-    .miniProfileImageContainer img{
-        height: 100%;
-        width: 100%; 
-        border-radius: 50%;
-        object-fit: contain;
-    }
-    
-    .chatBox{
-        height: 80%; 
-    }
-    
-    .others {
-        background-color: lightgrey;
-        color: black;
-        border-radius: 10px; 
-        text-align:left;
-        margin: 10px;
-        padding: 10px;
-    }
-    .me {
-        background-color: rgb(133, 177, 177); 
-        color:white;
-        border-radius: 10px;
-        text-align: right; 
-        margin: 10px;
-        padding: 10px;
+    padding: 0 0 0 0;
+    margin: 20px;
+}
+.chatList{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 100%; 
+    overflow: auto; 
+}
 
-    }
+.singleChat{
+    /* border: 1px solid gray; */
+    border-radius: 5px;
+    background-color: rgb(169, 207, 207);
+    padding: 20px;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    width: 80%;
+    /* position: relative; */
+}
 
-    .chatForm, input{ 
-        margin: 0;
-        margin-left: -5px;
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: center;
-        align-items: center;
-    }
+.singleChat,.right{
+    align-self: flex-end;
+}
+
+.imagesContainer{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.miniProfileImageContainer{
+    height: 50px;
+    width: 50px;
+}
+
+.miniProfileImageContainer img{
+    height: 100%;
+    width: 100%; 
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+.chatBox{
+    height: 80%; 
+}
+
+.others {
+    background-color: lightgrey;
+    color: black;
+    border-radius: 10px; 
+    text-align:left;
+    margin: 10px;
+    padding: 10px;
+}
+.me {
+    background-color: rgb(133, 177, 177); 
+    color:white;
+    border-radius: 10px;
+    text-align: right; 
+    margin: 10px;
+    padding: 10px;
+
+}
+
+.chatForm, input{ 
+    margin: 0;
+    margin-left: -5px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: 350px)  and (max-width: 850px) and ( min-height:640px) and (max-height:1025px) {
+
+    
+
+   
+    
+   
   }
   
 
