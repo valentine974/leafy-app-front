@@ -10,9 +10,8 @@ import Loading from "../../components/Loading/Loading";
 
 function RequestReviewPage(props) {
   const { togglePage } = props;
-
   const { user } = useContext(AuthContext);
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const [requests, setRequests] = useState(null);  
  
   const handleChat = (participantIds) => {
@@ -46,30 +45,16 @@ const navigate = useNavigate();
       });
   };
 
-  const reactLinkStyle = {
-    textDecoration: "none",
-    color: "pink !important",
-    backgroundColor: "white !important",
-    margin: "5px",
-    padding: "5px",
-    borderRadius: "5px",
-    border: "1px solid pink",
-    boxShadow: "0 0 5px 0 rgba(0, 0, 0, 0.2)",
-  };
-
   useEffect(() => {
     user &&
       authService
         .getRequests()
-        .then((requests) => {  
-          setRequests(
-            requests.data.filter(
-              (request) =>   request.requester._id === user._id 
-            )
-          );
+        .then((allRequests) => {
+          const newRequests = allRequests.data.filter(request=> request.requester && request.requester._id === user._id)
+          setRequests(newRequests);
         })
         .catch((err) => console.log("err in loading requests", err));
-  }, [user]);
+  }, [user, requests]);
 
   const handleDeleteButton = (id) => {
     authService.deleteRequest(id);
@@ -104,7 +89,7 @@ const navigate = useNavigate();
       <br />
         <div className="requestCards">
           {requests?.map((request) => (
-            <div className={`requestCard ${request.status}`}>
+            <div key={request._id} className={`requestCard ${request.status}`}>
               <p><b>Start date:</b> {formatDate(request.startDate)}</p>
               <p><b>Duration:</b> {request.duration} days</p>
               {/* <p><b>To be approved before:</b>
@@ -122,12 +107,11 @@ const navigate = useNavigate();
                 </thead>
                 <tbody> 
                 {request.validations.map((validation) => (
-                  <tr>
+                  <tr key={validation.validatorId}>
                     <td>{validation.validatorId.name}</td>
                     <td>{validation.status}</td>
                   </tr> 
               ))}
-
                 </tbody>
               </table>
 
