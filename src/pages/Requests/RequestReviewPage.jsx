@@ -54,7 +54,7 @@ function RequestReviewPage(props) {
           setRequests(newRequests);
         })
         .catch((err) => console.log("err in loading requests", err));
-  }, [user, requests]);
+  }, [user]);
 
   const handleDeleteButton = (id) => {
     authService.deleteRequest(id);
@@ -77,7 +77,7 @@ function RequestReviewPage(props) {
 
   return (
     <div className={`pageContainer ${togglePage}`}>
-    {/* {requests? (<> */}
+    {requests? (<>
       <div className={`pageTitle ${togglePage}`}>
         <h1>LEAF REQUESTS</h1>
         
@@ -88,7 +88,7 @@ function RequestReviewPage(props) {
       <CalendarComponent date={new Date()} onDateChange={()=>console.log("this calendar is only a viewer, add new request please go to the request leaf page.")}/>
       <br />
         <div className="requestCards">
-          {requests?.map((request) => (
+          {requests.map((request) => (
             <div key={request._id} className={`requestCard ${request.status}`}>
               <p><b>Start date:</b> {formatDate(request.startDate)}</p>
               <p><b>Duration:</b> {request.duration} days</p>
@@ -106,9 +106,9 @@ function RequestReviewPage(props) {
                   </tr>
                 </thead>
                 <tbody> 
-                {request.validations.map((validation) => (
+                {request.validations?.map((validation) => (
                   <tr key={validation.validatorId}>
-                    <td>{validation.validatorId.name}</td>
+                    <td>{validation.validatorId && validation.validatorId.name}</td>
                     <td>{validation.status}</td>
                   </tr> 
               ))}
@@ -132,7 +132,7 @@ function RequestReviewPage(props) {
           ))}
         </div>
       </div>
-{/* // </>): <Loading/> } */}
+ </>): <Loading/> }
     </div>
   );
 }
