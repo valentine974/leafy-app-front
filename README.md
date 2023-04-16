@@ -3,17 +3,34 @@
 # LEAFY 
 a leave request gestion app 
 
+#### Company Leaves
+Manage leaves & absences effortlessly
+Automatic leave counter updates
+Track sick days and annual leave
+
+#### HR Management
+Empower employee communication
+Streamline interactions with HR & management
+Enhance team collaboration
+Seamless Experience
+
+#### Unparalleled ease in managing employee holidays
+User-friendly interface
+Efficient & time-saving platform
+
+
 deployed on notlify: https://leafy-app.netlify.app/
+
+
 
 ---
 
 #### To test the project yourself, you will need the following variables in .env
 
-- **PORT**: the port you want to use for local testing
-- **REACT_APP_SERVER_URL**: the deployed serveur url
+- **PORT**: the port for local testing
+- **REACT_APP_SERVER_URL**: deployed serveur url
 
 ---
-
 
 ## Description
 
