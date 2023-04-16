@@ -3,6 +3,11 @@
 # LEAFY 
 a leave request gestion app 
 
+<!-- images from public folder -->
+
+![Mobile mockup](/public/images/mockup-mobile.png)
+![Mobile mockup](/public/images/mockup-pc.png)
+
 #### Company Leaves
 Manage leaves & absences effortlessly
 Automatic leave counter updates
