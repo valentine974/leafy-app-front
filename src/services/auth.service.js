@@ -109,6 +109,11 @@ class AuthService {
   }
 
 
+  testerRequest = (requestBody) => {
+    return this.api.post("/auth/tester-request", requestBody)
+  };
+
+
   /* ---------------------- requests ---------------------- */
 
   createRequest = (requestBody) => { 
